@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Splash Academy | Swimwear</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #222;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header h1 {
+      margin-bottom: 5px;
+    }
+
+    header p {
+      color: #666;
+    }
+
+    .products {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .product {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .product-image {
+      height: 280px;
+      background: #f3f3f3;
+      border-radius: 10px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #999;
+      margin-bottom: 20px;
+    }
+
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+
+      border: none;
+      border-radius: 8px;
+
+      background: #222;
+      color: white;
+
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Beach & Bandits</h1>
+  <p>Available at Splash Academy Bonaire</p>
+</header>
+
+<section class="products">
+
+  <!-- PRODUCT 1 -->
+
+  <div class="product">
+
+    <div class="product-image">
+      Product photo
+    </div>
+
+    <h2>Ocean Swimsuit</h2>
+
+    <p>Ocean Blue</p>
+
+    <p class="price">$55</p>
+
+    <label>Choose your size</label>
+
+    <select>
+      <option>116</option>
+      <option>128</option>
+      <option>140</option>
+      <option disabled>152 - Sold out</option>
+      <option>164</option>
+    </select>
+
+    <button>Add to cart</button>
+
+  </div>
+
+
+  <!-- PRODUCT 2 -->
+
+  <div class="product">
+
+    <div class="product-image">
+      Product photo
+    </div>
+
+    <h2>Sunset Swimsuit</h2>
+
+    <p>Coral Pink</p>
+
+    <p class="price">$59</p>
+
+    <label>Choose your size</label>
+
+    <select>
+      <option>116</option>
+      <option>128</option>
+      <option>140</option>
+      <option>152</option>
+      <option disabled>164 - Sold out</option>
+    </select>
+
+    <button>Add to cart</button>
+
+  </div>
+
+</section>
+
+</body>
+</html>
