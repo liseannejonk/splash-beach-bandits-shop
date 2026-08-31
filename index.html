@@ -36,34 +36,25 @@
       color: #666;
     }
 
-    /* CART BUTTON */
-
     .cart-button {
       position: fixed;
       top: 20px;
       right: 20px;
       z-index: 1000;
-
       width: auto;
       padding: 12px 18px;
-
       background: #222;
       color: white;
-
       border: none;
       border-radius: 30px;
-
       cursor: pointer;
       font-size: 15px;
     }
-
-    /* PRODUCTS */
 
     .products {
       max-width: 1100px;
       margin: auto;
       padding: 30px 20px 80px;
-
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 28px;
@@ -80,11 +71,9 @@
       height: 280px;
       background: #f3f3f3;
       border-radius: 10px;
-
       display: flex;
       justify-content: center;
       align-items: center;
-
       margin-bottom: 20px;
       color: #999;
     }
@@ -114,10 +103,8 @@
       width: 100%;
       padding: 12px;
       margin-bottom: 15px;
-
       border: 1px solid #ccc;
       border-radius: 8px;
-
       background: white;
       font-size: 15px;
     }
@@ -126,12 +113,9 @@
       width: 100%;
       border: none;
       border-radius: 8px;
-
       padding: 14px;
-
       background: #222;
       color: white;
-
       font-size: 16px;
       cursor: pointer;
     }
@@ -147,23 +131,17 @@
       color: #777;
     }
 
-    /* CART PANEL */
-
     .cart-panel {
       position: fixed;
       top: 0;
       right: -430px;
-
       width: 400px;
       max-width: 100%;
       height: 100vh;
-
       background: white;
       box-shadow: -4px 0 20px rgba(0,0,0,0.15);
-
       z-index: 2000;
       padding: 25px;
-
       transition: right 0.3s ease;
       overflow-y: auto;
     }
@@ -190,8 +168,6 @@
       cursor: pointer;
     }
 
-    /* CART ITEMS */
-
     .cart-item {
       border-bottom: 1px solid #eee;
       padding: 18px 0;
@@ -208,8 +184,6 @@
       line-height: 1.5;
     }
 
-    /* QUANTITY */
-
     .quantity-control {
       display: flex;
       align-items: center;
@@ -220,19 +194,12 @@
     .quantity-control button {
       width: 36px;
       height: 36px;
-
       border: 1px solid #ddd;
       border-radius: 50%;
-
       background: white;
       color: #222;
-
       cursor: pointer;
       font-size: 20px;
-    }
-
-    .quantity-control button:hover {
-      background: #f3f3f3;
     }
 
     .quantity-control span {
@@ -249,17 +216,12 @@
 
     .remove-button {
       margin-top: 10px;
-
       border: none;
       background: none;
-
       color: #b00020;
-
       cursor: pointer;
       padding: 0;
     }
-
-    /* TOTAL */
 
     .cart-total {
       font-size: 21px;
@@ -271,26 +233,25 @@
       color: #777;
     }
 
-    /* WHATSAPP PLACEHOLDER */
-
-    .checkout-placeholder {
+    .whatsapp-button {
       width: 100%;
       margin-top: 20px;
-      padding: 14px;
-
+      padding: 15px;
       border: none;
       border-radius: 8px;
-
-      background: #ddd;
-      color: #666;
-
+      background: #25D366;
+      color: white;
       font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
-    /* MOBILE */
+    .whatsapp-button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
 
     @media (max-width: 600px) {
-
       .cart-button {
         top: 10px;
         right: 10px;
@@ -313,97 +274,61 @@
   🛒 Cart (<span id="cart-count">0</span>)
 </button>
 
-
 <header>
-
   <h1>Beach & Bandits</h1>
-
-  <p>
-    Available at Splash Academy Bonaire
-  </p>
-
+  <p>Available at Splash Academy Bonaire</p>
 </header>
-
 
 <div id="loading" class="loading">
   Loading swimwear...
 </div>
 
+<section id="products" class="products"></section>
 
-<section
-  id="products"
-  class="products">
-</section>
-
-
-<!-- CART -->
-
-<div
-  id="cart-panel"
-  class="cart-panel">
+<div id="cart-panel" class="cart-panel">
 
   <div class="cart-header">
-
     <h2>Your cart</h2>
 
-    <button
-      class="close-cart"
-      onclick="closeCart()">
+    <button class="close-cart" onclick="closeCart()">
       ×
     </button>
-
   </div>
 
   <div id="cart-items"></div>
 
-  <div
-    id="cart-total"
-    class="cart-total">
-  </div>
+  <div id="cart-total" class="cart-total"></div>
 
-  <button class="checkout-placeholder">
-    Order via WhatsApp — coming next
+  <button
+    id="whatsapp-button"
+    class="whatsapp-button"
+    onclick="orderViaWhatsApp()"
+    disabled
+  >
+    Order via WhatsApp
   </button>
 
 </div>
 
-
 <script>
-
-  /* =========================================
-     GOOGLE SHEET
-     ========================================= */
 
   const SHEET_URL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2DKu6fWuRkN-ObpGllK529agQRPeec31wsGBEukP_zva2ExkLMA7_KBZ2xPCHXifHgqHtxxuvIjXV/pub?gid=0&single=true&output=csv";
 
-
-  /* =========================================
-     CART
-     ========================================= */
+  const WHATSAPP_NUMBER = "5997777775";
 
   let cart = [];
 
-
-  /* =========================================
-     LOAD GOOGLE SHEET
-     ========================================= */
-
   Papa.parse(SHEET_URL, {
-
     download: true,
     header: true,
     skipEmptyLines: true,
 
     complete: function(results) {
-
-      document.getElementById("loading").style.display =
-        "none";
+      document.getElementById("loading").style.display = "none";
 
       if (results.data.length === 0) {
-
         showError("No products found.");
-
         return;
       }
 
@@ -411,69 +336,38 @@
     },
 
     error: function(error) {
-
-      document.getElementById("loading").style.display =
-        "none";
-
-      showError(
-        "The products could not be loaded."
-      );
-
+      document.getElementById("loading").style.display = "none";
+      showError("The products could not be loaded.");
       console.error(error);
     }
-
   });
-
-
-  /* =========================================
-     SHOW PRODUCTS
-     ========================================= */
 
   function renderProducts(products) {
 
-    const container =
-      document.getElementById("products");
-
+    const container = document.getElementById("products");
     container.innerHTML = "";
-
 
     products.forEach((product, index) => {
 
-
-      /* FIND SIZE COLUMNS */
-
-      const sizes =
-        Object.keys(product).filter(column => {
-
-          return /^\d+$/.test(
-            column.trim()
-          );
-
-        });
-
-
-      /* PRODUCT INFORMATION */
+      const sizes = Object.keys(product).filter(column => {
+        return /^\d+$/.test(column.trim());
+      });
 
       const model =
         product["Model"] ||
         product["model"] ||
         "Swimsuit";
 
-
       const color =
         product["Kleur"] ||
         product["Color"] ||
         "";
-
-
-      /* PRICE */
 
       const rawPrice =
         product["Prijs"] ||
         product["Price"] ||
         product["Prijs (USD)"] ||
         "0";
-
 
       const price =
         parseFloat(
@@ -483,74 +377,43 @@
             .trim()
         ) || 0;
 
-
-      /* SIZE OPTIONS */
-
       let sizeOptions =
-        `<option value="">
-          Choose a size
-        </option>`;
-
+        `<option value="">Choose a size</option>`;
 
       sizes.forEach(size => {
 
-        const stock =
-          Number(product[size]) || 0;
-
+        const stock = Number(product[size]) || 0;
 
         if (stock > 0) {
-
           sizeOptions += `
-
             <option
               value="${size}"
-              data-stock="${stock}">
-
+              data-stock="${stock}"
+            >
               ${size}
-
             </option>
-
           `;
-
-        }
-
-        else {
-
+        } else {
           sizeOptions += `
-
             <option
               value="${size}"
-              disabled>
-
+              disabled
+            >
               ${size} - Sold out
-
             </option>
-
           `;
-
         }
-
       });
 
-
-      /* PRODUCT CARD */
-
-      const card =
-        document.createElement("div");
-
-      card.className =
-        "product";
-
+      const card = document.createElement("div");
+      card.className = "product";
 
       card.innerHTML = `
-
         <div class="product-image">
           Product photo
         </div>
 
-        <h2>
-          ${model}
-        </h2>
+        <h2>${model}</h2>
 
         <div class="color">
           ${color}
@@ -575,450 +438,282 @@
             '${escapeText(color)}',
             ${price},
             'size-${index}'
-          )">
-
+          )"
+        >
           Add to cart
-
         </button>
-
       `;
 
-
       container.appendChild(card);
-
     });
-
   }
 
+  function addToCart(model, color, price, sizeSelectId) {
 
-  /* =========================================
-     ADD TO CART
-     ========================================= */
-
-  function addToCart(
-    model,
-    color,
-    price,
-    sizeSelectId
-  ) {
-
-    const sizeSelect =
-      document.getElementById(
-        sizeSelectId
-      );
-
-
-    const size =
-      sizeSelect.value;
-
+    const sizeSelect = document.getElementById(sizeSelectId);
+    const size = sizeSelect.value;
 
     if (!size) {
-
-      alert(
-        "Please choose a size first."
-      );
-
+      alert("Please choose a size first.");
       return;
     }
 
-
     const selectedOption =
-      sizeSelect.options[
-        sizeSelect.selectedIndex
-      ];
-
+      sizeSelect.options[sizeSelect.selectedIndex];
 
     const stock =
-      Number(
-        selectedOption.dataset.stock
-      ) || 0;
-
-
-    /* CHECK IF SAME ITEM ALREADY EXISTS */
+      Number(selectedOption.dataset.stock) || 0;
 
     const existingItem =
       cart.find(item =>
-
         item.model === model &&
         item.color === color &&
         item.size === size
-
       );
-
 
     if (existingItem) {
 
-      if (
-        existingItem.quantity <
-        existingItem.stock
-      ) {
-
+      if (existingItem.quantity < existingItem.stock) {
         existingItem.quantity++;
-
-      }
-
-      else {
-
+      } else {
         alert(
           `Sorry, only ${existingItem.stock} of this size are in stock.`
         );
-
       }
 
-    }
-
-    else {
+    } else {
 
       cart.push({
-
         model: model,
         color: color,
         price: price,
         size: size,
         quantity: 1,
         stock: stock
-
       });
 
     }
 
-
     updateCart();
-
     openCart();
-
   }
-
-
-  /* =========================================
-     UPDATE CART
-     ========================================= */
 
   function updateCart() {
 
     const cartItems =
-      document.getElementById(
-        "cart-items"
-      );
-
+      document.getElementById("cart-items");
 
     const cartCount =
-      document.getElementById(
-        "cart-count"
-      );
-
+      document.getElementById("cart-count");
 
     const cartTotal =
-      document.getElementById(
-        "cart-total"
-      );
+      document.getElementById("cart-total");
 
-
-    /* TOTAL NUMBER OF ITEMS */
+    const whatsappButton =
+      document.getElementById("whatsapp-button");
 
     const totalItems =
       cart.reduce(
-        (sum, item) =>
-          sum + item.quantity,
+        (sum, item) => sum + item.quantity,
         0
       );
 
-
-    cartCount.textContent =
-      totalItems;
-
-
-    /* EMPTY CART */
+    cartCount.textContent = totalItems;
 
     if (cart.length === 0) {
 
-      cartItems.innerHTML = `
-
-        <div class="empty-cart">
+      cartItems.innerHTML =
+        `<div class="empty-cart">
           Your cart is empty.
-        </div>
+        </div>`;
 
-      `;
+      cartTotal.textContent = "";
 
-      cartTotal.textContent =
-        "";
+      whatsappButton.disabled = true;
 
       return;
     }
 
+    whatsappButton.disabled = false;
 
-    cartItems.innerHTML =
-      "";
-
+    cartItems.innerHTML = "";
 
     let total = 0;
 
+    cart.forEach((item, index) => {
 
-    /* SHOW ITEMS */
+      const subtotal =
+        item.price * item.quantity;
 
-    cart.forEach(
-      (item, index) => {
+      total += subtotal;
 
+      const itemDiv =
+        document.createElement("div");
 
-        const subtotal =
-          item.price *
-          item.quantity;
+      itemDiv.className = "cart-item";
 
+      itemDiv.innerHTML = `
+        <strong>
+          ${item.model}
+        </strong>
 
-        total += subtotal;
+        <div class="cart-item-details">
+          ${item.color}
+          <br>
+          Size: ${item.size}
+          <br>
+          $${item.price.toFixed(2)} each
+        </div>
 
+        <div class="quantity-control">
 
-        const itemDiv =
-          document.createElement(
-            "div"
-          );
-
-
-        itemDiv.className =
-          "cart-item";
-
-
-        itemDiv.innerHTML = `
-
-          <strong>
-            ${item.model}
-          </strong>
-
-          <div class="cart-item-details">
-
-            ${item.color}
-
-            <br>
-
-            Size: ${item.size}
-
-            <br>
-
-            $${item.price.toFixed(2)} each
-
-          </div>
-
-
-          <div class="quantity-control">
-
-            <button
-              onclick="
-                changeQuantity(
-                  ${index},
-                  -1
-                )
-              ">
-
-              −
-
-            </button>
-
-
-            <span>
-              ${item.quantity}
-            </span>
-
-
-            <button
-              onclick="
-                changeQuantity(
-                  ${index},
-                  1
-                )
-              ">
-
-              +
-
-            </button>
-
-          </div>
-
-
-          <div class="subtotal">
-
-            Subtotal:
-            $${subtotal.toFixed(2)}
-
-          </div>
-
-
-          <button
-            class="remove-button"
-            onclick="
-              removeFromCart(
-                ${index}
-              )
-            ">
-
-            Remove
-
+          <button onclick="changeQuantity(${index}, -1)">
+            −
           </button>
 
-        `;
+          <span>
+            ${item.quantity}
+          </span>
 
+          <button onclick="changeQuantity(${index}, 1)">
+            +
+          </button>
 
-        cartItems.appendChild(
-          itemDiv
-        );
+        </div>
 
-      }
-    );
+        <div class="subtotal">
+          Subtotal:
+          $${subtotal.toFixed(2)}
+        </div>
 
+        <button
+          class="remove-button"
+          onclick="removeFromCart(${index})"
+        >
+          Remove
+        </button>
+      `;
 
-    /* TOTAL PRICE */
+      cartItems.appendChild(itemDiv);
+    });
 
     cartTotal.textContent =
       `Total: $${total.toFixed(2)}`;
-
   }
 
+  function changeQuantity(index, change) {
 
-  /* =========================================
-     CHANGE QUANTITY
-     ========================================= */
-
-  function changeQuantity(
-    index,
-    change
-  ) {
-
-    const item =
-      cart[index];
-
-
+    const item = cart[index];
     const newQuantity =
-      item.quantity +
-      change;
-
-
-    /* REMOVE IF QUANTITY BECOMES 0 */
+      item.quantity + change;
 
     if (newQuantity < 1) {
-
       removeFromCart(index);
-
       return;
     }
 
-
-    /* CHECK STOCK */
-
-    if (
-      newQuantity >
-      item.stock
-    ) {
-
+    if (newQuantity > item.stock) {
       alert(
         `Sorry, only ${item.stock} of this size are in stock.`
       );
-
       return;
     }
 
-
-    item.quantity =
-      newQuantity;
-
+    item.quantity = newQuantity;
 
     updateCart();
-
   }
-
-
-  /* =========================================
-     REMOVE PRODUCT
-     ========================================= */
 
   function removeFromCart(index) {
 
-    cart.splice(
-      index,
-      1
-    );
+    cart.splice(index, 1);
 
     updateCart();
-
   }
-
-
-  /* =========================================
-     OPEN / CLOSE CART
-     ========================================= */
 
   function openCart() {
 
     document
-      .getElementById(
-        "cart-panel"
-      )
-      .classList.add(
-        "open"
-      );
-
+      .getElementById("cart-panel")
+      .classList.add("open");
   }
-
 
   function closeCart() {
 
     document
-      .getElementById(
-        "cart-panel"
-      )
-      .classList.remove(
-        "open"
-      );
-
+      .getElementById("cart-panel")
+      .classList.remove("open");
   }
 
+  function orderViaWhatsApp() {
 
-  /* =========================================
-     ERROR
-     ========================================= */
+    if (cart.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+
+    let total = 0;
+
+    let message =
+`Hi Splash Academy! 👋
+
+I would like to place an order:
+
+`;
+
+    cart.forEach(item => {
+
+      const subtotal =
+        item.price * item.quantity;
+
+      total += subtotal;
+
+      message +=
+`${item.quantity}x ${item.model}
+Color: ${item.color}
+Size: ${item.size}
+Price: $${item.price.toFixed(2)} each
+Subtotal: $${subtotal.toFixed(2)}
+
+`;
+    });
+
+    message +=
+`Total: $${total.toFixed(2)}
+
+Name:
+Pickup / preferred time:
+Remarks:`;
+
+    const encodedMessage =
+      encodeURIComponent(message);
+
+    const whatsappUrl =
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+    window.open(
+      whatsappUrl,
+      "_blank"
+    );
+  }
 
   function showError(message) {
 
     document
-      .getElementById(
-        "products"
-      )
-      .innerHTML = `
-
-        <div class="error">
-          ${message}
-        </div>
-
-      `;
-
+      .getElementById("products")
+      .innerHTML =
+      `<div class="error">
+        ${message}
+      </div>`;
   }
-
-
-  /* =========================================
-     SAFE TEXT
-     ========================================= */
 
   function escapeText(text) {
 
     return String(text)
-
-      .replace(
-        /\\/g,
-        "\\\\"
-      )
-
-      .replace(
-        /'/g,
-        "\\'"
-      )
-
-      .replace(
-        /"/g,
-        "&quot;"
-      );
-
+      .replace(/\\/g, "\\\\")
+      .replace(/'/g, "\\'")
+      .replace(/"/g, "&quot;");
   }
-
-
-  /* FIRST CART UPDATE */
 
   updateCart();
 
