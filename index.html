@@ -36,6 +36,8 @@
       color: #666;
     }
 
+    /* CART BUTTON */
+
     .cart-button {
       position: fixed;
       top: 20px;
@@ -47,12 +49,15 @@
 
       background: #222;
       color: white;
+
       border: none;
       border-radius: 30px;
 
       cursor: pointer;
       font-size: 15px;
     }
+
+    /* PRODUCTS */
 
     .products {
       max-width: 1100px;
@@ -142,12 +147,14 @@
       color: #777;
     }
 
+    /* CART PANEL */
+
     .cart-panel {
       position: fixed;
       top: 0;
-      right: -420px;
+      right: -430px;
 
-      width: 390px;
+      width: 400px;
       max-width: 100%;
       height: 100vh;
 
@@ -179,31 +186,83 @@
     .close-cart {
       border: none;
       background: none;
-      font-size: 28px;
+      font-size: 30px;
       cursor: pointer;
     }
 
+    /* CART ITEMS */
+
     .cart-item {
       border-bottom: 1px solid #eee;
-      padding: 15px 0;
+      padding: 18px 0;
     }
 
     .cart-item strong {
       display: block;
-      margin-bottom: 4px;
+      font-size: 17px;
+      margin-bottom: 5px;
+    }
+
+    .cart-item-details {
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* QUANTITY */
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .quantity-control button {
+      width: 36px;
+      height: 36px;
+
+      border: 1px solid #ddd;
+      border-radius: 50%;
+
+      background: white;
+      color: #222;
+
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .quantity-control button:hover {
+      background: #f3f3f3;
+    }
+
+    .quantity-control span {
+      min-width: 20px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 17px;
+    }
+
+    .subtotal {
+      font-weight: bold;
+      margin-top: 8px;
     }
 
     .remove-button {
-      margin-top: 8px;
+      margin-top: 10px;
+
       border: none;
       background: none;
+
       color: #b00020;
+
       cursor: pointer;
       padding: 0;
     }
 
+    /* TOTAL */
+
     .cart-total {
-      font-size: 20px;
+      font-size: 21px;
       font-weight: bold;
       margin-top: 25px;
     }
@@ -211,6 +270,8 @@
     .empty-cart {
       color: #777;
     }
+
+    /* WHATSAPP PLACEHOLDER */
 
     .checkout-placeholder {
       width: 100%;
@@ -226,7 +287,10 @@
       font-size: 16px;
     }
 
+    /* MOBILE */
+
     @media (max-width: 600px) {
+
       .cart-button {
         top: 10px;
         right: 10px;
@@ -234,6 +298,10 @@
 
       header {
         padding-top: 70px;
+      }
+
+      .cart-panel {
+        width: 100%;
       }
     }
   </style>
@@ -245,30 +313,53 @@
   🛒 Cart (<span id="cart-count">0</span>)
 </button>
 
+
 <header>
+
   <h1>Beach & Bandits</h1>
-  <p>Available at Splash Academy Bonaire</p>
+
+  <p>
+    Available at Splash Academy Bonaire
+  </p>
+
 </header>
+
 
 <div id="loading" class="loading">
   Loading swimwear...
 </div>
 
-<section id="products" class="products"></section>
 
-<div id="cart-panel" class="cart-panel">
+<section
+  id="products"
+  class="products">
+</section>
+
+
+<!-- CART -->
+
+<div
+  id="cart-panel"
+  class="cart-panel">
 
   <div class="cart-header">
+
     <h2>Your cart</h2>
 
-    <button class="close-cart" onclick="closeCart()">
+    <button
+      class="close-cart"
+      onclick="closeCart()">
       ×
     </button>
+
   </div>
 
   <div id="cart-items"></div>
 
-  <div id="cart-total" class="cart-total"></div>
+  <div
+    id="cart-total"
+    class="cart-total">
+  </div>
 
   <button class="checkout-placeholder">
     Order via WhatsApp — coming next
@@ -276,12 +367,27 @@
 
 </div>
 
+
 <script>
+
+  /* =========================================
+     GOOGLE SHEET
+     ========================================= */
 
   const SHEET_URL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2DKu6fWuRkN-ObpGllK529agQRPeec31wsGBEukP_zva2ExkLMA7_KBZ2xPCHXifHgqHtxxuvIjXV/pub?gid=0&single=true&output=csv";
 
+
+  /* =========================================
+     CART
+     ========================================= */
+
   let cart = [];
+
+
+  /* =========================================
+     LOAD GOOGLE SHEET
+     ========================================= */
 
   Papa.parse(SHEET_URL, {
 
@@ -291,98 +397,150 @@
 
     complete: function(results) {
 
-      const products = results.data;
+      document.getElementById("loading").style.display =
+        "none";
 
-      document.getElementById("loading").style.display = "none";
+      if (results.data.length === 0) {
 
-      if (products.length === 0) {
         showError("No products found.");
+
         return;
       }
 
-      renderProducts(products);
+      renderProducts(results.data);
     },
 
     error: function(error) {
 
-      document.getElementById("loading").style.display = "none";
+      document.getElementById("loading").style.display =
+        "none";
 
-      showError("The products could not be loaded.");
+      showError(
+        "The products could not be loaded."
+      );
 
       console.error(error);
     }
 
   });
 
+
+  /* =========================================
+     SHOW PRODUCTS
+     ========================================= */
+
   function renderProducts(products) {
 
-    const productContainer =
+    const container =
       document.getElementById("products");
 
-    productContainer.innerHTML = "";
+    container.innerHTML = "";
+
 
     products.forEach((product, index) => {
 
-      const sizes = Object.keys(product).filter(column => {
-        return /^\d+$/.test(column.trim());
-      });
+
+      /* FIND SIZE COLUMNS */
+
+      const sizes =
+        Object.keys(product).filter(column => {
+
+          return /^\d+$/.test(
+            column.trim()
+          );
+
+        });
+
+
+      /* PRODUCT INFORMATION */
 
       const model =
         product["Model"] ||
         product["model"] ||
         "Swimsuit";
 
+
       const color =
         product["Kleur"] ||
         product["Color"] ||
         "";
 
-     const rawPrice =
-  product["Prijs"] ||
-  product["Price"] ||
-  product["Prijs (USD)"] ||
-  "0";
 
-const price =
-  parseFloat(
-    String(rawPrice)
-      .replace("$", "")
-      .replace(",", ".")
-      .trim()
-  ) || 0;
+      /* PRICE */
 
-      const card =
-        document.createElement("div");
+      const rawPrice =
+        product["Prijs"] ||
+        product["Price"] ||
+        product["Prijs (USD)"] ||
+        "0";
 
-      card.className = "product";
+
+      const price =
+        parseFloat(
+          String(rawPrice)
+            .replace("$", "")
+            .replace(",", ".")
+            .trim()
+        ) || 0;
+
+
+      /* SIZE OPTIONS */
 
       let sizeOptions =
-        `<option value="">Choose a size</option>`;
+        `<option value="">
+          Choose a size
+        </option>`;
+
 
       sizes.forEach(size => {
 
         const stock =
           Number(product[size]) || 0;
 
+
         if (stock > 0) {
 
           sizeOptions += `
-            <option value="${size}">
+
+            <option
+              value="${size}"
+              data-stock="${stock}">
+
               ${size}
+
             </option>
+
           `;
 
-        } else {
+        }
+
+        else {
 
           sizeOptions += `
-            <option value="${size}" disabled>
+
+            <option
+              value="${size}"
+              disabled>
+
               ${size} - Sold out
+
             </option>
+
           `;
 
         }
 
       });
+
+
+      /* PRODUCT CARD */
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "product";
+
 
       card.innerHTML = `
 
@@ -390,14 +548,16 @@ const price =
           Product photo
         </div>
 
-        <h2>${model}</h2>
+        <h2>
+          ${model}
+        </h2>
 
         <div class="color">
           ${color}
         </div>
 
         <div class="price">
-          $${price}
+          $${price.toFixed(2)}
         </div>
 
         <label>
@@ -415,153 +575,450 @@ const price =
             '${escapeText(color)}',
             ${price},
             'size-${index}'
-          )"
-        >
+          )">
+
           Add to cart
+
         </button>
 
       `;
 
-      productContainer.appendChild(card);
+
+      container.appendChild(card);
+
     });
 
   }
 
-  function addToCart(model, color, price, sizeSelectId) {
+
+  /* =========================================
+     ADD TO CART
+     ========================================= */
+
+  function addToCart(
+    model,
+    color,
+    price,
+    sizeSelectId
+  ) {
 
     const sizeSelect =
-      document.getElementById(sizeSelectId);
+      document.getElementById(
+        sizeSelectId
+      );
+
 
     const size =
       sizeSelect.value;
 
+
     if (!size) {
 
-      alert("Please choose a size first.");
+      alert(
+        "Please choose a size first."
+      );
 
       return;
     }
 
-    const item = {
-      model: model,
-      color: color,
-      price: price,
-      size: size
-    };
 
-    cart.push(item);
+    const selectedOption =
+      sizeSelect.options[
+        sizeSelect.selectedIndex
+      ];
+
+
+    const stock =
+      Number(
+        selectedOption.dataset.stock
+      ) || 0;
+
+
+    /* CHECK IF SAME ITEM ALREADY EXISTS */
+
+    const existingItem =
+      cart.find(item =>
+
+        item.model === model &&
+        item.color === color &&
+        item.size === size
+
+      );
+
+
+    if (existingItem) {
+
+      if (
+        existingItem.quantity <
+        existingItem.stock
+      ) {
+
+        existingItem.quantity++;
+
+      }
+
+      else {
+
+        alert(
+          `Sorry, only ${existingItem.stock} of this size are in stock.`
+        );
+
+      }
+
+    }
+
+    else {
+
+      cart.push({
+
+        model: model,
+        color: color,
+        price: price,
+        size: size,
+        quantity: 1,
+        stock: stock
+
+      });
+
+    }
+
 
     updateCart();
 
     openCart();
+
   }
+
+
+  /* =========================================
+     UPDATE CART
+     ========================================= */
 
   function updateCart() {
 
     const cartItems =
-      document.getElementById("cart-items");
+      document.getElementById(
+        "cart-items"
+      );
+
 
     const cartCount =
-      document.getElementById("cart-count");
+      document.getElementById(
+        "cart-count"
+      );
+
 
     const cartTotal =
-      document.getElementById("cart-total");
+      document.getElementById(
+        "cart-total"
+      );
+
+
+    /* TOTAL NUMBER OF ITEMS */
+
+    const totalItems =
+      cart.reduce(
+        (sum, item) =>
+          sum + item.quantity,
+        0
+      );
+
 
     cartCount.textContent =
-      cart.length;
+      totalItems;
+
+
+    /* EMPTY CART */
 
     if (cart.length === 0) {
 
-      cartItems.innerHTML =
-        `<div class="empty-cart">Your cart is empty.</div>`;
+      cartItems.innerHTML = `
 
-      cartTotal.textContent = "";
+        <div class="empty-cart">
+          Your cart is empty.
+        </div>
+
+      `;
+
+      cartTotal.textContent =
+        "";
 
       return;
     }
 
-    cartItems.innerHTML = "";
+
+    cartItems.innerHTML =
+      "";
+
 
     let total = 0;
 
-    cart.forEach((item, index) => {
 
-      total += item.price;
+    /* SHOW ITEMS */
 
-      const itemDiv =
-        document.createElement("div");
+    cart.forEach(
+      (item, index) => {
 
-      itemDiv.className =
-        "cart-item";
 
-      itemDiv.innerHTML = `
+        const subtotal =
+          item.price *
+          item.quantity;
 
-        <strong>
-          ${item.model}
-        </strong>
 
-        <div>
-          ${item.color}
-        </div>
+        total += subtotal;
 
-        <div>
-          Size: ${item.size}
-        </div>
 
-        <div>
-          $${item.price}
-        </div>
+        const itemDiv =
+          document.createElement(
+            "div"
+          );
 
-        <button
-          class="remove-button"
-          onclick="removeFromCart(${index})"
-        >
-          Remove
-        </button>
 
-      `;
+        itemDiv.className =
+          "cart-item";
 
-      cartItems.appendChild(itemDiv);
-    });
+
+        itemDiv.innerHTML = `
+
+          <strong>
+            ${item.model}
+          </strong>
+
+          <div class="cart-item-details">
+
+            ${item.color}
+
+            <br>
+
+            Size: ${item.size}
+
+            <br>
+
+            $${item.price.toFixed(2)} each
+
+          </div>
+
+
+          <div class="quantity-control">
+
+            <button
+              onclick="
+                changeQuantity(
+                  ${index},
+                  -1
+                )
+              ">
+
+              −
+
+            </button>
+
+
+            <span>
+              ${item.quantity}
+            </span>
+
+
+            <button
+              onclick="
+                changeQuantity(
+                  ${index},
+                  1
+                )
+              ">
+
+              +
+
+            </button>
+
+          </div>
+
+
+          <div class="subtotal">
+
+            Subtotal:
+            $${subtotal.toFixed(2)}
+
+          </div>
+
+
+          <button
+            class="remove-button"
+            onclick="
+              removeFromCart(
+                ${index}
+              )
+            ">
+
+            Remove
+
+          </button>
+
+        `;
+
+
+        cartItems.appendChild(
+          itemDiv
+        );
+
+      }
+    );
+
+
+    /* TOTAL PRICE */
 
     cartTotal.textContent =
-      `Total: $${total}`;
+      `Total: $${total.toFixed(2)}`;
 
   }
+
+
+  /* =========================================
+     CHANGE QUANTITY
+     ========================================= */
+
+  function changeQuantity(
+    index,
+    change
+  ) {
+
+    const item =
+      cart[index];
+
+
+    const newQuantity =
+      item.quantity +
+      change;
+
+
+    /* REMOVE IF QUANTITY BECOMES 0 */
+
+    if (newQuantity < 1) {
+
+      removeFromCart(index);
+
+      return;
+    }
+
+
+    /* CHECK STOCK */
+
+    if (
+      newQuantity >
+      item.stock
+    ) {
+
+      alert(
+        `Sorry, only ${item.stock} of this size are in stock.`
+      );
+
+      return;
+    }
+
+
+    item.quantity =
+      newQuantity;
+
+
+    updateCart();
+
+  }
+
+
+  /* =========================================
+     REMOVE PRODUCT
+     ========================================= */
 
   function removeFromCart(index) {
 
-    cart.splice(index, 1);
+    cart.splice(
+      index,
+      1
+    );
 
     updateCart();
+
   }
+
+
+  /* =========================================
+     OPEN / CLOSE CART
+     ========================================= */
 
   function openCart() {
 
     document
-      .getElementById("cart-panel")
-      .classList.add("open");
+      .getElementById(
+        "cart-panel"
+      )
+      .classList.add(
+        "open"
+      );
+
   }
+
 
   function closeCart() {
 
     document
-      .getElementById("cart-panel")
-      .classList.remove("open");
+      .getElementById(
+        "cart-panel"
+      )
+      .classList.remove(
+        "open"
+      );
+
   }
+
+
+  /* =========================================
+     ERROR
+     ========================================= */
 
   function showError(message) {
 
-    document.getElementById("products").innerHTML =
-      `<div class="error">${message}</div>`;
+    document
+      .getElementById(
+        "products"
+      )
+      .innerHTML = `
+
+        <div class="error">
+          ${message}
+        </div>
+
+      `;
+
   }
+
+
+  /* =========================================
+     SAFE TEXT
+     ========================================= */
 
   function escapeText(text) {
 
     return String(text)
-      .replace(/'/g, "\\'")
-      .replace(/"/g, "&quot;");
+
+      .replace(
+        /\\/g,
+        "\\\\"
+      )
+
+      .replace(
+        /'/g,
+        "\\'"
+      )
+
+      .replace(
+        /"/g,
+        "&quot;"
+      );
+
   }
+
+
+  /* FIRST CART UPDATE */
 
   updateCart();
 
