@@ -337,12 +337,19 @@
         product["Color"] ||
         "";
 
-      const price =
-        Number(
-          product["Prijs"] ||
-          product["Price"] ||
-          0
-        );
+     const rawPrice =
+  product["Prijs"] ||
+  product["Price"] ||
+  product["Prijs (USD)"] ||
+  "0";
+
+const price =
+  parseFloat(
+    String(rawPrice)
+      .replace("$", "")
+      .replace(",", ".")
+      .trim()
+  ) || 0;
 
       const card =
         document.createElement("div");
