@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Beach & Bandits | Splash Academy Bonaire</title>
+  <title>Beach & Bandits | Swim Academy Splash</title>
 
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
@@ -36,25 +36,34 @@
       color: #666;
     }
 
+    /* WINKELMANDJE KNOP */
+
     .cart-button {
       position: fixed;
       top: 20px;
       right: 20px;
       z-index: 1000;
+
       width: auto;
       padding: 12px 18px;
+
       background: #222;
       color: white;
+
       border: none;
       border-radius: 30px;
+
       cursor: pointer;
       font-size: 15px;
     }
+
+    /* PRODUCTEN */
 
     .products {
       max-width: 1100px;
       margin: auto;
       padding: 30px 20px 80px;
+
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 28px;
@@ -71,9 +80,11 @@
       height: 280px;
       background: #f3f3f3;
       border-radius: 10px;
+
       display: flex;
       justify-content: center;
       align-items: center;
+
       margin-bottom: 20px;
       color: #999;
     }
@@ -103,8 +114,10 @@
       width: 100%;
       padding: 12px;
       margin-bottom: 15px;
+
       border: 1px solid #ccc;
       border-radius: 8px;
+
       background: white;
       font-size: 15px;
     }
@@ -113,9 +126,12 @@
       width: 100%;
       border: none;
       border-radius: 8px;
+
       padding: 14px;
+
       background: #222;
       color: white;
+
       font-size: 16px;
       cursor: pointer;
     }
@@ -131,17 +147,23 @@
       color: #777;
     }
 
+    /* WINKELMANDJE */
+
     .cart-panel {
       position: fixed;
       top: 0;
       right: -430px;
+
       width: 400px;
       max-width: 100%;
       height: 100vh;
+
       background: white;
       box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+
       z-index: 2000;
       padding: 25px;
+
       transition: right 0.3s ease;
       overflow-y: auto;
     }
@@ -184,6 +206,8 @@
       line-height: 1.5;
     }
 
+    /* AANTAL */
+
     .quantity-control {
       display: flex;
       align-items: center;
@@ -194,12 +218,19 @@
     .quantity-control button {
       width: 36px;
       height: 36px;
+
       border: 1px solid #ddd;
       border-radius: 50%;
+
       background: white;
       color: #222;
+
       cursor: pointer;
       font-size: 20px;
+    }
+
+    .quantity-control button:hover {
+      background: #f3f3f3;
     }
 
     .quantity-control span {
@@ -216,12 +247,17 @@
 
     .remove-button {
       margin-top: 10px;
+
       border: none;
       background: none;
+
       color: #b00020;
+
       cursor: pointer;
       padding: 0;
     }
+
+    /* TOTAAL */
 
     .cart-total {
       font-size: 21px;
@@ -233,25 +269,39 @@
       color: #777;
     }
 
+    /* WHATSAPP */
+
     .whatsapp-button {
       width: 100%;
       margin-top: 20px;
       padding: 15px;
+
       border: none;
       border-radius: 8px;
+
       background: #25D366;
       color: white;
+
       font-size: 16px;
       font-weight: bold;
+
       cursor: pointer;
+    }
+
+    .whatsapp-button:hover {
+      opacity: 0.9;
     }
 
     .whatsapp-button:disabled {
       background: #ccc;
       cursor: not-allowed;
+      opacity: 1;
     }
 
+    /* MOBIEL */
+
     @media (max-width: 600px) {
+
       .cart-button {
         top: 10px;
         right: 10px;
@@ -270,450 +320,926 @@
 
 <body>
 
+<!-- WINKELMANDJE KNOP -->
+
 <button class="cart-button" onclick="openCart()">
   🛒 Cart (<span id="cart-count">0</span>)
 </button>
 
+
+<!-- HEADER -->
+
 <header>
+
   <h1>Beach & Bandits</h1>
-  <p>Available at Splash Academy Bonaire</p>
+
+  <p>
+    Available at Swim Academy Splash Bonaire
+  </p>
+
 </header>
+
+
+<!-- LADEN -->
 
 <div id="loading" class="loading">
   Loading swimwear...
 </div>
 
-<section id="products" class="products"></section>
 
-<div id="cart-panel" class="cart-panel">
+<!-- PRODUCTEN -->
+
+<section
+  id="products"
+  class="products">
+</section>
+
+
+<!-- WINKELMANDJE -->
+
+<div
+  id="cart-panel"
+  class="cart-panel">
 
   <div class="cart-header">
+
     <h2>Your cart</h2>
 
-    <button class="close-cart" onclick="closeCart()">
+    <button
+      class="close-cart"
+      onclick="closeCart()">
       ×
     </button>
+
   </div>
+
 
   <div id="cart-items"></div>
 
-  <div id="cart-total" class="cart-total"></div>
+
+  <div
+    id="cart-total"
+    class="cart-total">
+  </div>
+
 
   <button
     id="whatsapp-button"
     class="whatsapp-button"
     onclick="orderViaWhatsApp()"
-    disabled
-  >
+    disabled>
+
     Order via WhatsApp
+
   </button>
 
 </div>
 
+
 <script>
+
+  /* =========================================
+     GOOGLE SHEET
+     ========================================= */
 
   const SHEET_URL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2DKu6fWuRkN-ObpGllK529agQRPeec31wsGBEukP_zva2ExkLMA7_KBZ2xPCHXifHgqHtxxuvIjXV/pub?gid=0&single=true&output=csv";
 
-  const WHATSAPP_NUMBER = "5997777775";
+
+  /* =========================================
+     WHATSAPP NUMMER
+     ========================================= */
+
+  const WHATSAPP_NUMBER =
+    "5997777775";
+
+
+  /* =========================================
+     WINKELMANDJE
+     ========================================= */
 
   let cart = [];
 
+
+  /* =========================================
+     PRODUCTEN LADEN
+     ========================================= */
+
   Papa.parse(SHEET_URL, {
+
     download: true,
     header: true,
     skipEmptyLines: true,
 
     complete: function(results) {
-      document.getElementById("loading").style.display = "none";
+
+      document
+        .getElementById("loading")
+        .style.display = "none";
+
 
       if (results.data.length === 0) {
-        showError("No products found.");
+
+        showError(
+          "No products found."
+        );
+
         return;
       }
 
-      renderProducts(results.data);
+
+      renderProducts(
+        results.data
+      );
     },
 
+
     error: function(error) {
-      document.getElementById("loading").style.display = "none";
-      showError("The products could not be loaded.");
+
+      document
+        .getElementById("loading")
+        .style.display = "none";
+
+
+      showError(
+        "The products could not be loaded."
+      );
+
+
       console.error(error);
     }
+
   });
+
+
+  /* =========================================
+     PRODUCTEN TONEN
+     ========================================= */
 
   function renderProducts(products) {
 
-    const container = document.getElementById("products");
+    const container =
+      document.getElementById(
+        "products"
+      );
+
+
     container.innerHTML = "";
 
-    products.forEach((product, index) => {
 
-      const sizes = Object.keys(product).filter(column => {
-        return /^\d+$/.test(column.trim());
-      });
+    products.forEach(
+      (product, index) => {
 
-      const model =
-        product["Model"] ||
-        product["model"] ||
-        "Swimsuit";
 
-      const color =
-        product["Kleur"] ||
-        product["Color"] ||
-        "";
+        /* MATEN */
 
-      const rawPrice =
-        product["Prijs"] ||
-        product["Price"] ||
-        product["Prijs (USD)"] ||
-        "0";
+        const sizes =
+          Object.keys(product)
+            .filter(column => {
 
-      const price =
-        parseFloat(
-          String(rawPrice)
-            .replace("$", "")
-            .replace(",", ".")
-            .trim()
-        ) || 0;
+              return /^\d+$/.test(
+                column.trim()
+              );
 
-      let sizeOptions =
-        `<option value="">Choose a size</option>`;
+            });
 
-      sizes.forEach(size => {
 
-        const stock = Number(product[size]) || 0;
+        /* MODEL */
 
-        if (stock > 0) {
-          sizeOptions += `
-            <option
-              value="${size}"
-              data-stock="${stock}"
-            >
-              ${size}
-            </option>
-          `;
-        } else {
-          sizeOptions += `
-            <option
-              value="${size}"
-              disabled
-            >
-              ${size} - Sold out
-            </option>
-          `;
-        }
-      });
+        const model =
+          product["Model"] ||
+          product["model"] ||
+          "Swimsuit";
 
-      const card = document.createElement("div");
-      card.className = "product";
 
-      card.innerHTML = `
-        <div class="product-image">
-          Product photo
-        </div>
+        /* KLEUR */
 
-        <h2>${model}</h2>
+        const color =
+          product["Kleur"] ||
+          product["Color"] ||
+          "";
 
-        <div class="color">
-          ${color}
-        </div>
 
-        <div class="price">
-          $${price.toFixed(2)}
-        </div>
+        /* PRIJS */
 
-        <label>
-          Choose your size
-        </label>
+        const rawPrice =
+          product["Prijs"] ||
+          product["Price"] ||
+          product["Prijs (USD)"] ||
+          "0";
 
-        <select id="size-${index}">
-          ${sizeOptions}
-        </select>
 
-        <button
-          class="add-button"
-          onclick="addToCart(
-            '${escapeText(model)}',
-            '${escapeText(color)}',
-            ${price},
-            'size-${index}'
-          )"
-        >
-          Add to cart
-        </button>
-      `;
+        const price =
+          parseFloat(
+            String(rawPrice)
+              .replace("$", "")
+              .replace(",", ".")
+              .trim()
+          ) || 0;
 
-      container.appendChild(card);
-    });
+
+        /* MAAT KEUZES */
+
+        let sizeOptions =
+          `<option value="">
+            Choose a size
+          </option>`;
+
+
+        sizes.forEach(size => {
+
+          const stock =
+            Number(
+              product[size]
+            ) || 0;
+
+
+          if (stock > 0) {
+
+            sizeOptions += `
+
+              <option
+                value="${size}"
+                data-stock="${stock}">
+
+                ${size}
+
+              </option>
+
+            `;
+
+          }
+
+          else {
+
+            sizeOptions += `
+
+              <option
+                value="${size}"
+                disabled>
+
+                ${size} - Sold out
+
+              </option>
+
+            `;
+
+          }
+
+        });
+
+
+        /* PRODUCT KAART */
+
+        const card =
+          document.createElement(
+            "div"
+          );
+
+
+        card.className =
+          "product";
+
+
+        card.innerHTML = `
+
+          <div class="product-image">
+            Product photo
+          </div>
+
+          <h2>
+            ${model}
+          </h2>
+
+          <div class="color">
+            ${color}
+          </div>
+
+          <div class="price">
+            $${price.toFixed(2)}
+          </div>
+
+          <label>
+            Choose your size
+          </label>
+
+          <select id="size-${index}">
+            ${sizeOptions}
+          </select>
+
+          <button
+            class="add-button"
+            onclick="addToCart(
+              '${escapeText(model)}',
+              '${escapeText(color)}',
+              ${price},
+              'size-${index}'
+            )">
+
+            Add to cart
+
+          </button>
+
+        `;
+
+
+        container.appendChild(
+          card
+        );
+
+      }
+    );
+
   }
 
-  function addToCart(model, color, price, sizeSelectId) {
 
-    const sizeSelect = document.getElementById(sizeSelectId);
-    const size = sizeSelect.value;
+  /* =========================================
+     TOEVOEGEN AAN WINKELMANDJE
+     ========================================= */
+
+  function addToCart(
+    model,
+    color,
+    price,
+    sizeSelectId
+  ) {
+
+    const sizeSelect =
+      document.getElementById(
+        sizeSelectId
+      );
+
+
+    const size =
+      sizeSelect.value;
+
 
     if (!size) {
-      alert("Please choose a size first.");
+
+      alert(
+        "Please choose a size first."
+      );
+
       return;
     }
 
+
     const selectedOption =
-      sizeSelect.options[sizeSelect.selectedIndex];
+      sizeSelect.options[
+        sizeSelect.selectedIndex
+      ];
+
 
     const stock =
-      Number(selectedOption.dataset.stock) || 0;
+      Number(
+        selectedOption.dataset.stock
+      ) || 0;
+
+
+    /* KIJK OF PRODUCT AL IN MANDJE ZIT */
 
     const existingItem =
       cart.find(item =>
+
         item.model === model &&
         item.color === color &&
         item.size === size
+
       );
+
 
     if (existingItem) {
 
-      if (existingItem.quantity < existingItem.stock) {
+      if (
+        existingItem.quantity <
+        existingItem.stock
+      ) {
+
         existingItem.quantity++;
-      } else {
+
+      }
+
+      else {
+
         alert(
           `Sorry, only ${existingItem.stock} of this size are in stock.`
         );
+
       }
 
-    } else {
+    }
+
+    else {
 
       cart.push({
+
         model: model,
         color: color,
         price: price,
         size: size,
         quantity: 1,
         stock: stock
+
       });
 
     }
 
+
     updateCart();
+
     openCart();
+
   }
+
+
+  /* =========================================
+     WINKELMANDJE BIJWERKEN
+     ========================================= */
 
   function updateCart() {
 
     const cartItems =
-      document.getElementById("cart-items");
+      document.getElementById(
+        "cart-items"
+      );
+
 
     const cartCount =
-      document.getElementById("cart-count");
+      document.getElementById(
+        "cart-count"
+      );
+
 
     const cartTotal =
-      document.getElementById("cart-total");
+      document.getElementById(
+        "cart-total"
+      );
+
 
     const whatsappButton =
-      document.getElementById("whatsapp-button");
+      document.getElementById(
+        "whatsapp-button"
+      );
+
+
+    /* TOTAAL AANTAL ITEMS */
 
     const totalItems =
       cart.reduce(
-        (sum, item) => sum + item.quantity,
+        (sum, item) =>
+          sum + item.quantity,
         0
       );
 
-    cartCount.textContent = totalItems;
+
+    cartCount.textContent =
+      totalItems;
+
+
+    /* LEEG WINKELMANDJE */
 
     if (cart.length === 0) {
 
-      cartItems.innerHTML =
-        `<div class="empty-cart">
+      cartItems.innerHTML = `
+
+        <div class="empty-cart">
           Your cart is empty.
-        </div>`;
+        </div>
 
-      cartTotal.textContent = "";
+      `;
 
-      whatsappButton.disabled = true;
+
+      cartTotal.textContent =
+        "";
+
+
+      whatsappButton.disabled =
+        true;
+
 
       return;
     }
 
-    whatsappButton.disabled = false;
 
-    cartItems.innerHTML = "";
+    whatsappButton.disabled =
+      false;
+
+
+    cartItems.innerHTML =
+      "";
+
 
     let total = 0;
 
-    cart.forEach((item, index) => {
 
-      const subtotal =
-        item.price * item.quantity;
+    /* PRODUCTEN IN MANDJE */
 
-      total += subtotal;
+    cart.forEach(
+      (item, index) => {
 
-      const itemDiv =
-        document.createElement("div");
 
-      itemDiv.className = "cart-item";
+        const subtotal =
+          item.price *
+          item.quantity;
 
-      itemDiv.innerHTML = `
-        <strong>
-          ${item.model}
-        </strong>
 
-        <div class="cart-item-details">
-          ${item.color}
-          <br>
-          Size: ${item.size}
-          <br>
-          $${item.price.toFixed(2)} each
-        </div>
+        total += subtotal;
 
-        <div class="quantity-control">
 
-          <button onclick="changeQuantity(${index}, -1)">
-            −
+        const itemDiv =
+          document.createElement(
+            "div"
+          );
+
+
+        itemDiv.className =
+          "cart-item";
+
+
+        itemDiv.innerHTML = `
+
+          <strong>
+            ${item.model}
+          </strong>
+
+          <div class="cart-item-details">
+
+            ${item.color}
+
+            <br>
+
+            Size: ${item.size}
+
+            <br>
+
+            $${item.price.toFixed(2)} each
+
+          </div>
+
+
+          <div class="quantity-control">
+
+            <button
+              onclick="changeQuantity(
+                ${index},
+                -1
+              )">
+
+              −
+
+            </button>
+
+
+            <span>
+              ${item.quantity}
+            </span>
+
+
+            <button
+              onclick="changeQuantity(
+                ${index},
+                1
+              )">
+
+              +
+
+            </button>
+
+          </div>
+
+
+          <div class="subtotal">
+
+            Subtotal:
+            $${subtotal.toFixed(2)}
+
+          </div>
+
+
+          <button
+            class="remove-button"
+            onclick="removeFromCart(
+              ${index}
+            )">
+
+            Remove
+
           </button>
 
-          <span>
-            ${item.quantity}
-          </span>
+        `;
 
-          <button onclick="changeQuantity(${index}, 1)">
-            +
-          </button>
 
-        </div>
+        cartItems.appendChild(
+          itemDiv
+        );
 
-        <div class="subtotal">
-          Subtotal:
-          $${subtotal.toFixed(2)}
-        </div>
+      }
+    );
 
-        <button
-          class="remove-button"
-          onclick="removeFromCart(${index})"
-        >
-          Remove
-        </button>
-      `;
-
-      cartItems.appendChild(itemDiv);
-    });
 
     cartTotal.textContent =
       `Total: $${total.toFixed(2)}`;
+
   }
 
-  function changeQuantity(index, change) {
 
-    const item = cart[index];
+  /* =========================================
+     AANTAL VERANDEREN
+     ========================================= */
+
+  function changeQuantity(
+    index,
+    change
+  ) {
+
+    const item =
+      cart[index];
+
+
     const newQuantity =
-      item.quantity + change;
+      item.quantity +
+      change;
+
+
+    /* BIJ 0 VERWIJDEREN */
 
     if (newQuantity < 1) {
-      removeFromCart(index);
+
+      removeFromCart(
+        index
+      );
+
       return;
     }
 
-    if (newQuantity > item.stock) {
+
+    /* MAXIMALE VOORRAAD */
+
+    if (
+      newQuantity >
+      item.stock
+    ) {
+
       alert(
         `Sorry, only ${item.stock} of this size are in stock.`
       );
+
       return;
     }
 
-    item.quantity = newQuantity;
+
+    item.quantity =
+      newQuantity;
+
 
     updateCart();
+
   }
+
+
+  /* =========================================
+     PRODUCT VERWIJDEREN
+     ========================================= */
 
   function removeFromCart(index) {
 
-    cart.splice(index, 1);
+    cart.splice(
+      index,
+      1
+    );
+
 
     updateCart();
+
   }
+
+
+  /* =========================================
+     WINKELMANDJE OPEN / DICHT
+     ========================================= */
 
   function openCart() {
 
     document
-      .getElementById("cart-panel")
-      .classList.add("open");
+      .getElementById(
+        "cart-panel"
+      )
+      .classList.add(
+        "open"
+      );
+
   }
+
 
   function closeCart() {
 
     document
-      .getElementById("cart-panel")
-      .classList.remove("open");
+      .getElementById(
+        "cart-panel"
+      )
+      .classList.remove(
+        "open"
+      );
+
   }
+
+
+  /* =========================================
+     PAPIAMENTSE BEGROETING
+     ========================================= */
+
+  function getBonaireGreeting() {
+
+    const bonaireHour =
+      new Intl.DateTimeFormat(
+        "en-US",
+        {
+          timeZone:
+            "America/Kralendijk",
+
+          hour:
+            "numeric",
+
+          hourCycle:
+            "h23"
+        }
+      )
+      .format(
+        new Date()
+      );
+
+
+    const hour =
+      parseInt(
+        bonaireHour,
+        10
+      );
+
+
+    if (
+      hour >= 5 &&
+      hour < 12
+    ) {
+
+      return "Bon dia";
+
+    }
+
+
+    if (
+      hour >= 12 &&
+      hour < 18
+    ) {
+
+      return "Bon tardi";
+
+    }
+
+
+    return "Bon nochi";
+
+  }
+
+
+  /* =========================================
+     BESTELLEN VIA WHATSAPP
+     ========================================= */
 
   function orderViaWhatsApp() {
 
     if (cart.length === 0) {
-      alert("Your cart is empty.");
+
+      alert(
+        "Je winkelmandje is leeg."
+      );
+
       return;
     }
 
+
+    /* AUTOMATISCHE BEGROETING */
+
+    const greeting =
+      getBonaireGreeting();
+
+
     let total = 0;
 
-    let message =
-`Hi Splash Academy! 👋
 
-I would like to place an order:
+    /* BEGIN WHATSAPP BERICHT */
+
+    let message =
+`${greeting} Swim Academy Splash! 👋
+
+Ik wil graag de volgende bestelling plaatsen:
 
 `;
+
+
+    /* PRODUCTEN TOEVOEGEN */
 
     cart.forEach(item => {
 
       const subtotal =
-        item.price * item.quantity;
+        item.price *
+        item.quantity;
+
 
       total += subtotal;
 
+
       message +=
 `${item.quantity}x ${item.model}
-Color: ${item.color}
-Size: ${item.size}
-Price: $${item.price.toFixed(2)} each
-Subtotal: $${subtotal.toFixed(2)}
+Kleur: ${item.color}
+Maat: ${item.size}
+Prijs: $${item.price.toFixed(2)} per stuk
+Subtotaal: $${subtotal.toFixed(2)}
 
 `;
+
     });
 
-    message +=
-`Total: $${total.toFixed(2)}
 
-Name:
-Pickup / preferred time:
-Remarks:`;
+    /* TOTAAL + KLANTGEGEVENS */
+
+    message +=
+`Totaal: $${total.toFixed(2)}
+
+Naam:
+Gewenste ophaaltijd:
+Opmerking:`;
+
+
+    /* WHATSAPP BERICHT CODEREN */
 
     const encodedMessage =
-      encodeURIComponent(message);
+      encodeURIComponent(
+        message
+      );
+
+
+    /* WHATSAPP OPENEN */
 
     const whatsappUrl =
       `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
 
     window.open(
       whatsappUrl,
       "_blank"
     );
+
   }
+
+
+  /* =========================================
+     FOUTMELDING
+     ========================================= */
 
   function showError(message) {
 
     document
-      .getElementById("products")
-      .innerHTML =
-      `<div class="error">
-        ${message}
-      </div>`;
+      .getElementById(
+        "products"
+      )
+      .innerHTML = `
+
+        <div class="error">
+          ${message}
+        </div>
+
+      `;
+
   }
+
+
+  /* =========================================
+     VEILIGE TEKST
+     ========================================= */
 
   function escapeText(text) {
 
     return String(text)
-      .replace(/\\/g, "\\\\")
-      .replace(/'/g, "\\'")
-      .replace(/"/g, "&quot;");
+
+      .replace(
+        /\\/g,
+        "\\\\"
+      )
+
+      .replace(
+        /'/g,
+        "\\'"
+      )
+
+      .replace(
+        /"/g,
+        "&quot;"
+      );
+
   }
+
+
+  /* WINKELMANDJE INITIALISEREN */
 
   updateCart();
 
