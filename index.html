@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Beach & Bandits | Swim Academy Splash</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <title>
+    Beach & Bandits | Swim Academy Splash
+  </title>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js">
+  </script>
+
 
   <style>
 
@@ -14,384 +25,797 @@
       box-sizing: border-box;
     }
 
+
     :root {
-      --dark: #153b42;
-      --turquoise: #4baeb5;
-      --light-turquoise: #eaf6f6;
-      --sand: #f6f1e9;
+
+      /* OFFICIËLE SPLASH KLEUREN */
+
+      --midnight: #1e556b;
+      --ocean: #17759b;
+      --aqua: #79cab6;
+      --orange: #e37325;
+      --sky: #71c0e0;
+
       --white: #ffffff;
-      --text: #24383b;
-      --muted: #718184;
-      --border: #dfe8e8;
+      --soft-aqua: #eef9f6;
+      --soft-blue: #eef7fb;
+      --sand: #faf8f3;
+
+      --text: #244b5c;
+      --muted: #748b94;
+      --border: #dbe8eb;
+
     }
+
+
+    html {
+      scroll-behavior: smooth;
+    }
+
 
     body {
+
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+
+      font-family:
+        "Arial Rounded MT Bold",
+        "Trebuchet MS",
+        Arial,
+        sans-serif;
+
       color: var(--text);
-      background: #fff;
+
+      background: var(--white);
+
     }
+
 
     button,
-    select {
+    input,
+    textarea {
+
       font-family: inherit;
+
     }
 
 
-    /* =========================
-       BOVENSTE BALK
-       ========================= */
+    /* ========================================
+       ANNOUNCEMENT
+       ======================================== */
 
     .announcement {
-      background: var(--dark);
+
+      background: var(--midnight);
+
       color: white;
+
       text-align: center;
+
       padding: 9px 15px;
-      font-size: 13px;
-      letter-spacing: .4px;
+
+      font-size: 12px;
+
+      letter-spacing: .7px;
+
     }
 
 
-    /* =========================
-       NAVIGATIE
-       ========================= */
+
+    /* ========================================
+       NAVBAR
+       ======================================== */
 
     .navbar {
+
       max-width: 1200px;
+
       margin: auto;
-      padding: 18px 25px;
+
+      padding: 13px 25px;
 
       display: flex;
-      align-items: center;
+
       justify-content: space-between;
-    }
 
-    .brand {
-      line-height: 1.1;
-    }
+      align-items: center;
 
-    .brand-main {
-      font-size: 19px;
-      font-weight: 800;
-      letter-spacing: 1.3px;
-      color: var(--dark);
-    }
+      gap: 20px;
 
-    .brand-sub {
-      font-size: 11px;
-      margin-top: 4px;
-      color: var(--muted);
-      letter-spacing: 1.7px;
-      text-transform: uppercase;
+      background: white;
+
     }
 
 
-    /* =========================
-       WINKELMANDJE KNOP
-       ========================= */
+    .logo {
+
+      display: block;
+
+      width: 165px;
+
+      max-width: 42vw;
+
+      height: auto;
+
+    }
+
 
     .cart-button {
+
       border: none;
-      background: var(--dark);
+
+      background: var(--ocean);
+
       color: white;
 
-      padding: 11px 17px;
+      padding: 12px 18px;
+
       border-radius: 30px;
 
-      cursor: pointer;
       font-size: 14px;
+
       font-weight: bold;
-    }
 
-
-    /* =========================
-       HERO
-       ========================= */
-
-    .hero {
-      background:
-        linear-gradient(
-          135deg,
-          var(--light-turquoise),
-          var(--sand)
-        );
-
-      padding: 75px 25px;
-
-      text-align: center;
-    }
-
-    .hero-inner {
-      max-width: 750px;
-      margin: auto;
-    }
-
-    .hero-label {
-      color: var(--turquoise);
-      font-size: 13px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(38px, 7vw, 68px);
-      line-height: .98;
-      color: var(--dark);
-    }
-
-    .hero p {
-      max-width: 590px;
-      margin: 22px auto 0;
-
-      color: #526669;
-      font-size: 17px;
-      line-height: 1.6;
-    }
-
-
-    /* =========================
-       SHOP TITEL
-       ========================= */
-
-    .shop-heading {
-      text-align: center;
-      padding: 55px 20px 15px;
-    }
-
-    .shop-heading h2 {
-      margin: 0 0 8px;
-      font-size: 30px;
-      color: var(--dark);
-    }
-
-    .shop-heading p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-
-    /* =========================
-       PRODUCT GRID
-       ========================= */
-
-    .products {
-      max-width: 1180px;
-      margin: auto;
-      padding: 30px 25px 90px;
-
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fit, minmax(270px, 1fr));
-
-      gap: 32px;
-    }
-
-
-    /* =========================
-       PRODUCT KAART
-       ========================= */
-
-    .product {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      overflow: hidden;
+      cursor: pointer;
 
       transition:
         transform .2s ease,
-        box-shadow .2s ease;
-    }
-
-    .product:hover {
-      transform: translateY(-4px);
+        background .2s ease;
 
       box-shadow:
-        0 12px 35px rgba(20, 60, 65, .10);
+        0 6px 18px rgba(23, 117, 155, .18);
+
     }
 
+
+    .cart-button:hover {
+
+      background: var(--midnight);
+
+      transform: translateY(-1px);
+
+    }
+
+
+
+    /* ========================================
+       HERO
+       ======================================== */
+
+    .hero {
+
+      position: relative;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          #edf9f6 0%,
+          #edf8fb 55%,
+          #fff7ee 100%
+        );
+
+      padding: 85px 25px 90px;
+
+    }
+
+
+    .hero::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 320px;
+
+      height: 320px;
+
+      border-radius: 50%;
+
+      background: var(--aqua);
+
+      opacity: .17;
+
+      top: -170px;
+
+      left: -100px;
+
+    }
+
+
+    .hero::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 220px;
+
+      height: 220px;
+
+      border-radius: 50%;
+
+      background: var(--orange);
+
+      opacity: .13;
+
+      right: -70px;
+
+      bottom: -100px;
+
+    }
+
+
+    .hero-inner {
+
+      position: relative;
+
+      z-index: 2;
+
+      max-width: 850px;
+
+      margin: auto;
+
+      text-align: center;
+
+    }
+
+
+    .hero-label {
+
+      display: inline-block;
+
+      background: white;
+
+      color: var(--ocean);
+
+      padding: 8px 15px;
+
+      border-radius: 30px;
+
+      font-size: 12px;
+
+      font-weight: bold;
+
+      letter-spacing: 1.4px;
+
+      text-transform: uppercase;
+
+      box-shadow:
+        0 5px 20px rgba(30, 85, 107, .08);
+
+      margin-bottom: 20px;
+
+    }
+
+
+    .hero h1 {
+
+      margin: 0;
+
+      color: var(--midnight);
+
+      font-size:
+        clamp(
+          42px,
+          7vw,
+          72px
+        );
+
+      line-height: 1;
+
+    }
+
+
+    .hero h1 span {
+
+      color: var(--ocean);
+
+    }
+
+
+    .hero p {
+
+      max-width: 620px;
+
+      margin: 24px auto 0;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      color: #587582;
+
+      line-height: 1.7;
+
+      font-size: 17px;
+
+    }
+
+
+    .hero-button {
+
+      display: inline-block;
+
+      margin-top: 30px;
+
+      padding: 14px 23px;
+
+      border-radius: 30px;
+
+      background: var(--orange);
+
+      color: white;
+
+      text-decoration: none;
+
+      font-size: 14px;
+
+      font-weight: bold;
+
+      box-shadow:
+        0 8px 22px rgba(227, 115, 37, .20);
+
+      transition: .2s;
+
+    }
+
+
+    .hero-button:hover {
+
+      transform: translateY(-2px);
+
+    }
+
+
+
+    /* ========================================
+       SHOP INTRO
+       ======================================== */
+
+    .shop-heading {
+
+      max-width: 750px;
+
+      margin: auto;
+
+      text-align: center;
+
+      padding:
+        65px
+        20px
+        10px;
+
+    }
+
+
+    .shop-heading-label {
+
+      color: var(--orange);
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.7px;
+
+      font-size: 12px;
+
+      font-weight: bold;
+
+      margin-bottom: 8px;
+
+    }
+
+
+    .shop-heading h2 {
+
+      color: var(--midnight);
+
+      margin: 0 0 10px;
+
+      font-size: 34px;
+
+    }
+
+
+    .shop-heading p {
+
+      margin: 0;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      color: var(--muted);
+
+      line-height: 1.6;
+
+    }
+
+
+
+    /* ========================================
+       PRODUCT GRID
+       ======================================== */
+
+    .products {
+
+      max-width: 1180px;
+
+      margin: auto;
+
+      padding:
+        35px
+        25px
+        100px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(270px, 1fr)
+        );
+
+      gap: 30px;
+
+    }
+
+
+
+    /* ========================================
+       PRODUCT CARD
+       ======================================== */
+
+    .product {
+
+      position: relative;
+
+      background: white;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 22px;
+
+      overflow: hidden;
+
+      transition:
+        transform .22s ease,
+        box-shadow .22s ease;
+
+    }
+
+
+    .product::before {
+
+      content: "";
+
+      position: absolute;
+
+      z-index: 3;
+
+      width: 55px;
+
+      height: 5px;
+
+      background: var(--orange);
+
+      border-radius: 10px;
+
+      top: 0;
+
+      left: 24px;
+
+    }
+
+
+    .product:hover {
+
+      transform:
+        translateY(-5px);
+
+      box-shadow:
+        0
+        18px
+        45px
+        rgba(30, 85, 107, .11);
+
+    }
+
+
     .product-image {
+
       height: 330px;
 
       background:
         linear-gradient(
           145deg,
-          #f7f4ee,
-          #e7f4f3
+          #f7fbfb,
+          #eaf6f7
         );
 
       display: flex;
-      flex-direction: column;
+
       align-items: center;
+
       justify-content: center;
 
-      color: #95a5a5;
+      flex-direction: column;
+
+      color: var(--ocean);
+
     }
+
 
     .product-image-icon {
-      font-size: 45px;
-      margin-bottom: 10px;
+
+      font-size: 48px;
+
+      margin-bottom: 9px;
+
     }
+
 
     .product-image-text {
-      font-size: 13px;
-      letter-spacing: .5px;
+
+      color: #829aa3;
+
+      font-size: 12px;
+
+      letter-spacing: .4px;
+
     }
+
 
     .product-info {
-      padding: 22px;
+
+      padding: 23px;
+
     }
+
 
     .product h3 {
+
       margin: 0;
+
+      color: var(--midnight);
+
       font-size: 22px;
-      color: var(--dark);
+
     }
+
 
     .product-color {
+
       margin-top: 6px;
+
       color: var(--muted);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
       font-size: 14px;
+
     }
+
 
     .product-price {
-      margin-top: 13px;
+
+      margin-top: 14px;
+
+      color: var(--ocean);
+
+      font-size: 21px;
+
       font-weight: bold;
-      font-size: 20px;
-      color: var(--dark);
+
     }
 
 
-    /* =========================
-       MATEN
-       ========================= */
+
+    /* ========================================
+       SIZE BUTTONS
+       ======================================== */
 
     .size-title {
+
       margin-top: 22px;
+
       margin-bottom: 10px;
 
+      color: var(--midnight);
+
       font-size: 13px;
+
       font-weight: bold;
 
-      color: var(--text);
     }
 
+
     .sizes {
+
       display: flex;
+
       flex-wrap: wrap;
+
       gap: 8px;
 
       margin-bottom: 18px;
+
     }
 
+
     .size-button {
+
       min-width: 52px;
+
       padding: 10px 12px;
 
-      border-radius: 9px;
-      border: 1px solid #ccd8d8;
+      border-radius: 10px;
+
+      border:
+        1px solid
+        #cadce1;
 
       background: white;
-      color: var(--dark);
+
+      color: var(--midnight);
 
       cursor: pointer;
+
       font-size: 14px;
 
       transition: .15s;
+
     }
+
 
     .size-button:hover:not(:disabled) {
-      border-color: var(--turquoise);
+
+      border-color: var(--aqua);
+
+      background: var(--soft-aqua);
+
     }
+
 
     .size-button.selected {
-      background: var(--dark);
-      border-color: var(--dark);
+
+      background: var(--midnight);
+
+      border-color: var(--midnight);
+
       color: white;
+
     }
 
+
     .size-button:disabled {
-      background: #f3f3f3;
-      color: #b9b9b9;
+
+      background: #f2f4f4;
+
+      color: #b5bfc1;
+
       cursor: not-allowed;
 
       text-decoration: line-through;
+
     }
 
 
-    /* =========================
-       TOEVOEGEN
-       ========================= */
+
+    /* ========================================
+       ADD BUTTON
+       ======================================== */
 
     .add-button {
+
       width: 100%;
+
       padding: 14px;
 
       border: none;
-      border-radius: 10px;
 
-      background: var(--turquoise);
+      border-radius: 11px;
+
+      background: var(--ocean);
+
       color: white;
 
       cursor: pointer;
-      font-size: 15px;
+
+      font-size: 14px;
+
       font-weight: bold;
+
+      transition: .2s;
+
     }
+
 
     .add-button:hover {
-      opacity: .9;
+
+      background: var(--midnight);
+
     }
 
 
-    /* =========================
-       LADEN
-       ========================= */
+
+    /* ========================================
+       LOADING
+       ======================================== */
 
     .loading,
     .error {
+
       text-align: center;
+
       padding: 70px 20px;
+
       color: var(--muted);
+
     }
 
 
-    /* =========================
+
+    /* ========================================
        OVERLAY
-       ========================= */
+       ======================================== */
 
     .cart-overlay {
+
       position: fixed;
+
       inset: 0;
 
-      background: rgba(10, 30, 33, .28);
+      background:
+        rgba(18, 56, 70, .35);
+
+      backdrop-filter:
+        blur(2px);
 
       opacity: 0;
+
       visibility: hidden;
 
       z-index: 1900;
 
       transition: .25s;
+
     }
+
 
     .cart-overlay.open {
+
       opacity: 1;
+
       visibility: visible;
+
     }
 
 
-    /* =========================
-       CART PANEL
-       ========================= */
+
+    /* ========================================
+       CART
+       ======================================== */
 
     .cart-panel {
-      position: fixed;
-      top: 0;
-      right: -450px;
 
-      width: 420px;
+      position: fixed;
+
+      top: 0;
+
+      right: -470px;
+
+      width: 430px;
+
       max-width: 100%;
+
       height: 100vh;
 
       background: white;
@@ -403,465 +827,1042 @@
       overflow-y: auto;
 
       box-shadow:
-        -10px 0 40px rgba(0, 0, 0, .13);
+        -10px
+        0
+        45px
+        rgba(20, 55, 70, .15);
 
-      transition: right .3s ease;
+      transition:
+        right .3s ease;
+
     }
+
 
     .cart-panel.open {
+
       right: 0;
+
     }
 
+
     .cart-header {
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
 
       padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
+
+      border-bottom:
+        1px solid
+        var(--border);
+
     }
+
 
     .cart-header h2 {
+
       margin: 0;
-      color: var(--dark);
+
+      color: var(--midnight);
+
+      font-size: 24px;
+
     }
+
 
     .close-cart {
-      border: none;
-      background: none;
 
-      font-size: 30px;
-      color: var(--dark);
+      width: 38px;
+
+      height: 38px;
+
+      border: none;
+
+      border-radius: 50%;
+
+      background: var(--soft-blue);
+
+      color: var(--midnight);
+
+      font-size: 26px;
 
       cursor: pointer;
+
     }
 
 
-    /* =========================
+
+    /* ========================================
        CART ITEM
-       ========================= */
+       ======================================== */
 
     .cart-item {
+
       padding: 20px 0;
-      border-bottom: 1px solid var(--border);
+
+      border-bottom:
+        1px solid
+        var(--border);
+
     }
+
 
     .cart-item strong {
+
+      color: var(--midnight);
+
       font-size: 16px;
-      color: var(--dark);
+
     }
+
 
     .cart-item-details {
+
       margin-top: 6px;
+
       color: var(--muted);
 
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
       font-size: 14px;
+
       line-height: 1.5;
+
     }
 
 
-    /* =========================
-       AANTAL
-       ========================= */
-
     .quantity-row {
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
 
       margin-top: 14px;
+
     }
+
 
     .quantity-control {
+
       display: flex;
+
       align-items: center;
+
       gap: 12px;
+
     }
 
+
     .quantity-control button {
+
       width: 34px;
+
       height: 34px;
 
       border-radius: 50%;
-      border: 1px solid var(--border);
+
+      border:
+        1px solid
+        var(--border);
 
       background: white;
-      color: var(--dark);
+
+      color: var(--midnight);
 
       font-size: 19px;
+
       cursor: pointer;
+
     }
+
 
     .quantity-control span {
+
       min-width: 18px;
+
       text-align: center;
+
       font-weight: bold;
+
     }
+
 
     .subtotal {
+
+      color: var(--midnight);
+
       font-weight: bold;
-      color: var(--dark);
+
     }
 
-    .remove-button {
-      margin-top: 12px;
 
-      border: none;
-      background: none;
+    .remove-button {
+
+      margin-top: 12px;
 
       padding: 0;
 
+      border: none;
+
+      background: none;
+
       color: #a65b5b;
-      font-size: 12px;
 
       cursor: pointer;
+
+      font-size: 12px;
+
       text-decoration: underline;
+
     }
 
 
-    /* =========================
-       TOTAAL
-       ========================= */
 
-    .cart-summary {
+    /* ========================================
+       CUSTOMER DETAILS
+       ======================================== */
+
+    .customer-details {
+
       margin-top: 25px;
 
-      background: var(--sand);
-      border-radius: 12px;
+      padding:
+        22px
+        19px;
 
-      padding: 17px;
+      border-radius: 16px;
+
+      background:
+        var(--soft-blue);
+
     }
 
-    .cart-total {
-      display: flex;
-      justify-content: space-between;
 
-      font-size: 20px;
+    .customer-details h3 {
+
+      color: var(--midnight);
+
+      margin: 0 0 6px;
+
+      font-size: 18px;
+
+    }
+
+
+    .customer-details-intro {
+
+      margin: 0 0 18px;
+
+      color: var(--muted);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+
+    }
+
+
+    .form-group {
+
+      margin-bottom: 14px;
+
+    }
+
+
+    .form-group:last-child {
+
+      margin-bottom: 0;
+
+    }
+
+
+    .form-group label {
+
+      display: block;
+
+      margin-bottom: 6px;
+
+      color: var(--midnight);
+
+      font-size: 12px;
+
       font-weight: bold;
 
-      color: var(--dark);
     }
 
+
+    .required {
+
+      color: var(--orange);
+
+    }
+
+
+    .form-group input,
+    .form-group textarea {
+
+      width: 100%;
+
+      padding: 12px;
+
+      background: white;
+
+      border:
+        1px solid
+        #cadde2;
+
+      border-radius: 10px;
+
+      outline: none;
+
+      color: var(--text);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size: 14px;
+
+    }
+
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+
+      border-color: var(--ocean);
+
+      box-shadow:
+        0 0 0 2px
+        rgba(23, 117, 155, .07);
+
+    }
+
+
+    .form-group textarea {
+
+      min-height: 80px;
+
+      resize: vertical;
+
+    }
+
+
+
+    /* ========================================
+       TOTAL
+       ======================================== */
+
+    .cart-summary {
+
+      margin-top: 20px;
+
+      background:
+        #fff8ef;
+
+      border:
+        1px solid
+        #f5e1cb;
+
+      border-radius: 14px;
+
+      padding: 17px;
+
+    }
+
+
+    .cart-total {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      color: var(--midnight);
+
+      font-size: 20px;
+
+      font-weight: bold;
+
+    }
+
+
     .cart-note {
+
       margin-top: 8px;
 
       color: var(--muted);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
       font-size: 12px;
-      line-height: 1.4;
+
+      line-height: 1.5;
+
     }
 
 
-    /* =========================
+
+    /* ========================================
        WHATSAPP
-       ========================= */
+       ======================================== */
 
     .whatsapp-button {
+
       width: 100%;
+
       margin-top: 16px;
 
       padding: 16px;
 
       border: none;
-      border-radius: 10px;
+
+      border-radius: 12px;
 
       background: #25D366;
+
       color: white;
 
-      font-size: 16px;
+      font-size: 15px;
+
       font-weight: bold;
 
       cursor: pointer;
+
+      transition: .2s;
+
     }
+
 
     .whatsapp-button:hover {
-      opacity: .92;
+
+      transform: translateY(-1px);
+
+      opacity: .94;
+
     }
+
 
     .whatsapp-button:disabled {
-      background: #cfd5d5;
+
+      background: #cfd7d9;
+
       cursor: not-allowed;
+
+      transform: none;
+
     }
 
+
     .empty-cart {
+
       padding: 35px 0;
+
       text-align: center;
 
       color: var(--muted);
+
     }
 
 
-    /* =========================
+
+    /* ========================================
        FOOTER
-       ========================= */
+       ======================================== */
 
     footer {
-      background: var(--dark);
+
+      position: relative;
+
+      overflow: hidden;
+
+      background: var(--midnight);
+
       color: white;
 
       text-align: center;
 
-      padding: 35px 20px;
+      padding: 48px 20px;
+
     }
+
+
+    footer::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 170px;
+
+      height: 170px;
+
+      background: var(--aqua);
+
+      border-radius: 50%;
+
+      opacity: .07;
+
+      top: -90px;
+
+      left: -50px;
+
+    }
+
 
     footer strong {
+
       display: block;
-      margin-bottom: 7px;
+
+      margin-bottom: 8px;
+
+      font-size: 18px;
+
     }
+
 
     footer span {
-      color: #c7d7d8;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      color: #d8e7eb;
+
       font-size: 13px;
+
     }
 
 
-    /* =========================
-       MOBIEL
-       ========================= */
 
-    @media (max-width: 600px) {
+    /* ========================================
+       MOBILE
+       ======================================== */
+
+    @media (
+      max-width: 600px
+    ) {
+
+      .announcement {
+
+        font-size: 10px;
+
+        padding: 8px 10px;
+
+      }
+
 
       .navbar {
-        padding: 14px 16px;
+
+        padding:
+          11px
+          15px;
+
       }
 
-      .brand-main {
-        font-size: 15px;
+
+      .logo {
+
+        width: 125px;
+
       }
 
-      .brand-sub {
-        font-size: 9px;
-      }
 
       .cart-button {
-        padding: 9px 13px;
+
+        padding:
+          10px
+          13px;
+
         font-size: 12px;
+
       }
+
 
       .hero {
-        padding: 55px 20px;
+
+        padding:
+          65px
+          20px
+          70px;
+
       }
+
 
       .hero p {
+
         font-size: 15px;
+
       }
+
+
+      .shop-heading {
+
+        padding-top: 50px;
+
+      }
+
+
+      .shop-heading h2 {
+
+        font-size: 28px;
+
+      }
+
 
       .products {
+
         padding-left: 16px;
+
         padding-right: 16px;
+
       }
+
 
       .product-image {
+
         height: 290px;
+
       }
 
+
       .cart-panel {
+
         width: 100%;
+
         padding: 22px;
+
       }
+
     }
 
   </style>
+
 </head>
+
 
 
 <body>
 
 
-<!-- =================================
-     BOVENSTE BALK
-     ================================= -->
+<!-- ========================================
+     TOP BAR
+     ======================================== -->
 
 <div class="announcement">
-  Beach & Bandits swimwear • Bestellen via WhatsApp • Bonaire
+
+  BEACH & BANDITS • SWIM ACADEMY SPLASH • BONAIRE
+
 </div>
 
 
-<!-- =================================
-     NAVIGATIE
-     ================================= -->
+
+<!-- ========================================
+     NAVBAR
+     ======================================== -->
 
 <nav class="navbar">
 
-  <div class="brand">
 
-    <div class="brand-main">
-      SWIM ACADEMY SPLASH
-    </div>
+  <a href="#">
 
-    <div class="brand-sub">
-      Bonaire
-    </div>
+    <img
+      src="Swim_Academy_Splash_Logo_Full_colour.png"
+      alt="Swim Academy Splash"
+      class="logo"
+    >
 
-  </div>
+  </a>
 
 
   <button
     class="cart-button"
-    onclick="openCart()">
+    onclick="openCart()"
+  >
 
     🛒 Winkelmandje
+
     (<span id="cart-count">0</span>)
 
   </button>
 
+
 </nav>
 
 
-<!-- =================================
+
+<!-- ========================================
      HERO
-     ================================= -->
+     ======================================== -->
 
 <section class="hero">
 
+
   <div class="hero-inner">
 
+
     <div class="hero-label">
-      Swim Academy Splash
+
+      Swim Academy Splash Bonaire
+
     </div>
 
+
     <h1>
-      Beach & Bandits
+
+      Beach
+      <span>&</span>
+      Bandits
+
     </h1>
 
+
     <p>
-      Ontdek onze collectie zwemkleding.
-      Kies je favoriete model en maat en
-      bestel eenvoudig via WhatsApp.
+
+      Onze favoriete zwemkleding voor kleine waterratten.
+      Kies je favoriete model en maat en bestel eenvoudig
+      via WhatsApp.
+
     </p>
+
+
+    <a
+      href="#collectie"
+      class="hero-button"
+    >
+
+      Bekijk de collectie ↓
+
+    </a>
+
 
   </div>
 
+
 </section>
 
 
-<!-- =================================
-     SHOP TITEL
-     ================================= -->
 
-<section class="shop-heading">
+<!-- ========================================
+     SHOP INTRO
+     ======================================== -->
+
+<section
+  class="shop-heading"
+  id="collectie"
+>
+
+
+  <div class="shop-heading-label">
+
+    Splash Swimwear
+
+  </div>
+
 
   <h2>
+
     Shop de collectie
+
   </h2>
 
+
   <p>
-    Kies een maat om je item aan het winkelmandje toe te voegen.
+
+    Kies een model, selecteer de juiste maat
+    en voeg hem toe aan je winkelmandje.
+
   </p>
+
 
 </section>
 
 
-<!-- =================================
-     LADEN
-     ================================= -->
+
+<!-- ========================================
+     LOADING
+     ======================================== -->
 
 <div
   id="loading"
-  class="loading">
+  class="loading"
+>
 
   Collectie wordt geladen...
 
 </div>
 
 
-<!-- =================================
-     PRODUCTEN
-     ================================= -->
+
+<!-- ========================================
+     PRODUCTS
+     ======================================== -->
 
 <section
   id="products"
-  class="products">
+  class="products"
+>
 </section>
 
 
-<!-- =================================
+
+<!-- ========================================
      OVERLAY
-     ================================= -->
+     ======================================== -->
 
 <div
   id="cart-overlay"
   class="cart-overlay"
-  onclick="closeCart()">
+  onclick="closeCart()"
+>
 </div>
 
 
-<!-- =================================
-     WINKELMANDJE
-     ================================= -->
+
+<!-- ========================================
+     CART
+     ======================================== -->
 
 <div
   id="cart-panel"
-  class="cart-panel">
+  class="cart-panel"
+>
+
 
   <div class="cart-header">
 
+
     <h2>
+
       Jouw winkelmandje
+
     </h2>
+
 
     <button
       class="close-cart"
-      onclick="closeCart()">
+      onclick="closeCart()"
+    >
 
       ×
 
     </button>
 
+
   </div>
+
 
 
   <div id="cart-items"></div>
 
 
+
+  <!-- KLANTGEGEVENS -->
+
+  <div
+    id="customer-details"
+    class="customer-details"
+  >
+
+
+    <h3>
+
+      Jouw gegevens
+
+    </h3>
+
+
+    <p class="customer-details-intro">
+
+      Vul je gegevens in voordat je de bestelling via
+      WhatsApp verstuurt.
+
+    </p>
+
+
+
+    <div class="form-group">
+
+
+      <label for="customer-name">
+
+        Naam
+        <span class="required">*</span>
+
+      </label>
+
+
+      <input
+        id="customer-name"
+        type="text"
+        autocomplete="name"
+        placeholder="Voor- en achternaam"
+      >
+
+
+    </div>
+
+
+
+    <div class="form-group">
+
+
+      <label for="customer-phone">
+
+        Telefoonnummer
+        <span class="required">*</span>
+
+      </label>
+
+
+      <input
+        id="customer-phone"
+        type="tel"
+        autocomplete="tel"
+        placeholder="Bijv. +599 777 7777"
+      >
+
+
+    </div>
+
+
+
+    <div class="form-group">
+
+
+      <label for="pickup-date">
+
+        Gewenste ophaaldatum
+
+      </label>
+
+
+      <input
+        id="pickup-date"
+        type="date"
+      >
+
+
+    </div>
+
+
+
+    <div class="form-group">
+
+
+      <label for="customer-remark">
+
+        Opmerking
+
+      </label>
+
+
+      <textarea
+        id="customer-remark"
+        placeholder="Eventuele opmerking bij je bestelling"
+      ></textarea>
+
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- TOTAAL -->
+
   <div
     id="cart-summary"
-    class="cart-summary">
+    class="cart-summary"
+  >
+
 
     <div class="cart-total">
 
+
       <span>
+
         Totaal
+
       </span>
+
 
       <span id="cart-total">
+
         $0.00
+
       </span>
 
+
     </div>
+
 
     <div class="cart-note">
-      Je bestelling wordt via WhatsApp naar Swim Academy Splash gestuurd.
+
+      Je bestelling wordt geregistreerd en daarna opent
+      WhatsApp om de bestelling naar Swim Academy Splash
+      te versturen.
+
     </div>
 
+
   </div>
+
 
 
   <button
     id="whatsapp-button"
     class="whatsapp-button"
     onclick="orderViaWhatsApp()"
-    disabled>
+    disabled
+  >
 
     Bestellen via WhatsApp
 
   </button>
 
+
 </div>
 
 
-<!-- =================================
+
+<!-- ========================================
      FOOTER
-     ================================= -->
+     ======================================== -->
 
 <footer>
 
+
   <strong>
+
     Swim Academy Splash Bonaire
+
   </strong>
 
+
   <span>
+
     Beach & Bandits Collection
+
   </span>
+
 
 </footer>
 
@@ -870,56 +1871,89 @@
 <script>
 
 
-/* =========================================
+/* ========================================
    INSTELLINGEN
-   ========================================= */
+   ======================================== */
+
 
 const SHEET_URL =
+
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2DKu6fWuRkN-ObpGllK529agQRPeec31wsGBEukP_zva2ExkLMA7_KBZ2xPCHXifHgqHtxxuvIjXV/pub?gid=0&single=true&output=csv";
 
 
+
+const ORDER_WEB_APP_URL =
+
+  "https://script.google.com/macros/s/AKfycbxcCMCY7wZMVjbPejP1H40dewn8sh7QyRpJgo0Lt7RMIRsbKqrSaf_muTNcdYUFMqR_yw/exec";
+
+
+
 const WHATSAPP_NUMBER =
+
   "5997777775";
+
 
 
 let cart = [];
 
 let shopProducts = [];
 
+let orderIsBeingSent = false;
 
-/* =========================================
+
+
+/* ========================================
    GOOGLE SHEET LADEN
-   ========================================= */
+   ======================================== */
+
 
 Papa.parse(
+
   SHEET_URL,
+
   {
 
+
     download: true,
+
     header: true,
+
     skipEmptyLines: true,
+
+
 
     complete: function(results) {
 
+
       document
-        .getElementById("loading")
-        .style.display = "none";
+        .getElementById(
+          "loading"
+        )
+        .style.display =
+          "none";
 
 
       shopProducts =
         results.data;
 
 
+
       if (
         shopProducts.length === 0
       ) {
 
+
         showError(
+
           "Er zijn momenteel geen producten beschikbaar."
+
         );
 
+
         return;
+
       }
+
 
 
       renderProducts();
@@ -927,15 +1961,22 @@ Papa.parse(
     },
 
 
+
     error: function(error) {
 
+
       document
-        .getElementById("loading")
-        .style.display = "none";
+        .getElementById(
+          "loading"
+        )
+        .style.display =
+          "none";
 
 
       showError(
+
         "De producten konden niet worden geladen."
+
       );
 
 
@@ -945,99 +1986,195 @@ Papa.parse(
 
     }
 
+
   }
+
 );
 
 
-/* =========================================
-   PRIJS UITLEZEN
-   ========================================= */
 
-function getPrice(product) {
+/* ========================================
+   PRIJS
+   ======================================== */
+
+
+function getPrice(
+  product
+) {
+
 
   const priceKey =
-    Object.keys(product)
-      .find(key => {
+
+    Object.keys(
+      product
+    )
+    .find(
+      key => {
+
 
         const normalized =
+
           key
-            .trim()
-            .toLowerCase();
+          .trim()
+          .toLowerCase();
+
 
         return (
-          normalized.startsWith("prijs") ||
-          normalized === "price"
+
+          normalized.startsWith(
+            "prijs"
+          )
+
+          ||
+
+          normalized ===
+            "price"
+
         );
 
-      });
+      }
+    );
+
 
 
   const rawPrice =
+
     priceKey
-      ? product[priceKey]
+
+      ? product[
+          priceKey
+        ]
+
       : "0";
 
 
+
   const cleaned =
-    String(rawPrice)
-      .replace(/[^\d,.-]/g, "")
-      .replace(",", ".");
+
+    String(
+      rawPrice
+    )
+
+    .replace(
+      /[^\d,.-]/g,
+      ""
+    )
+
+    .replace(
+      ",",
+      "."
+    );
+
 
 
   return (
-    parseFloat(cleaned) || 0
+
+    parseFloat(
+      cleaned
+    )
+
+    || 0
+
   );
 
 }
 
 
-/* =========================================
-   PRODUCTEN TONEN
-   ========================================= */
+
+/* ========================================
+   PRODUCTEN
+   ======================================== */
+
 
 function renderProducts() {
 
+
   const container =
+
     document.getElementById(
       "products"
     );
 
 
-  container.innerHTML = "";
+  container.innerHTML =
+    "";
+
 
 
   shopProducts.forEach(
-    (product, index) => {
+
+    (
+      product,
+      index
+    ) => {
 
 
       const sizes =
-        Object.keys(product)
-          .filter(column => {
+
+        Object.keys(
+          product
+        )
+
+        .filter(
+          column => {
 
             return /^\d+$/.test(
+
               column.trim()
+
             );
 
-          });
+          }
+        );
+
 
 
       const model =
-        product["Model"] ||
-        product["model"] ||
+
+        product[
+          "Model"
+        ]
+
+        ||
+
+        product[
+          "model"
+        ]
+
+        ||
+
         "Swimsuit";
 
 
+
       const color =
-        product["Kleur"] ||
-        product["Color"] ||
+
+        product[
+          "Kleur"
+        ]
+
+        ||
+
+        product[
+          "Color"
+        ]
+
+        ||
+
         "";
 
 
+
       const price =
-        getPrice(product);
+
+        getPrice(
+          product
+        );
+
 
 
       const card =
+
         document.createElement(
           "article"
         );
@@ -1047,127 +2184,186 @@ function renderProducts() {
         "product";
 
 
-      /* =========================
-         MATEN
-         ========================= */
 
-      let sizeButtons = "";
+      let sizeButtons =
+        "";
 
 
-      sizes.forEach(size => {
 
-        const stock =
-          Number(
-            product[size]
-          ) || 0;
+      sizes.forEach(
+
+        size => {
 
 
-        if (stock > 0) {
+          const stock =
 
-          sizeButtons += `
+            Number(
+              product[
+                size
+              ]
+            )
 
-            <button
-              class="size-button"
-              id="size-${index}-${size}"
-              onclick="
-                selectSize(
-                  ${index},
-                  '${size}',
-                  ${stock}
-                )
-              ">
+            || 0;
 
-              ${size}
 
-            </button>
 
-          `;
+          if (
+            stock > 0
+          ) {
+
+
+            sizeButtons += `
+
+
+              <button
+
+                class="size-button"
+
+                id="size-${index}-${size}"
+
+                onclick="
+                  selectSize(
+                    ${index},
+                    '${size}',
+                    ${stock}
+                  )
+                "
+              >
+
+                ${size}
+
+              </button>
+
+
+            `;
+
+
+          }
+
+
+          else {
+
+
+            sizeButtons += `
+
+
+              <button
+
+                class="size-button"
+
+                disabled
+
+                title="Uitverkocht"
+              >
+
+                ${size}
+
+              </button>
+
+
+            `;
+
+
+          }
+
 
         }
 
-        else {
-
-          sizeButtons += `
-
-            <button
-              class="size-button"
-              disabled
-              title="Uitverkocht">
-
-              ${size}
-
-            </button>
-
-          `;
-
-        }
-
-      });
+      );
 
 
-      /* =========================
-         PRODUCT
-         ========================= */
 
       card.innerHTML = `
 
+
         <div class="product-image">
 
+
           <div class="product-image-icon">
+
             🌊
+
           </div>
 
+
           <div class="product-image-text">
+
             Productfoto komt hier
+
           </div>
+
 
         </div>
 
 
+
         <div class="product-info">
 
+
           <h3>
+
             ${model}
+
           </h3>
 
+
           <div class="product-color">
+
             ${color}
+
           </div>
 
+
           <div class="product-price">
+
             $${price.toFixed(2)}
+
           </div>
+
 
 
           <div class="size-title">
+
             Kies je maat
+
           </div>
 
 
+
           <div
+
             class="sizes"
-            id="sizes-${index}">
+
+            id="sizes-${index}"
+          >
 
             ${sizeButtons}
 
           </div>
 
 
+
           <button
+
             class="add-button"
+
             onclick="
               addSelectedProductToCart(
                 ${index}
               )
-            ">
+            "
+          >
 
             Toevoegen aan winkelmandje
 
           </button>
 
+
         </div>
 
+
       `;
+
 
 
       container.appendChild(
@@ -1175,29 +2371,45 @@ function renderProducts() {
       );
 
 
-      product.selectedSize = null;
-      product.selectedStock = 0;
+
+      product.selectedSize =
+        null;
+
+
+      product.selectedStock =
+        0;
+
 
     }
+
   );
 
 }
 
 
-/* =========================================
+
+/* ========================================
    MAAT SELECTEREN
-   ========================================= */
+   ======================================== */
+
 
 function selectSize(
+
   productIndex,
+
   size,
+
   stock
+
 ) {
 
+
   const product =
+
     shopProducts[
       productIndex
     ];
+
 
 
   product.selectedSize =
@@ -1208,32 +2420,47 @@ function selectSize(
     stock;
 
 
+
   const buttons =
+
     document
+
       .getElementById(
         `sizes-${productIndex}`
       )
+
       .querySelectorAll(
         ".size-button"
       );
 
 
-  buttons.forEach(button => {
 
-    button
-      .classList
-      .remove(
-        "selected"
-      );
+  buttons.forEach(
 
-  });
+    button => {
+
+
+      button
+        .classList
+        .remove(
+          "selected"
+        );
+
+
+    }
+
+  );
+
 
 
   document
+
     .getElementById(
       `size-${productIndex}-${size}`
     )
+
     .classList
+
     .add(
       "selected"
     );
@@ -1241,121 +2468,193 @@ function selectSize(
 }
 
 
-/* =========================================
-   PRODUCT TOEVOEGEN
-   ========================================= */
+
+/* ========================================
+   TOEVOEGEN
+   ======================================== */
+
 
 function addSelectedProductToCart(
   productIndex
 ) {
 
+
   const product =
+
     shopProducts[
       productIndex
     ];
+
 
 
   if (
     !product.selectedSize
   ) {
 
+
     alert(
       "Kies eerst een maat."
     );
+
 
     return;
 
   }
 
 
+
   const model =
-    product["Model"] ||
-    product["model"] ||
+
+    product[
+      "Model"
+    ]
+
+    ||
+
+    product[
+      "model"
+    ]
+
+    ||
+
     "Swimsuit";
 
 
+
   const color =
-    product["Kleur"] ||
-    product["Color"] ||
+
+    product[
+      "Kleur"
+    ]
+
+    ||
+
+    product[
+      "Color"
+    ]
+
+    ||
+
     "";
 
 
+
   const price =
+
     getPrice(
       product
     );
 
 
+
   const size =
+
     product.selectedSize;
 
 
+
   const stock =
+
     product.selectedStock;
 
 
-  const existingItem =
-    cart.find(item =>
 
-      item.productIndex === productIndex &&
-      item.size === size
+  const existingItem =
+
+    cart.find(
+
+      item =>
+
+        item.productIndex ===
+          productIndex
+
+        &&
+
+        item.size ===
+          size
 
     );
+
 
 
   if (
     existingItem
   ) {
 
+
     if (
+
       existingItem.quantity <
       stock
+
     ) {
+
 
       existingItem.quantity++;
 
+
     }
+
 
     else {
 
+
       alert(
+
         `Er zijn maximaal ${stock} stuks van maat ${size} op voorraad.`
+
       );
+
 
       return;
 
     }
 
+
   }
+
 
   else {
 
-    cart.push({
 
-      productIndex:
-        productIndex,
+    cart.push(
+      {
 
-      model:
-        model,
 
-      color:
-        color,
+        productIndex:
+          productIndex,
 
-      price:
-        price,
 
-      size:
-        size,
+        model:
+          model,
 
-      quantity:
-        1,
 
-      stock:
-        stock
+        color:
+          color,
 
-    });
+
+        price:
+          price,
+
+
+        size:
+          size,
+
+
+        quantity:
+          1,
+
+
+        stock:
+          stock
+
+
+      }
+    );
+
 
   }
+
 
 
   updateCart();
@@ -1365,62 +2664,88 @@ function addSelectedProductToCart(
 }
 
 
-/* =========================================
-   WINKELMANDJE BIJWERKEN
-   ========================================= */
+
+/* ========================================
+   CART UPDATE
+   ======================================== */
+
 
 function updateCart() {
 
+
   const cartItems =
+
     document.getElementById(
       "cart-items"
     );
 
 
   const cartCount =
+
     document.getElementById(
       "cart-count"
     );
 
 
   const cartTotal =
+
     document.getElementById(
       "cart-total"
     );
 
 
   const whatsappButton =
+
     document.getElementById(
       "whatsapp-button"
     );
 
 
   const cartSummary =
+
     document.getElementById(
       "cart-summary"
     );
 
 
+  const customerDetails =
+
+    document.getElementById(
+      "customer-details"
+    );
+
+
+
   const totalItems =
+
     cart.reduce(
 
-      (sum, item) =>
-        sum + item.quantity,
+      (
+        sum,
+        item
+      ) =>
+
+        sum +
+        item.quantity,
 
       0
 
     );
 
 
+
   cartCount.textContent =
     totalItems;
+
 
 
   if (
     cart.length === 0
   ) {
 
+
     cartItems.innerHTML = `
+
 
       <div class="empty-cart">
 
@@ -1428,7 +2753,9 @@ function updateCart() {
 
       </div>
 
+
     `;
+
 
 
     cartTotal.textContent =
@@ -1443,12 +2770,21 @@ function updateCart() {
       "none";
 
 
+    customerDetails.style.display =
+      "none";
+
+
     return;
 
   }
 
 
+
   cartSummary.style.display =
+    "block";
+
+
+  customerDetails.style.display =
     "block";
 
 
@@ -1456,27 +2792,39 @@ function updateCart() {
     false;
 
 
+
   cartItems.innerHTML =
     "";
 
 
-  let total = 0;
+
+  let total =
+    0;
+
 
 
   cart.forEach(
-    (item, index) => {
+
+    (
+      item,
+      index
+    ) => {
 
 
       const subtotal =
+
         item.price *
         item.quantity;
+
 
 
       total +=
         subtotal;
 
 
+
       const itemDiv =
+
         document.createElement(
           "div"
         );
@@ -1486,41 +2834,57 @@ function updateCart() {
         "cart-item";
 
 
+
       itemDiv.innerHTML = `
 
+
         <strong>
+
           ${item.model}
+
         </strong>
+
 
 
         <div class="cart-item-details">
 
+
           ${item.color}
 
+
           <br>
+
 
           Maat:
           ${item.size}
 
+
           <br>
+
 
           $${item.price.toFixed(2)}
           per stuk
 
+
         </div>
+
 
 
         <div class="quantity-row">
 
+
           <div class="quantity-control">
 
+
             <button
+
               onclick="
                 changeQuantity(
                   ${index},
                   -1
                 )
-              ">
+              "
+            >
 
               −
 
@@ -1528,23 +2892,29 @@ function updateCart() {
 
 
             <span>
+
               ${item.quantity}
+
             </span>
 
 
             <button
+
               onclick="
                 changeQuantity(
                   ${index},
                   1
                 )
-              ">
+              "
+            >
 
               +
 
             </button>
 
+
           </div>
+
 
 
           <div class="subtotal">
@@ -1553,81 +2923,110 @@ function updateCart() {
 
           </div>
 
+
         </div>
 
 
+
         <button
+
           class="remove-button"
+
           onclick="
             removeFromCart(
               ${index}
             )
-          ">
+          "
+        >
 
           Verwijderen
 
         </button>
 
+
       `;
+
 
 
       cartItems.appendChild(
         itemDiv
       );
 
+
     }
+
   );
 
 
+
   cartTotal.textContent =
+
     `$${total.toFixed(2)}`;
 
 }
 
 
-/* =========================================
-   AANTAL VERANDEREN
-   ========================================= */
+
+/* ========================================
+   AANTAL
+   ======================================== */
+
 
 function changeQuantity(
+
   index,
+
   change
+
 ) {
+
 
   const item =
     cart[index];
 
 
   const newQuantity =
+
     item.quantity +
     change;
+
 
 
   if (
     newQuantity < 1
   ) {
 
+
     removeFromCart(
       index
     );
 
+
     return;
 
   }
+
 
 
   if (
+
     newQuantity >
     item.stock
+
   ) {
 
+
     alert(
+
       `Er zijn maximaal ${item.stock} stuks van deze maat op voorraad.`
+
     );
+
 
     return;
 
   }
+
 
 
   item.quantity =
@@ -1639,13 +3038,16 @@ function changeQuantity(
 }
 
 
-/* =========================================
-   VERWIJDEREN
-   ========================================= */
+
+/* ========================================
+   REMOVE
+   ======================================== */
+
 
 function removeFromCart(
   index
 ) {
+
 
   cart.splice(
     index,
@@ -1658,51 +3060,70 @@ function removeFromCart(
 }
 
 
-/* =========================================
-   CART OPENEN / SLUITEN
-   ========================================= */
+
+/* ========================================
+   CART OPEN / CLOSE
+   ======================================== */
+
 
 function openCart() {
 
+
   document
+
     .getElementById(
       "cart-panel"
     )
+
     .classList
+
     .add(
       "open"
     );
 
 
+
   document
+
     .getElementById(
       "cart-overlay"
     )
+
     .classList
+
     .add(
       "open"
     );
 
 }
+
 
 
 function closeCart() {
 
+
   document
+
     .getElementById(
       "cart-panel"
     )
+
     .classList
+
     .remove(
       "open"
     );
 
 
+
   document
+
     .getElementById(
       "cart-overlay"
     )
+
     .classList
+
     .remove(
       "open"
     );
@@ -1710,58 +3131,87 @@ function closeCart() {
 }
 
 
-/* =========================================
-   BEGROETING BONAIRE
-   ========================================= */
+
+/* ========================================
+   BONAIRE BEGROETING
+   ======================================== */
+
 
 function getBonaireGreeting() {
 
+
   const bonaireHour =
+
     new Intl.DateTimeFormat(
+
       "en-US",
+
       {
+
 
         timeZone:
           "America/Kralendijk",
 
+
         hour:
           "numeric",
+
 
         hourCycle:
           "h23"
 
+
       }
+
     )
+
     .format(
       new Date()
     );
 
 
+
   const hour =
+
     parseInt(
       bonaireHour,
       10
     );
 
 
+
   if (
-    hour >= 5 &&
+
+    hour >= 5
+
+    &&
+
     hour < 12
+
   ) {
+
 
     return "Bon dia";
 
   }
 
 
+
   if (
-    hour >= 12 &&
+
+    hour >= 12
+
+    &&
+
     hour < 18
+
   ) {
+
 
     return "Bon tardi";
 
   }
+
 
 
   return "Bon nochi";
@@ -1769,33 +3219,411 @@ function getBonaireGreeting() {
 }
 
 
-/* =========================================
-   WHATSAPP
-   ========================================= */
+
+/* ========================================
+   BESTELLING
+   ======================================== */
+
 
 function orderViaWhatsApp() {
+
 
   if (
     cart.length === 0
   ) {
 
+
     alert(
       "Je winkelmandje is leeg."
     );
+
 
     return;
 
   }
 
 
+
+  const customerName =
+
+    document
+
+      .getElementById(
+        "customer-name"
+      )
+
+      .value
+
+      .trim();
+
+
+
+  const phone =
+
+    document
+
+      .getElementById(
+        "customer-phone"
+      )
+
+      .value
+
+      .trim();
+
+
+
+  const pickupDate =
+
+    document
+
+      .getElementById(
+        "pickup-date"
+      )
+
+      .value;
+
+
+
+  const remark =
+
+    document
+
+      .getElementById(
+        "customer-remark"
+      )
+
+      .value
+
+      .trim();
+
+
+
+  if (
+    !customerName
+  ) {
+
+
+    alert(
+      "Vul je naam in."
+    );
+
+
+    document
+      .getElementById(
+        "customer-name"
+      )
+      .focus();
+
+
+    return;
+
+  }
+
+
+
+  if (
+    !phone
+  ) {
+
+
+    alert(
+      "Vul je telefoonnummer in."
+    );
+
+
+    document
+      .getElementById(
+        "customer-phone"
+      )
+      .focus();
+
+
+    return;
+
+  }
+
+
+
+  if (
+    orderIsBeingSent
+  ) {
+
+
+    return;
+
+  }
+
+
+
+  orderIsBeingSent =
+    true;
+
+
+
+  const whatsappButton =
+
+    document.getElementById(
+      "whatsapp-button"
+    );
+
+
+
+  whatsappButton.disabled =
+    true;
+
+
+  whatsappButton.textContent =
+    "Bestelling verwerken...";
+
+
+
+  /*
+    We openen alvast een leeg tabblad.
+    Daardoor blokkeert de browser WhatsApp
+    niet nadat Google Sheets klaar is.
+  */
+
+  const whatsappWindow =
+
+    window.open(
+      "",
+      "_blank"
+    );
+
+
+
+  const items =
+
+    cart.map(
+
+      item => {
+
+
+        return {
+
+
+          model:
+            item.model,
+
+
+          color:
+            item.color,
+
+
+          size:
+            item.size,
+
+
+          quantity:
+            item.quantity,
+
+
+          price:
+            item.price,
+
+
+          subtotal:
+
+            item.price *
+            item.quantity
+
+
+        };
+
+
+      }
+
+    );
+
+
+
+  const orderData = {
+
+
+    customerName:
+      customerName,
+
+
+    phone:
+      phone,
+
+
+    pickupDate:
+      pickupDate,
+
+
+    remark:
+      remark,
+
+
+    items:
+      items
+
+
+  };
+
+
+
+  fetch(
+
+    ORDER_WEB_APP_URL,
+
+    {
+
+
+      method:
+        "POST",
+
+
+      mode:
+        "no-cors",
+
+
+      headers: {
+
+
+        "Content-Type":
+          "text/plain;charset=utf-8"
+
+
+      },
+
+
+      body:
+
+        JSON.stringify(
+          orderData
+        )
+
+
+    }
+
+  )
+
+
+  .then(
+    () => {
+
+
+      openWhatsApp(
+
+        customerName,
+
+        phone,
+
+        pickupDate,
+
+        remark,
+
+        whatsappWindow
+
+      );
+
+
+
+      whatsappButton.textContent =
+        "Bestellen via WhatsApp";
+
+
+      whatsappButton.disabled =
+        false;
+
+
+      orderIsBeingSent =
+        false;
+
+
+    }
+
+  )
+
+
+  .catch(
+
+    error => {
+
+
+      console.error(
+
+        "Bestelling kon niet worden opgeslagen:",
+
+        error
+
+      );
+
+
+
+      if (
+        whatsappWindow
+      ) {
+
+        whatsappWindow.close();
+
+      }
+
+
+
+      alert(
+
+        "Er ging iets mis bij het registreren van de bestelling. Probeer het opnieuw."
+
+      );
+
+
+
+      whatsappButton.textContent =
+        "Bestellen via WhatsApp";
+
+
+      whatsappButton.disabled =
+        false;
+
+
+      orderIsBeingSent =
+        false;
+
+
+    }
+
+  );
+
+}
+
+
+
+/* ========================================
+   WHATSAPP
+   ======================================== */
+
+
+function openWhatsApp(
+
+  customerName,
+
+  phone,
+
+  pickupDate,
+
+  remark,
+
+  whatsappWindow
+
+) {
+
+
   const greeting =
+
     getBonaireGreeting();
 
 
-  let total = 0;
+
+  let total =
+    0;
+
 
 
   let message =
+
 `${greeting} Swim Academy Splash! 👋
 
 Ik wil graag de volgende bestelling plaatsen:
@@ -1803,18 +3631,26 @@ Ik wil graag de volgende bestelling plaatsen:
 `;
 
 
-  cart.forEach(item => {
 
-    const subtotal =
-      item.price *
-      item.quantity;
+  cart.forEach(
 
-
-    total +=
-      subtotal;
+    item => {
 
 
-    message +=
+      const subtotal =
+
+        item.price *
+        item.quantity;
+
+
+
+      total +=
+        subtotal;
+
+
+
+      message +=
+
 `${item.quantity}x ${item.model}
 Kleur: ${item.color}
 Maat: ${item.size}
@@ -1823,65 +3659,192 @@ Subtotaal: $${subtotal.toFixed(2)}
 
 `;
 
-  });
+
+    }
+
+  );
+
 
 
   message +=
+
 `Totaal: $${total.toFixed(2)}
 
-Naam:
-Gewenste ophaaltijd:
-Opmerking:`;
+Naam: ${customerName}
+Telefoonnummer: ${phone}`;
+
+
+
+  if (
+    pickupDate
+  ) {
+
+
+    message +=
+
+`
+Gewenste ophaaldatum: ${formatPickupDate(pickupDate)}`;
+
+
+  }
+
+
+
+  if (
+    remark
+  ) {
+
+
+    message +=
+
+`
+Opmerking: ${remark}`;
+
+
+  }
+
 
 
   const encodedMessage =
+
     encodeURIComponent(
       message
     );
 
 
+
   const whatsappUrl =
+
     `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
 
 
-  window.open(
-    whatsappUrl,
-    "_blank"
+
+  if (
+    whatsappWindow
+  ) {
+
+
+    whatsappWindow.location.href =
+      whatsappUrl;
+
+
+  }
+
+
+  else {
+
+
+    window.location.href =
+      whatsappUrl;
+
+
+  }
+
+}
+
+
+
+/* ========================================
+   DATUM
+   ======================================== */
+
+
+function formatPickupDate(
+  dateValue
+) {
+
+
+  if (
+    !dateValue
+  ) {
+
+
+    return "";
+
+  }
+
+
+
+  const parts =
+
+    dateValue.split(
+      "-"
+    );
+
+
+
+  if (
+    parts.length !== 3
+  ) {
+
+
+    return dateValue;
+
+  }
+
+
+
+  return (
+
+    parts[2]
+
+    + "-"
+
+    + parts[1]
+
+    + "-"
+
+    + parts[0]
+
   );
 
 }
 
 
-/* =========================================
-   FOUT
-   ========================================= */
+
+/* ========================================
+   ERROR
+   ======================================== */
+
 
 function showError(
   message
 ) {
 
+
   document
+
     .getElementById(
       "products"
     )
+
     .innerHTML = `
 
+
       <div class="error">
+
         ${message}
+
       </div>
+
 
     `;
 
 }
 
 
-/* =========================================
+
+/* ========================================
    START
-   ========================================= */
+   ======================================== */
+
 
 updateCart();
 
+
 </script>
 
+
 </body>
+
 </html>
