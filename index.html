@@ -3491,25 +3491,13 @@ function renderProducts() {
     ) => {
 
 
-      const sizes =
-
-        Object.keys(
-          product
-        )
-
-        .filter(
-
-          column => {
-
-            return /^\d+(\/\d+)?$/.test(
-
-              column.trim()
-
-            );
-
-          }
-
-        );
+const sizes =
+  Object.keys(product)
+    .filter(column => {
+      return /^\d+(\s*\/\s*\d+)?$/.test(
+        column.trim()
+      );
+    });
 
 
       const model =
