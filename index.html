@@ -2,2386 +2,1602 @@
 <html lang="nl">
 
 <head>
-  <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>
-    Beach & Bandits | Swim Academy Splash Bonaire
-  </title>
+<title>Beach & Bandits | Swim Academy Splash Bonaire</title>
 
-  <!-- GOOGLE SHEET CSV LEZER -->
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-  <style>
+<style>
 
-    /* =====================================================
-       BASIS
-       ===================================================== */
+* {
+  box-sizing: border-box;
+}
 
-    * {
-      box-sizing: border-box;
-    }
+:root {
+  --midnight: #1e556b;
+  --ocean: #17759b;
+  --aqua: #79cab6;
+  --orange: #e37325;
 
-    :root {
+  --white: #ffffff;
+  --sand: #faf8f4;
+  --soft-aqua: #eef9f6;
+  --soft-blue: #eef7fb;
+  --soft-orange: #fff4ea;
 
-      --midnight: #1e556b;
-      --ocean: #17759b;
-      --aqua: #79cab6;
-      --orange: #e37325;
-      --sky: #71c0e0;
+  --text: #244b5c;
+  --muted: #748a93;
+  --border: #deeaed;
+}
 
-      --white: #ffffff;
+html {
+  scroll-behavior: smooth;
+}
 
-      --soft-aqua: #eef9f6;
-      --soft-blue: #eef7fb;
-      --soft-orange: #fff4ea;
-      --soft-sand: #faf8f4;
+body {
+  margin: 0;
 
-      --text: #244b5c;
-      --muted: #748a93;
-      --border: #deeaed;
+  font-family:
+    "Arial Rounded MT Bold",
+    "Trebuchet MS",
+    Arial,
+    sans-serif;
 
-    }
+  color: var(--text);
+  background: white;
+}
 
-    html {
-      scroll-behavior: smooth;
-    }
+body.no-scroll {
+  overflow: hidden;
+}
 
-    body {
-      margin: 0;
+button,
+input,
+textarea {
+  font-family: inherit;
+}
 
-      font-family:
-        "Arial Rounded MT Bold",
-        "Trebuchet MS",
-        Arial,
-        sans-serif;
+button {
+  cursor: pointer;
+}
 
-      color: var(--text);
-      background: var(--white);
-    }
+img {
+  display: block;
+  max-width: 100%;
+}
 
-    body.no-scroll {
-      overflow: hidden;
-    }
 
-    button,
-    input,
-    textarea {
-      font-family: inherit;
-    }
+/* =====================================================
+   TOPBAR
+   ===================================================== */
 
-    button {
-      -webkit-tap-highlight-color: transparent;
-    }
+.announcement {
+  padding: 9px 20px;
 
-    img {
-      max-width: 100%;
-    }
+  background: var(--midnight);
+  color: white;
 
+  text-align: center;
 
+  font-size: 11px;
 
-    /* =====================================================
-       TOPBAR
-       ===================================================== */
+  letter-spacing: .8px;
+  text-transform: uppercase;
+}
 
-    .announcement {
-      background: var(--midnight);
-      color: white;
 
-      padding: 9px 20px;
+/* =====================================================
+   NAVBAR
+   ===================================================== */
 
-      font-size: 11px;
-      letter-spacing: .8px;
-      text-transform: uppercase;
-    }
+.navbar {
+  max-width: 1200px;
 
-    .announcement-inner {
-      max-width: 1200px;
-      margin: auto;
+  margin: auto;
+  padding: 16px 25px;
 
-      text-align: center;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
+  gap: 20px;
+}
 
+.brand {
+  color: var(--midnight);
 
-    /* =====================================================
-       NAVIGATIE
-       ===================================================== */
+  font-size: 17px;
+  font-weight: 800;
 
-    .navbar {
-      max-width: 1200px;
+  letter-spacing: .8px;
+}
 
-      margin: auto;
-      padding: 16px 25px;
+.brand span {
+  display: block;
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+  margin-top: 3px;
 
-      gap: 20px;
+  color: var(--muted);
 
-      background: white;
-    }
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: normal;
 
-    .brand-text {
-      color: var(--midnight);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
 
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: .8px;
-    }
+.cart-button {
+  padding: 11px 17px;
 
-    .brand-text span {
-      display: block;
+  border: none;
+  border-radius: 30px;
 
-      margin-top: 2px;
+  background: var(--midnight);
+  color: white;
 
-      color: var(--muted);
+  font-size: 13px;
+  font-weight: bold;
+}
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+.cart-button:hover {
+  background: var(--ocean);
+}
 
-      font-size: 10px;
-      font-weight: normal;
 
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-    }
+/* =====================================================
+   HERO
+   ===================================================== */
 
-    .cart-button {
-      border: none;
+.hero {
+  position: relative;
 
-      background: var(--midnight);
-      color: white;
+  height: min(72vh, 720px);
+  min-height: 520px;
 
-      padding: 11px 17px;
+  overflow: hidden;
 
-      border-radius: 30px;
+  background:
+    linear-gradient(
+      130deg,
+      rgba(30,85,107,.30),
+      rgba(23,117,155,.05)
+    ),
+    linear-gradient(
+      135deg,
+      #83d5ca,
+      #e9f7ed 55%,
+      #f6d6a9
+    );
 
-      cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-      font-size: 13px;
-      font-weight: bold;
+.hero::before {
+  content: "";
 
-      transition:
-        transform .2s ease,
-        background .2s ease;
-    }
+  position: absolute;
+  inset: 0;
 
-    .cart-button:hover {
-      background: var(--ocean);
+  background:
+    radial-gradient(
+      circle at 75% 22%,
+      rgba(255,255,255,.28),
+      transparent 25%
+    );
+}
 
-      transform: translateY(-1px);
-    }
+.hero-content {
+  position: relative;
+  z-index: 2;
 
+  max-width: 750px;
 
+  padding: 40px 30px;
 
-    /* =====================================================
-       HERO
-       ===================================================== */
+  text-align: center;
+  color: white;
+}
 
-    .hero-slider {
-      position: relative;
+.hero-label {
+  display: inline-block;
 
-      width: 100%;
+  padding: 8px 14px;
+  margin-bottom: 16px;
 
-      height: min(72vh, 720px);
-      min-height: 520px;
+  border-radius: 30px;
 
-      overflow: hidden;
+  background: rgba(255,255,255,.92);
+  color: var(--midnight);
 
-      background: var(--soft-aqua);
-    }
+  font-size: 11px;
 
-    .slides {
-      display: flex;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
 
-      height: 100%;
+.hero h1 {
+  margin: 0;
 
-      transition: transform .65s ease;
-    }
+  font-size: clamp(46px, 8vw, 82px);
 
-    .slide {
-      position: relative;
+  line-height: .95;
+  letter-spacing: -2px;
+}
 
-      min-width: 100%;
-      height: 100%;
+.hero p {
+  max-width: 570px;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  margin: 23px auto 0;
 
-      overflow: hidden;
-    }
+  font-family: Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+}
 
-    .slide-one {
-      background:
-        linear-gradient(
-          130deg,
-          rgba(30,85,107,.30),
-          rgba(23,117,155,.06)
-        ),
-        linear-gradient(
-          135deg,
-          #83d5ca,
-          #e9f7ed 55%,
-          #f6d6a9
-        );
-    }
+.primary-link {
+  display: inline-block;
 
-    .slide-two {
-      background:
-        linear-gradient(
-          130deg,
-          rgba(23,117,155,.16),
-          rgba(227,115,37,.12)
-        ),
-        linear-gradient(
-          135deg,
-          #bae7ef,
-          #f8efe1 50%,
-          #7bcab6
-        );
-    }
+  margin-top: 28px;
+  padding: 14px 24px;
 
-    .slide-three {
-      background:
-        linear-gradient(
-          130deg,
-          rgba(30,85,107,.23),
-          rgba(121,202,182,.08)
-        ),
-        linear-gradient(
-          135deg,
-          #f7dfb8,
-          #84ccbb 48%,
-          #7ac1df
-        );
-    }
+  border-radius: 30px;
 
-    .slide::before {
-      content: "";
+  background: white;
+  color: var(--midnight);
 
-      position: absolute;
-      inset: 0;
+  text-decoration: none;
 
-      background:
-        linear-gradient(
-          90deg,
-          rgba(15,50,65,.20),
-          rgba(15,50,65,.03) 60%
-        );
-    }
+  font-size: 13px;
+  font-weight: bold;
+}
 
-    .slide-decoration {
-      position: absolute;
 
-      width: 330px;
-      height: 330px;
+/* =====================================================
+   INTRO
+   ===================================================== */
 
-      right: 8%;
-      top: 12%;
+.intro {
+  max-width: 800px;
 
-      border-radius: 50%;
+  margin: auto;
+  padding: 75px 25px 40px;
 
-      background: rgba(255,255,255,.20);
-    }
+  text-align: center;
+}
 
-    .slide-decoration-small {
-      position: absolute;
+.small-label {
+  margin-bottom: 8px;
 
-      width: 170px;
-      height: 170px;
+  color: var(--orange);
 
-      right: 25%;
-      bottom: 8%;
+  font-size: 11px;
+  font-weight: bold;
 
-      border-radius: 50%;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+}
 
-      background: rgba(255,255,255,.18);
-    }
+.intro h2,
+.shop-heading h2 {
+  margin: 0;
 
-    .hero-content {
-      position: relative;
+  color: var(--midnight);
 
-      z-index: 5;
+  font-size: clamp(30px, 5vw, 43px);
+}
 
-      max-width: 750px;
+.intro p,
+.shop-heading p {
+  max-width: 620px;
 
-      padding: 40px 30px;
+  margin: 17px auto 0;
 
-      text-align: center;
+  color: var(--muted);
 
-      color: white;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
 
-      text-shadow:
-        0 2px 18px
-        rgba(15,50,65,.18);
-    }
 
-    .hero-small {
-      display: inline-block;
+/* =====================================================
+   ÉÉN SWIMSUITS BLOK
+   ===================================================== */
 
-      margin-bottom: 15px;
-      padding: 8px 14px;
+.category-wrap {
+  max-width: 1180px;
 
-      background: rgba(255,255,255,.92);
+  margin: auto;
+  padding: 15px 25px 80px;
+}
 
-      border-radius: 30px;
+.category-card {
+  position: relative;
 
-      color: var(--midnight);
+  min-height: 440px;
 
-      font-size: 11px;
+  padding: 32px;
 
-      letter-spacing: 1.4px;
-      text-transform: uppercase;
+  display: flex;
+  align-items: flex-end;
 
-      text-shadow: none;
-    }
+  overflow: hidden;
 
-    .hero-content h1 {
-      margin: 0;
+  border-radius: 22px;
 
-      font-size: clamp(45px, 8vw, 82px);
+  background:
+    linear-gradient(
+      150deg,
+      #80d0c0,
+      #dff4ec 55%,
+      #f4d9ac
+    );
 
-      line-height: .94;
+  color: white;
+  text-decoration: none;
+}
 
-      letter-spacing: -2px;
-    }
+.category-card::before {
+  content: "";
 
-    .hero-content p {
-      max-width: 560px;
+  position: absolute;
+  inset: 0;
 
-      margin: 23px auto 0;
+  background:
+    linear-gradient(
+      0deg,
+      rgba(20,55,70,.48),
+      transparent 65%
+    );
+}
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+.category-water {
+  position: absolute;
+  inset: 0;
 
-      font-size: 17px;
-      line-height: 1.6;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    .hero-shop-button {
-      display: inline-block;
+  font-size: 85px;
 
-      margin-top: 28px;
+  opacity: .45;
+}
 
-      padding: 14px 23px;
+.category-content {
+  position: relative;
+  z-index: 2;
+}
 
-      border-radius: 30px;
+.category-content span {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
 
-      background: white;
-      color: var(--midnight);
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
 
-      text-decoration: none;
+.category-content h3 {
+  margin: 6px 0 0;
 
-      font-size: 13px;
-      font-weight: bold;
+  font-size: 34px;
+}
 
-      text-shadow: none;
+.category-link {
+  display: inline-block;
 
-      transition:
-        transform .2s ease,
-        background .2s ease;
-    }
+  margin-top: 13px;
+  padding-bottom: 3px;
 
-    .hero-shop-button:hover {
-      transform: translateY(-2px);
+  border-bottom: 1px solid white;
 
-      background: var(--soft-aqua);
-    }
+  font-size: 12px;
+  font-weight: bold;
+}
 
 
+/* =====================================================
+   SHOP
+   ===================================================== */
 
-    /* =====================================================
-       HERO PIJLEN
-       ===================================================== */
+.shop {
+  padding-top: 1px;
 
-    .slider-arrow {
-      position: absolute;
+  background: var(--sand);
+}
 
-      z-index: 20;
+.shop-heading {
+  max-width: 760px;
 
-      top: 50%;
+  margin: auto;
+  padding: 70px 25px 10px;
 
-      transform: translateY(-50%);
+  text-align: center;
+}
 
-      width: 44px;
-      height: 44px;
+.products {
+  max-width: 1180px;
 
-      border: none;
-      border-radius: 50%;
+  margin: auto;
+  padding: 35px 25px 90px;
 
-      background: rgba(255,255,255,.88);
-      color: var(--midnight);
+  display: grid;
 
-      font-size: 25px;
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(250px, 1fr)
+    );
 
-      cursor: pointer;
+  gap: 28px;
+}
 
-      box-shadow:
-        0 4px 18px
-        rgba(20,55,70,.12);
-    }
+.loading,
+.error {
+  padding: 60px 20px;
 
-    .slider-arrow:hover {
-      background: white;
-    }
+  text-align: center;
 
-    .slider-arrow-left {
-      left: 22px;
-    }
+  color: var(--muted);
+}
 
-    .slider-arrow-right {
-      right: 22px;
-    }
 
-    .slider-dots {
-      position: absolute;
+/* =====================================================
+   PRODUCT CARD
+   ===================================================== */
 
-      z-index: 20;
+.product {
+  overflow: hidden;
 
-      left: 50%;
-      bottom: 22px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
 
-      transform: translateX(-50%);
+  background: white;
 
-      display: flex;
+  cursor: pointer;
 
-      gap: 8px;
-    }
+  transition: .2s;
+}
 
-    .slider-dot {
-      width: 9px;
-      height: 9px;
+.product:hover {
+  transform: translateY(-4px);
 
-      padding: 0;
+  box-shadow:
+    0 18px 40px
+    rgba(30,85,107,.10);
+}
 
-      border: none;
-      border-radius: 50%;
+.product-image {
+  height: 355px;
 
-      background: rgba(255,255,255,.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-      cursor: pointer;
+  overflow: hidden;
 
-      transition: .2s;
-    }
+  background: #f5f5f5;
+}
 
-    .slider-dot.active {
-      width: 26px;
+.product-image img {
+  width: 100%;
+  height: 100%;
 
-      border-radius: 8px;
+  object-fit: cover;
+}
 
-      background: white;
-    }
+.placeholder {
+  text-align: center;
 
+  color: var(--muted);
 
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
 
-    /* =====================================================
-       INTRO
-       ===================================================== */
+.placeholder span {
+  display: block;
 
-    .intro {
-      max-width: 800px;
+  margin-bottom: 10px;
 
-      margin: auto;
+  font-size: 48px;
+}
 
-      padding:
-        75px
-        25px
-        40px;
+.product-info {
+  padding: 20px;
+}
 
-      text-align: center;
-    }
+.product-info h3 {
+  margin: 0;
 
-    .intro-small {
-      margin-bottom: 8px;
+  color: var(--midnight);
 
-      color: var(--orange);
+  font-size: 20px;
+}
 
-      font-size: 11px;
-      font-weight: bold;
+.product-type {
+  margin-top: 6px;
 
-      letter-spacing: 1.7px;
-      text-transform: uppercase;
-    }
+  color: var(--muted);
 
-    .intro h2 {
-      margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
 
-      color: var(--midnight);
+.product-price {
+  margin-top: 12px;
 
-      font-size: clamp(30px, 5vw, 43px);
-    }
+  color: var(--ocean);
 
-    .intro p {
-      max-width: 620px;
+  font-size: 19px;
+  font-weight: bold;
+}
 
-      margin: 17px auto 0;
+.view-product {
+  display: inline-block;
 
-      color: var(--muted);
+  margin-top: 17px;
+  padding-bottom: 3px;
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+  border-bottom: 1px solid var(--midnight);
 
-      font-size: 15px;
-      line-height: 1.7;
-    }
+  color: var(--midnight);
 
+  font-size: 12px;
+  font-weight: bold;
+}
 
 
-    /* =====================================================
-       ÉÉN BREDE SWIMSUITS TEGEL
-       ===================================================== */
+/* =====================================================
+   PRODUCT DETAIL
+   ===================================================== */
 
-    .visual-categories {
-      max-width: 1180px;
+.product-overlay {
+  position: fixed;
 
-      margin: auto;
+  inset: 0;
 
-      padding:
-        15px
-        25px
-        80px;
-    }
+  z-index: 2500;
 
-    .visual-card {
-      position: relative;
+  visibility: hidden;
+  opacity: 0;
 
-      width: 100%;
-      min-height: 450px;
+  background: rgba(0,0,0,.35);
 
-      border-radius: 22px;
+  transition: .2s;
+}
 
-      overflow: hidden;
+.product-overlay.open {
+  visibility: visible;
+  opacity: 1;
+}
 
-      display: flex;
-      align-items: flex-end;
+.product-page {
+  position: fixed;
 
-      text-decoration: none;
+  inset: 0;
 
-      isolation: isolate;
+  z-index: 2600;
 
-      background:
-        linear-gradient(
-          145deg,
-          #80d0c0,
-          #dff4ec 55%,
-          #f4d8ac
-        );
-    }
+  overflow-y: auto;
 
-    .visual-card::before {
-      content: "";
+  background: white;
 
-      position: absolute;
-      inset: 0;
+  transform: translateY(100%);
 
-      z-index: -1;
+  transition: .3s;
+}
 
-      background:
-        linear-gradient(
-          0deg,
-          rgba(20,55,70,.43),
-          rgba(20,55,70,.02) 65%
-        );
-    }
+.product-page.open {
+  transform: translateY(0);
+}
 
-    .visual-placeholder {
-      position: absolute;
-      inset: 0;
+.product-topbar {
+  position: sticky;
 
-      z-index: -2;
+  top: 0;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  z-index: 30;
 
-      font-size: 85px;
+  padding: 14px 24px;
 
-      color: rgba(255,255,255,.68);
-    }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    .visual-content {
-      padding: 32px;
+  border-bottom: 1px solid var(--border);
 
-      color: white;
-    }
+  background: rgba(255,255,255,.97);
+}
 
-    .visual-content span {
-      display: block;
+.product-topbar button {
+  border: none;
 
-      margin-bottom: 7px;
+  background: transparent;
+  color: var(--midnight);
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+  font-weight: bold;
+}
 
-      font-size: 11px;
+.close-product {
+  width: 38px;
+  height: 38px;
 
-      letter-spacing: 1.4px;
-      text-transform: uppercase;
-    }
+  border-radius: 50% !important;
 
-    .visual-content h3 {
-      margin: 0;
+  background: var(--soft-blue) !important;
 
-      font-size: 34px;
-    }
+  font-size: 23px;
+}
 
-    .visual-link {
-      display: inline-block;
+.product-detail {
+  max-width: 1200px;
 
-      margin-top: 13px;
+  margin: auto;
+  padding: 38px 25px 75px;
 
-      padding-bottom: 3px;
+  display: grid;
 
-      border-bottom:
-        1px solid
-        rgba(255,255,255,.85);
+  grid-template-columns:
+    minmax(0, 1.05fr)
+    minmax(330px, .95fr);
 
-      font-size: 12px;
-      font-weight: bold;
-    }
+  gap: 55px;
+}
 
 
+/* GALLERY */
 
-    /* =====================================================
-       SHOP
-       ===================================================== */
+.main-image {
+  aspect-ratio: 1 / 1;
 
-    .shop-section {
-      background: var(--soft-sand);
+  overflow: hidden;
 
-      padding-top: 1px;
-    }
+  background: #f4f4f4;
+}
 
-    .shop-heading {
-      max-width: 760px;
+.main-image img {
+  width: 100%;
+  height: 100%;
 
-      margin: auto;
+  object-fit: contain;
+}
 
-      padding:
-        70px
-        25px
-        10px;
+.image-placeholder {
+  height: 100%;
 
-      text-align: center;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    .shop-heading-label {
-      margin-bottom: 9px;
+  color: var(--muted);
 
-      color: var(--orange);
+  font-family: Arial, sans-serif;
+}
 
-      font-size: 11px;
-      font-weight: bold;
+.thumbnails {
+  margin-top: 14px;
 
-      letter-spacing: 1.7px;
-      text-transform: uppercase;
-    }
+  display: grid;
 
-    .shop-heading h2 {
-      margin: 0;
+  grid-template-columns:
+    repeat(4, 1fr);
 
-      color: var(--midnight);
+  gap: 12px;
+}
 
-      font-size: clamp(31px, 5vw, 42px);
-    }
+.thumb {
+  padding: 0;
 
-    .shop-heading p {
-      margin: 14px auto 0;
+  aspect-ratio: 1;
 
-      color: var(--muted);
+  overflow: hidden;
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+  border: 2px solid transparent;
 
-      line-height: 1.6;
-    }
+  background: #f5f5f5;
+}
 
-    .loading,
-    .error {
-      padding: 60px 20px;
+.thumb.active {
+  border-color: #3f160d;
+}
 
-      text-align: center;
+.thumb img {
+  width: 100%;
+  height: 100%;
 
-      color: var(--muted);
-    }
+  object-fit: cover;
+}
 
-    .products {
-      max-width: 1180px;
 
-      margin: auto;
+/* PRODUCTINFO */
 
-      padding:
-        35px
-        25px
-        90px;
+.detail-label {
+  color: var(--orange);
 
-      display: grid;
+  font-size: 10px;
+  font-weight: bold;
 
-      grid-template-columns:
-        repeat(
-          auto-fit,
-          minmax(270px, 1fr)
-        );
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
 
-      gap: 28px;
-    }
+.detail-title {
+  margin: 10px 0 5px;
 
+  color: var(--midnight);
 
+  font-size: clamp(32px, 4vw, 48px);
 
-    /* =====================================================
-       PRODUCTKAART
-       ===================================================== */
+  line-height: 1.05;
+}
 
-    .product {
-      overflow: hidden;
+.detail-type {
+  color: var(--muted);
 
-      background: white;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
 
-      border:
-        1px solid
-        var(--border);
+.detail-price {
+  margin-top: 17px;
 
-      border-radius: 20px;
+  color: #21120d;
 
-      cursor: pointer;
+  font-size: 23px;
+  font-weight: bold;
+}
 
-      transition:
-        transform .22s ease,
-        box-shadow .22s ease;
-    }
+.detail-description {
+  margin-top: 21px;
 
-    .product:hover {
-      transform: translateY(-4px);
+  color: var(--text);
 
-      box-shadow:
-        0
-        18px
-        40px
-        rgba(30,85,107,.10);
-    }
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+}
 
-    .product-image {
-      height: 360px;
 
-      background:
-        linear-gradient(
-          145deg,
-          #f0faf8,
-          #f9f1e6
-        );
+/* SIZE */
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+.size-heading {
+  margin: 26px 0 10px;
 
-      color: var(--ocean);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-      overflow: hidden;
-    }
+  gap: 20px;
 
-    .product-image img {
-      width: 100%;
-      height: 100%;
+  color: #21120d;
 
-      object-fit: cover;
+  font-size: 13px;
+}
 
-      display: block;
-    }
+.size-guide-button {
+  padding: 0;
 
-    .product-image-icon {
-      margin-bottom: 10px;
+  border: none;
 
-      font-size: 49px;
-    }
+  background: transparent;
+  color: var(--ocean);
 
-    .product-image-text {
-      color: var(--muted);
+  font-size: 11px;
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+  text-decoration: underline;
+}
 
-      font-size: 12px;
-    }
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
 
-    .product-info {
-      padding: 22px;
-    }
+  gap: 8px;
+}
 
-    .product h3 {
-      margin: 0;
+.size-button {
+  min-width: 94px;
 
-      color: var(--midnight);
+  padding: 14px 17px;
 
-      font-size: 21px;
-    }
+  border: 1px solid #ddd;
 
-    .product-color {
-      margin-top: 6px;
+  background: white;
+  color: #31160e;
 
-      color: var(--muted);
+  font-size: 14px;
+}
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+.size-button:hover:not(:disabled) {
+  border-color: #39170e;
+}
 
-      font-size: 13px;
-    }
+.size-button.selected {
+  border: 2px solid #39170e;
+}
 
-    .product-price {
-      margin-top: 13px;
+.size-button:disabled {
+  color: #d8d5d2;
 
-      color: var(--ocean);
+  cursor: not-allowed;
 
-      font-size: 19px;
-      font-weight: bold;
-    }
+  text-decoration: line-through;
+}
 
-    .product-mini-features {
-      display: flex;
-      flex-wrap: wrap;
 
-      gap: 7px;
+/* STOCK */
 
-      margin-top: 15px;
-    }
+.stock-message {
+  margin-top: 19px;
+  padding: 15px 0;
 
-    .mini-feature {
-      padding: 6px 9px;
+  border-top: 1px solid #eee8e4;
+  border-bottom: 1px solid #eee8e4;
 
-      border-radius: 20px;
+  color: var(--muted);
 
-      background: var(--soft-aqua);
-      color: var(--midnight);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+.stock-message.available {
+  color: #08b948;
+}
 
-      font-size: 10px;
-    }
+.stock-dot {
+  display: inline-block;
 
-    .product-card-link {
-      display: inline-flex;
+  width: 8px;
+  height: 8px;
 
-      margin-top: 18px;
+  margin-right: 8px;
 
-      padding-bottom: 3px;
+  border-radius: 50%;
 
-      border-bottom:
-        1px solid
-        var(--midnight);
+  background: currentColor;
+}
 
-      color: var(--midnight);
 
-      font-size: 12px;
-      font-weight: bold;
-    }
+/* QUANTITY */
 
+.quantity-section {
+  margin-top: 18px;
+}
 
+.quantity-label {
+  margin-bottom: 8px;
 
-    /* =====================================================
-       MAATKNOPPEN
-       ===================================================== */
+  color: #21120d;
 
-    .sizes {
-      display: flex;
-      flex-wrap: wrap;
+  font-size: 12px;
+  font-weight: bold;
+}
 
-      gap: 7px;
-    }
+.quantity {
+  display: inline-flex;
+  align-items: center;
 
-    .size-button {
-      min-width: 51px;
+  border: 1px solid #ddd;
+}
 
-      padding: 9px 11px;
+.quantity button {
+  width: 40px;
+  height: 40px;
 
-      border:
-        1px solid
-        #cadcdf;
+  border: none;
 
-      border-radius: 9px;
+  background: white;
 
-      background: white;
-      color: var(--midnight);
+  font-size: 20px;
+}
 
-      cursor: pointer;
+.quantity span {
+  min-width: 42px;
 
-      font-size: 13px;
+  text-align: center;
 
-      transition: .15s;
-    }
+  font-weight: bold;
+}
 
-    .size-button:hover:not(:disabled) {
-      border-color: var(--aqua);
 
-      background: var(--soft-aqua);
-    }
+/* CART BUTTON */
 
-    .size-button.selected {
-      border-color: var(--midnight);
+.add-detail-button {
+  width: 100%;
 
-      background: var(--midnight);
-      color: white;
-    }
+  margin-top: 15px;
+  padding: 18px;
 
-    .size-button:disabled {
-      background: #f1f3f3;
-      color: #b6bfc1;
+  border: none;
 
-      cursor: not-allowed;
+  background: black;
+  color: white;
 
-      text-decoration: line-through;
-    }
+  font-size: 13px;
+  font-weight: bold;
 
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
 
+.add-detail-button:hover {
+  background: #222;
+}
 
-    /* =====================================================
-       PRODUCT DETAIL
-       ===================================================== */
 
-    .product-detail-overlay {
-      position: fixed;
+/* PRODUCT BULLETS */
 
-      inset: 0;
+.product-benefits {
+  margin: 29px 0 0;
+  padding-left: 22px;
 
-      z-index: 2500;
+  color: #27130d;
 
-      background: rgba(15,45,55,.38);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+}
 
-      opacity: 0;
-      visibility: hidden;
+.product-benefits li {
+  margin: 5px 0;
+}
 
-      transition: .25s;
-    }
 
-    .product-detail-overlay.open {
-      opacity: 1;
-      visibility: visible;
-    }
+/* ACCORDIONS */
 
-    .product-detail-page {
-      position: fixed;
+.accordions {
+  margin-top: 30px;
 
-      inset: 0;
+  border-top: 1px solid var(--border);
+}
 
-      z-index: 2600;
+.accordion {
+  border-bottom: 1px solid var(--border);
+}
 
-      background: white;
+.accordion-header {
+  width: 100%;
 
-      overflow-y: auto;
+  padding: 18px 0;
 
-      transform: translateY(100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-      transition: transform .32s ease;
-    }
+  border: none;
 
-    .product-detail-page.open {
-      transform: translateY(0);
-    }
+  background: transparent;
+  color: var(--midnight);
 
-    .product-detail-topbar {
-      position: sticky;
+  text-align: left;
 
-      top: 0;
+  font-size: 13px;
+  font-weight: bold;
+}
 
-      z-index: 20;
+.accordion-content {
+  display: none;
 
-      padding: 15px 24px;
+  padding-bottom: 20px;
 
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+  color: #596f78;
 
-      gap: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.7;
+}
 
-      background: rgba(255,255,255,.97);
+.accordion.open .accordion-content {
+  display: block;
+}
 
-      border-bottom:
-        1px solid
-        var(--border);
+.plus {
+  font-size: 20px;
 
-      backdrop-filter: blur(8px);
-    }
+  transition: .2s;
+}
 
-    .back-to-shop {
-      border: none;
+.accordion.open .plus {
+  transform: rotate(45deg);
+}
 
-      background: none;
+.care-guide p {
+  margin:
+    0
+    0
+    20px;
+}
 
-      color: var(--midnight);
+.care-guide strong {
+  color: var(--midnight);
+}
 
-      cursor: pointer;
 
-      font-size: 13px;
-      font-weight: bold;
-    }
+/* =====================================================
+   BENEFITS HOMEPAGE
+   ===================================================== */
 
-    .detail-close {
-      width: 38px;
-      height: 38px;
+.benefits-section {
+  padding: 75px 25px;
 
-      border: none;
-      border-radius: 50%;
+  background: white;
+}
 
-      background: var(--soft-blue);
-      color: var(--midnight);
+.benefits-title {
+  max-width: 700px;
 
-      cursor: pointer;
+  margin: 0 auto 40px;
 
-      font-size: 24px;
-    }
+  text-align: center;
+}
 
-    .product-detail-inner {
-      max-width: 1180px;
+.benefits-title h2 {
+  margin: 0;
 
-      margin: auto;
+  color: var(--midnight);
 
-      padding:
-        42px
-        25px
-        75px;
+  font-size: 30px;
+}
 
-      display: grid;
+.benefits-title p {
+  color: var(--muted);
 
-      grid-template-columns:
-        minmax(0, 1.2fr)
-        minmax(320px, .8fr);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
 
-      gap: 54px;
-    }
+.benefits {
+  max-width: 1050px;
 
-    .detail-gallery-main {
-      aspect-ratio: 4 / 5;
+  margin: auto;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 
-      border-radius: 18px;
+  gap: 20px;
+}
 
-      overflow: hidden;
+.benefit {
+  padding: 26px;
 
-      background: var(--soft-sand);
-    }
+  border-radius: 18px;
 
-    .detail-gallery-main img {
-      width: 100%;
-      height: 100%;
+  background: var(--soft-aqua);
 
-      object-fit: cover;
+  text-align: center;
+}
 
-      display: block;
-    }
+.benefit:nth-child(2) {
+  background: var(--soft-blue);
+}
 
-    .detail-image-placeholder {
-      text-align: center;
+.benefit:nth-child(3) {
+  background: var(--soft-orange);
+}
 
-      color: var(--muted);
+.benefit-icon {
+  margin-bottom: 12px;
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-    }
+  font-size: 30px;
+}
 
-    .detail-image-placeholder span {
-      display: block;
+.benefit strong {
+  display: block;
 
-      margin-bottom: 8px;
+  margin-bottom: 7px;
 
-      font-size: 58px;
-    }
+  color: var(--midnight);
+}
 
-    .detail-thumbnails {
-      margin-top: 12px;
+.benefit p {
+  margin: 0;
 
-      display: grid;
+  color: var(--muted);
 
-      grid-template-columns:
-        repeat(4, 1fr);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.55;
+}
 
-      gap: 10px;
-    }
 
-    .detail-thumb {
-      padding: 0;
+/* =====================================================
+   FOOT STRIP
+   ===================================================== */
 
-      aspect-ratio: 1;
+.details-strip {
+  padding: 34px 25px;
 
-      border:
-        2px solid
-        transparent;
+  background: var(--midnight);
+}
 
-      border-radius: 11px;
+.details-inner {
+  max-width: 1050px;
 
-      overflow: hidden;
+  margin: auto;
 
-      background: var(--soft-sand);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 
-      cursor: pointer;
-    }
+  gap: 18px 34px;
 
-    .detail-thumb.active {
-      border-color: var(--midnight);
-    }
+  color: #e6f0f2;
 
-    .detail-thumb img {
-      width: 100%;
-      height: 100%;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
 
-      object-fit: cover;
 
-      display: block;
-    }
+/* =====================================================
+   CART
+   ===================================================== */
 
-    .detail-label {
-      color: var(--orange);
+.cart-overlay {
+  position: fixed;
 
-      font-size: 10px;
-      font-weight: bold;
+  inset: 0;
 
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
+  z-index: 3000;
 
-    .detail-title {
-      margin:
-        10px
-        0
-        5px;
+  visibility: hidden;
+  opacity: 0;
 
-      color: var(--midnight);
+  background: rgba(15,45,55,.32);
 
-      font-size: clamp(31px, 4vw, 48px);
+  transition: .2s;
+}
 
-      line-height: 1.05;
-    }
+.cart-overlay.open {
+  visibility: visible;
+  opacity: 1;
+}
 
-    .detail-type {
-      color: var(--muted);
+.cart-panel {
+  position: fixed;
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+  z-index: 3100;
 
-      font-size: 13px;
-    }
+  top: 0;
+  right: -470px;
 
-    .detail-price {
-      margin-top: 17px;
+  width: 430px;
+  max-width: 100%;
+  height: 100vh;
 
-      color: var(--ocean);
+  padding: 27px;
 
-      font-size: 23px;
-      font-weight: bold;
-    }
+  overflow-y: auto;
 
-    .detail-description {
-      margin-top: 22px;
+  background: white;
 
-      color: var(--text);
+  transition: .3s;
+}
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+.cart-panel.open {
+  right: 0;
+}
 
-      font-size: 14px;
-      line-height: 1.7;
+.cart-header {
+  padding-bottom: 20px;
 
-      white-space: pre-line;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    .detail-size-header {
-      margin:
-        27px
-        0
-        10px;
+  border-bottom: 1px solid var(--border);
+}
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+.cart-header h2 {
+  margin: 0;
 
-      gap: 10px;
-    }
+  color: var(--midnight);
+}
 
-    .detail-size-header strong {
-      color: var(--midnight);
+.close-cart {
+  width: 38px;
+  height: 38px;
 
-      font-size: 13px;
-    }
+  border: none;
+  border-radius: 50%;
 
-    .size-guide-link {
-      padding: 0;
+  background: var(--soft-blue);
 
-      border: none;
+  font-size: 23px;
+}
 
-      background: none;
+.empty-cart {
+  padding: 35px 0;
 
-      color: var(--ocean);
+  text-align: center;
 
-      cursor: pointer;
+  color: var(--muted);
+}
 
-      font-size: 11px;
+.cart-item {
+  padding: 19px 0;
 
-      text-decoration: underline;
-    }
+  border-bottom: 1px solid var(--border);
+}
 
-    .detail-quantity {
-      margin-top: 20px;
-    }
+.cart-item strong {
+  color: var(--midnight);
+}
 
-    .detail-quantity-title {
-      margin-bottom: 9px;
+.cart-item-info {
+  margin-top: 6px;
 
-      color: var(--midnight);
+  color: var(--muted);
 
-      font-size: 12px;
-      font-weight: bold;
-    }
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+}
 
-    .detail-quantity-control {
-      display: inline-flex;
-      align-items: center;
+.cart-row {
+  margin-top: 13px;
 
-      overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-      border:
-        1px solid
-        var(--border);
+.cart-quantity {
+  display: flex;
+  align-items: center;
 
-      border-radius: 10px;
-    }
+  gap: 10px;
+}
 
-    .detail-quantity-control button {
-      width: 40px;
-      height: 40px;
+.cart-quantity button {
+  width: 31px;
+  height: 31px;
 
-      border: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
 
-      background: white;
-      color: var(--midnight);
+  background: white;
 
-      cursor: pointer;
+  font-size: 17px;
+}
 
-      font-size: 20px;
-    }
+.remove {
+  margin-top: 10px;
+  padding: 0;
 
-    .detail-quantity-control span {
-      min-width: 42px;
+  border: none;
 
-      text-align: center;
+  background: transparent;
+  color: #a65b5b;
 
-      font-weight: bold;
-    }
+  font-size: 11px;
 
-    .detail-add-button {
-      width: 100%;
+  text-decoration: underline;
+}
 
-      margin-top: 20px;
+.cart-summary {
+  margin-top: 23px;
+  padding: 16px;
 
-      padding: 15px;
+  border-radius: 12px;
 
-      border: none;
-      border-radius: 10px;
+  background: var(--soft-orange);
+}
 
-      background: var(--midnight);
-      color: white;
+.cart-total {
+  display: flex;
+  justify-content: space-between;
 
-      cursor: pointer;
+  color: var(--midnight);
 
-      font-size: 13px;
-      font-weight: bold;
-    }
+  font-size: 19px;
+  font-weight: bold;
+}
 
-    .detail-add-button:hover {
-      background: var(--ocean);
-    }
+.cart-note {
+  margin-top: 8px;
 
+  color: var(--muted);
 
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.5;
+}
 
-    /* =====================================================
-       PRODUCT ACCORDIONS
-       ===================================================== */
+.customer-form {
+  margin-top: 23px;
+  padding-top: 22px;
 
-    .detail-accordions {
-      margin-top: 27px;
+  border-top: 1px solid var(--border);
+}
 
-      border-top:
-        1px solid
-        var(--border);
-    }
+.customer-form h3 {
+  margin: 0 0 5px;
 
-    .detail-accordion {
-      border-bottom:
-        1px solid
-        var(--border);
-    }
+  color: var(--midnight);
+}
 
-    .detail-accordion button {
-      width: 100%;
+.customer-form p {
+  margin-top: 0;
 
-      padding: 18px 0;
+  color: var(--muted);
 
-      border: none;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
 
-      background: none;
-      color: var(--midnight);
+.form-group {
+  margin-bottom: 13px;
+}
 
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+.form-group label {
+  display: block;
 
-      cursor: pointer;
+  margin-bottom: 5px;
 
-      text-align: left;
+  color: var(--midnight);
 
-      font-size: 13px;
-      font-weight: bold;
-    }
+  font-size: 12px;
+  font-weight: bold;
+}
 
-    .detail-accordion-content {
-      display: none;
+.form-group input,
+.form-group textarea {
+  width: 100%;
 
-      padding:
-        0
-        0
-        18px;
+  padding: 12px 13px;
 
-      color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 9px;
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+  outline: none;
+}
 
-      font-size: 13px;
-      line-height: 1.65;
+.form-group textarea {
+  min-height: 80px;
 
-      white-space: pre-line;
-    }
+  resize: vertical;
+}
 
-    .detail-accordion.open
-    .detail-accordion-content {
-      display: block;
-    }
+.whatsapp-button {
+  width: 100%;
 
-    .accordion-symbol {
-      font-size: 20px;
+  margin-top: 15px;
+  padding: 15px;
 
-      transition: transform .2s;
-    }
+  border: none;
+  border-radius: 10px;
 
-    .detail-accordion.open
-    .accordion-symbol {
-      transform: rotate(45deg);
-    }
+  background: #25D366;
+  color: white;
 
-    .care-list {
-      margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
 
-      padding-left: 18px;
-    }
+.whatsapp-button:disabled {
+  background: #cfd6d8;
+}
 
-    .care-list li {
-      margin-bottom: 7px;
-    }
 
+/* =====================================================
+   FOOTER
+   ===================================================== */
 
+footer {
+  padding: 42px 25px;
 
-    /* =====================================================
-       VOORDELEN
-       ===================================================== */
+  background: #173f50;
+  color: white;
 
-    .benefits-section {
-      background: white;
+  text-align: center;
+}
 
-      padding:
-        75px
-        25px;
-    }
+footer strong {
+  display: block;
 
-    .benefits-heading {
-      max-width: 750px;
+  margin-bottom: 7px;
+}
 
-      margin:
-        0
-        auto
-        42px;
+footer span {
+  color: #cfe1e6;
 
-      text-align: center;
-    }
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
 
-    .benefits-heading h2 {
-      margin: 0;
 
-      color: var(--midnight);
+/* =====================================================
+   TABLET
+   ===================================================== */
 
-      font-size: 30px;
-    }
+@media(max-width: 800px) {
 
-    .benefits-heading p {
-      max-width: 580px;
+  .product-detail {
+    grid-template-columns: 1fr;
 
-      margin:
-        12px
-        auto
-        0;
+    gap: 30px;
+  }
 
-      color: var(--muted);
+  .benefits {
+    grid-template-columns: 1fr;
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    max-width: 550px;
+  }
 
-      font-size: 14px;
-      line-height: 1.6;
-    }
+}
 
-    .benefits {
-      max-width: 1050px;
 
-      margin: auto;
+/* =====================================================
+   MOBILE
+   ===================================================== */
 
-      display: grid;
+@media(max-width: 600px) {
 
-      grid-template-columns:
-        repeat(3, 1fr);
+  .announcement {
+    font-size: 9px;
+  }
 
-      gap: 20px;
-    }
+  .navbar {
+    padding: 12px 15px;
+  }
 
-    .benefit {
-      padding: 26px;
+  .brand {
+    font-size: 14px;
+  }
 
-      border-radius: 18px;
+  .brand span {
+    font-size: 8px;
+  }
 
-      background: var(--soft-aqua);
+  .cart-button {
+    padding: 10px 12px;
 
-      text-align: center;
-    }
+    font-size: 11px;
+  }
 
-    .benefit:nth-child(2) {
-      background: var(--soft-blue);
-    }
+  .hero {
+    min-height: 540px;
+  }
 
-    .benefit:nth-child(3) {
-      background: var(--soft-orange);
-    }
+  .hero h1 {
+    font-size: 48px;
+  }
 
-    .benefit-icon {
-      margin-bottom: 12px;
+  .hero p {
+    font-size: 14px;
+  }
 
-      font-size: 30px;
-    }
+  .category-wrap {
+    padding:
+      15px
+      15px
+      55px;
+  }
 
-    .benefit strong {
-      display: block;
+  .category-card {
+    min-height: 335px;
+  }
 
-      margin-bottom: 7px;
+  .products {
+    padding:
+      35px
+      15px
+      70px;
+  }
 
-      color: var(--midnight);
+  .product-image {
+    height: 350px;
+  }
 
-      font-size: 15px;
-    }
+  .product-topbar {
+    padding: 11px 13px;
+  }
 
-    .benefit p {
-      margin: 0;
+  .product-detail {
+    padding:
+      18px
+      15px
+      55px;
+  }
 
-      color: var(--muted);
+  .main-image {
+    aspect-ratio: 4 / 5;
+  }
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+  .detail-title {
+    font-size: 32px;
+  }
 
-      font-size: 12px;
-      line-height: 1.55;
-    }
+  .size-button {
+    min-width: 72px;
 
+    padding:
+      12px
+      13px;
+  }
 
+  .cart-panel {
+    width: 100%;
 
-    /* =====================================================
-       DETAILS STRIP
-       ===================================================== */
+    padding: 21px;
+  }
 
-    .details-strip {
-      padding:
-        35px
-        25px;
+}
 
-      background: var(--midnight);
-      color: white;
-    }
-
-    .details-strip-inner {
-      max-width: 1050px;
-
-      margin: auto;
-
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-
-      gap:
-        18px
-        35px;
-
-      text-align: center;
-
-      color: #e6f0f2;
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      font-size: 12px;
-    }
-
-
-
-    /* =====================================================
-       CART OVERLAY
-       ===================================================== */
-
-    .cart-overlay {
-      position: fixed;
-
-      inset: 0;
-
-      z-index: 1900;
-
-      background: rgba(15,45,55,.32);
-
-      opacity: 0;
-      visibility: hidden;
-
-      transition: .25s;
-    }
-
-    .cart-overlay.open {
-      opacity: 1;
-      visibility: visible;
-    }
-
-
-
-    /* =====================================================
-       WINKELMANDJE
-       ===================================================== */
-
-    .cart-panel {
-      position: fixed;
-
-      top: 0;
-      right: -470px;
-
-      z-index: 2000;
-
-      width: 430px;
-      max-width: 100%;
-      height: 100vh;
-
-      padding: 28px;
-
-      background: white;
-
-      overflow-y: auto;
-
-      box-shadow:
-        -10px
-        0
-        45px
-        rgba(20,55,70,.14);
-
-      transition: right .3s ease;
-    }
-
-    .cart-panel.open {
-      right: 0;
-    }
-
-    .cart-header {
-      padding-bottom: 20px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      border-bottom:
-        1px solid
-        var(--border);
-    }
-
-    .cart-header h2 {
-      margin: 0;
-
-      color: var(--midnight);
-
-      font-size: 23px;
-    }
-
-    .close-cart {
-      width: 38px;
-      height: 38px;
-
-      border: none;
-      border-radius: 50%;
-
-      background: var(--soft-blue);
-      color: var(--midnight);
-
-      font-size: 25px;
-
-      cursor: pointer;
-    }
-
-
-
-    /* =====================================================
-       CART ITEMS
-       ===================================================== */
-
-    .cart-item {
-      padding:
-        20px
-        0;
-
-      border-bottom:
-        1px solid
-        var(--border);
-    }
-
-    .cart-item strong {
-      color: var(--midnight);
-
-      font-size: 15px;
-    }
-
-    .cart-item-details {
-      margin-top: 6px;
-
-      color: var(--muted);
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .quantity-row {
-      margin-top: 14px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .quantity-control {
-      display: flex;
-      align-items: center;
-
-      gap: 11px;
-    }
-
-    .quantity-control button {
-      width: 32px;
-      height: 32px;
-
-      border:
-        1px solid
-        var(--border);
-
-      border-radius: 50%;
-
-      background: white;
-      color: var(--midnight);
-
-      cursor: pointer;
-
-      font-size: 18px;
-    }
-
-    .quantity-control span {
-      min-width: 17px;
-
-      text-align: center;
-
-      font-weight: bold;
-    }
-
-    .subtotal {
-      color: var(--midnight);
-
-      font-weight: bold;
-    }
-
-    .remove-button {
-      margin-top: 11px;
-
-      padding: 0;
-
-      border: none;
-
-      background: none;
-      color: #a65b5b;
-
-      cursor: pointer;
-
-      font-size: 11px;
-
-      text-decoration: underline;
-    }
-
-
-
-    /* =====================================================
-       CART TOTAAL
-       ===================================================== */
-
-    .cart-summary {
-      margin-top: 24px;
-
-      padding: 16px;
-
-      border-radius: 13px;
-
-      background: var(--soft-orange);
-    }
-
-    .cart-total {
-      display: flex;
-      justify-content: space-between;
-
-      color: var(--midnight);
-
-      font-size: 19px;
-      font-weight: bold;
-    }
-
-    .cart-note {
-      margin-top: 8px;
-
-      color: var(--muted);
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-
-
-    /* =====================================================
-       KLANTGEGEVENS
-       ===================================================== */
-
-    .customer-form {
-      margin-top: 23px;
-      padding-top: 22px;
-
-      border-top:
-        1px solid
-        var(--border);
-    }
-
-    .customer-form h3 {
-      margin:
-        0
-        0
-        6px;
-
-      color: var(--midnight);
-
-      font-size: 17px;
-    }
-
-    .customer-form-intro {
-      margin:
-        0
-        0
-        16px;
-
-      color: var(--muted);
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    .form-group {
-      margin-bottom: 13px;
-    }
-
-    .form-group label {
-      display: block;
-
-      margin-bottom: 6px;
-
-      color: var(--midnight);
-
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .required {
-      color: var(--orange);
-    }
-
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-
-      padding:
-        12px
-        13px;
-
-      border:
-        1px solid
-        var(--border);
-
-      border-radius: 9px;
-
-      outline: none;
-
-      background: white;
-      color: var(--text);
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      font-size: 13px;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      border-color: var(--ocean);
-    }
-
-    .form-group textarea {
-      min-height: 80px;
-
-      resize: vertical;
-    }
-
-
-
-    /* =====================================================
-       WHATSAPP
-       ===================================================== */
-
-    .whatsapp-button {
-      width: 100%;
-
-      margin-top: 16px;
-
-      padding: 15px;
-
-      border: none;
-      border-radius: 10px;
-
-      background: #25D366;
-      color: white;
-
-      cursor: pointer;
-
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .whatsapp-button:hover {
-      opacity: .92;
-    }
-
-    .whatsapp-button:disabled {
-      background: #cfd6d8;
-
-      cursor: not-allowed;
-    }
-
-    .empty-cart {
-      padding:
-        35px
-        0;
-
-      text-align: center;
-
-      color: var(--muted);
-    }
-
-
-
-    /* =====================================================
-       FOOTER
-       ===================================================== */
-
-    footer {
-      padding:
-        42px
-        25px;
-
-      background: #173f50;
-      color: white;
-
-      text-align: center;
-    }
-
-    footer strong {
-      display: block;
-
-      margin-bottom: 7px;
-
-      font-size: 16px;
-    }
-
-    footer span {
-      color: #cfe1e6;
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      font-size: 12px;
-    }
-
-
-
-    /* =====================================================
-       TABLET
-       ===================================================== */
-
-    @media (max-width: 800px) {
-
-      .benefits {
-        max-width: 550px;
-
-        grid-template-columns: 1fr;
-      }
-
-      .product-detail-inner {
-        grid-template-columns: 1fr;
-
-        gap: 30px;
-
-        padding-top: 22px;
-      }
-
-    }
-
-
-
-    /* =====================================================
-       MOBIEL
-       ===================================================== */
-
-    @media (max-width: 600px) {
-
-      .announcement {
-        padding:
-          8px
-          12px;
-
-        font-size: 9px;
-      }
-
-      .navbar {
-        padding:
-          12px
-          15px;
-      }
-
-      .brand-text {
-        font-size: 14px;
-      }
-
-      .brand-text span {
-        font-size: 8px;
-      }
-
-      .cart-button {
-        padding:
-          10px
-          13px;
-
-        font-size: 11px;
-      }
-
-      .hero-slider {
-        height: 72vh;
-
-        min-height: 540px;
-      }
-
-      .hero-content {
-        padding:
-          35px
-          30px;
-      }
-
-      .hero-content h1 {
-        font-size: 48px;
-
-        letter-spacing: -1px;
-      }
-
-      .hero-content p {
-        font-size: 14px;
-      }
-
-      .slider-arrow {
-        width: 38px;
-        height: 38px;
-
-        font-size: 22px;
-      }
-
-      .slider-arrow-left {
-        left: 12px;
-      }
-
-      .slider-arrow-right {
-        right: 12px;
-      }
-
-      .intro {
-        padding-top: 55px;
-      }
-
-      .visual-categories {
-        padding:
-          15px
-          15px
-          55px;
-      }
-
-      .visual-card {
-        min-height: 340px;
-      }
-
-      .visual-content {
-        padding: 24px;
-      }
-
-      .visual-content h3 {
-        font-size: 29px;
-      }
-
-      .shop-heading {
-        padding-top: 55px;
-      }
-
-      .products {
-        padding:
-          35px
-          15px
-          70px;
-      }
-
-      .product-image {
-        height: 350px;
-      }
-
-      .benefits-section {
-        padding:
-          55px
-          15px;
-      }
-
-      .cart-panel {
-        width: 100%;
-
-        padding: 21px;
-      }
-
-      .product-detail-topbar {
-        padding:
-          12px
-          14px;
-      }
-
-      .product-detail-inner {
-        padding:
-          18px
-          15px
-          55px;
-      }
-
-      .detail-gallery-main {
-        border-radius: 13px;
-      }
-
-      .detail-title {
-        font-size: 32px;
-      }
-
-      .detail-thumbnails {
-        gap: 7px;
-      }
-
-    }
-
-  </style>
-
+</style>
 </head>
-
 
 
 <body>
 
 
-
 <!-- =====================================================
-     TOPBAR
+     TOP
      ===================================================== -->
 
 <div class="announcement">
-
-  <div class="announcement-inner">
-
-    Beach & Bandits swimwear • Bonaire • Bestellen via WhatsApp
-
-  </div>
-
+  Beach & Bandits swimwear • Bonaire • Bestellen via WhatsApp
 </div>
 
 
-
-<!-- =====================================================
-     NAVIGATIE
-     ===================================================== -->
-
 <nav class="navbar">
 
-  <div class="brand-text">
-
+  <div class="brand">
     BEACH & BANDITS
 
     <span>
       available at Swim Academy Splash
     </span>
-
   </div>
-
 
   <button
     class="cart-button"
     onclick="openCart()"
   >
-
     🛒 Winkelmandje
     (<span id="cart-count">0</span>)
-
   </button>
 
 </nav>
-
 
 
 <!-- =====================================================
      HERO
      ===================================================== -->
 
-<section
-  class="hero-slider"
-  id="hero-slider"
->
+<section class="hero">
 
-  <div
-    class="slides"
-    id="slides"
-  >
+  <div class="hero-content">
 
-
-    <!-- SLIDE 1 -->
-
-    <div class="slide slide-one">
-
-      <div class="slide-decoration"></div>
-      <div class="slide-decoration-small"></div>
-
-      <div class="hero-content">
-
-        <div class="hero-small">
-          Swimwear on Bonaire
-        </div>
-
-        <h1>
-          Beach & Bandits
-        </h1>
-
-        <p>
-          Kleurrijke zwemkleding voor eindeloos
-          plezier in zon, zee en zwembad.
-        </p>
-
-        <a
-          href="#collectie"
-          class="hero-shop-button"
-        >
-          SHOP DE COLLECTIE
-        </a>
-
-      </div>
-
+    <div class="hero-label">
+      Swimwear on Bonaire
     </div>
 
+    <h1>
+      Beach & Bandits
+    </h1>
 
+    <p>
+      Kleurrijke zwemkleding voor eindeloos plezier
+      in zon, zee en zwembad.
+    </p>
 
-    <!-- SLIDE 2 -->
-
-    <div class="slide slide-two">
-
-      <div class="slide-decoration"></div>
-      <div class="slide-decoration-small"></div>
-
-      <div class="hero-content">
-
-        <div class="hero-small">
-          Made for sunshine
-        </div>
-
-        <h1>
-          Ready to splash
-        </h1>
-
-        <p>
-          Comfortabele swimwear voor kleine
-          waterratten op Bonaire.
-        </p>
-
-        <a
-          href="#collectie"
-          class="hero-shop-button"
-        >
-          BEKIJK DE BADPAKKEN
-        </a>
-
-      </div>
-
-    </div>
-
-
-
-    <!-- SLIDE 3 -->
-
-    <div class="slide slide-three">
-
-      <div class="slide-decoration"></div>
-      <div class="slide-decoration-small"></div>
-
-      <div class="hero-content">
-
-        <div class="hero-small">
-          Beach days made better
-        </div>
-
-        <h1>
-          Swim. Play. Repeat.
-        </h1>
-
-        <p>
-          Kies je favoriete model en bestel
-          gemakkelijk via WhatsApp.
-        </p>
-
-        <a
-          href="#collectie"
-          class="hero-shop-button"
-        >
-          SHOP NU
-        </a>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-
-  <!-- PIJLEN -->
-
-  <button
-    class="slider-arrow slider-arrow-left"
-    onclick="previousSlide()"
-    aria-label="Vorige foto"
-  >
-    ‹
-  </button>
-
-  <button
-    class="slider-arrow slider-arrow-right"
-    onclick="nextSlide()"
-    aria-label="Volgende foto"
-  >
-    ›
-  </button>
-
-
-
-  <!-- DOTS -->
-
-  <div class="slider-dots">
-
-    <button
-      class="slider-dot active"
-      onclick="goToSlide(0)"
-      aria-label="Foto 1"
-    ></button>
-
-    <button
-      class="slider-dot"
-      onclick="goToSlide(1)"
-      aria-label="Foto 2"
-    ></button>
-
-    <button
-      class="slider-dot"
-      onclick="goToSlide(2)"
-      aria-label="Foto 3"
-    ></button>
+    <a
+      class="primary-link"
+      href="#collectie"
+    >
+      SHOP DE COLLECTIE
+    </a>
 
   </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -2390,7 +1606,7 @@
 
 <section class="intro">
 
-  <div class="intro-small">
+  <div class="small-label">
     Beach & Bandits Bonaire
   </div>
 
@@ -2407,23 +1623,22 @@
 </section>
 
 
-
 <!-- =====================================================
-     ÉÉN BREDE SWIMSUITS TEGEL
+     ÉÉN BREDE SWIMSUITS KNOP
      ===================================================== -->
 
-<section class="visual-categories">
+<section class="category-wrap">
 
   <a
+    class="category-card"
     href="#collectie"
-    class="visual-card"
   >
 
-    <div class="visual-placeholder">
+    <div class="category-water">
       🌊
     </div>
 
-    <div class="visual-content">
+    <div class="category-content">
 
       <span>
         Beach & pool
@@ -2433,7 +1648,7 @@
         Swimsuits
       </h3>
 
-      <div class="visual-link">
+      <div class="category-link">
         SHOP DE COLLECTIE →
       </div>
 
@@ -2444,19 +1659,18 @@
 </section>
 
 
-
 <!-- =====================================================
      SHOP
      ===================================================== -->
 
 <section
-  class="shop-section"
+  class="shop"
   id="collectie"
 >
 
   <div class="shop-heading">
 
-    <div class="shop-heading-label">
+    <div class="small-label">
       Shop Beach & Bandits
     </div>
 
@@ -2465,47 +1679,45 @@
     </h2>
 
     <p>
-      Klik op een product om de foto's en productinformatie
-      te bekijken en selecteer daarna de juiste maat.
-      Uitverkochte maten zijn automatisch niet meer te kiezen.
+      Klik op een product voor foto's, maten,
+      voorraad, materiaal en verzorgingsinformatie.
     </p>
 
   </div>
 
 
   <div
-    id="loading"
     class="loading"
+    id="loading"
   >
     Collectie wordt geladen...
   </div>
 
 
   <div
-    id="products"
     class="products"
+    id="products"
   ></div>
 
 </section>
 
 
-
 <!-- =====================================================
-     VOORDELEN
+     HOMEPAGE BENEFITS
      ===================================================== -->
 
 <section class="benefits-section">
 
-  <div class="benefits-heading">
+  <div class="benefits-title">
 
     <h2>
       Gemaakt voor waterpret
     </h2>
 
     <p>
-      De Beach & Bandits swimwear is ontworpen
-      voor actieve kids die het liefst de hele dag
-      in en rond het water zijn.
+      Beach & Bandits swimwear is gemaakt
+      voor actieve kids die graag zwemmen,
+      spelen en buiten zijn.
     </p>
 
   </div>
@@ -2524,8 +1736,7 @@
       </strong>
 
       <p>
-        Extra bescherming tijdens lange dagen
-        buiten in de zon.
+        Bescherming tegen UVA- en UVB-straling.
       </p>
 
     </div>
@@ -2538,12 +1749,12 @@
       </div>
 
       <strong>
-        Sneldrogend & ademend
+        Sneldrogend
       </strong>
 
       <p>
-        Comfortabel voor zwemmen,
-        spelen en stranddagen.
+        Comfortabel voor zwembad,
+        strand en zee.
       </p>
 
     </div>
@@ -2556,12 +1767,12 @@
       </div>
 
       <strong>
-        Zacht & comfortabel
+        Comfortabel
       </strong>
 
       <p>
-        Flexibele swimwear gemaakt
-        om vrij in te bewegen.
+        Flexibele kleding om vrij
+        in te kunnen bewegen.
       </p>
 
     </div>
@@ -2571,76 +1782,50 @@
 </section>
 
 
-
-<!-- =====================================================
-     DETAILS
-     ===================================================== -->
-
 <div class="details-strip">
 
-  <div class="details-strip-inner">
+  <div class="details-inner">
 
-    <span>
-      OEKO-TEX® materialen
-    </span>
+    <span>UV50+</span>
 
-    <span>
-      Flexibel & comfortabel
-    </span>
+    <span>OEKO-TEX®</span>
 
-    <span>
-      Flatlock-stiksels
-    </span>
+    <span>Sneldrogend</span>
 
-    <span>
-      YKK-rits
-    </span>
+    <span>Flexibel & comfortabel</span>
 
-    <span>
-      Bestellen via WhatsApp
-    </span>
+    <span>Bestellen via WhatsApp</span>
 
   </div>
 
 </div>
 
 
-
 <!-- =====================================================
-     PRODUCT DETAIL OVERLAY
+     PRODUCT OVERLAY
      ===================================================== -->
 
 <div
-  id="product-detail-overlay"
-  class="product-detail-overlay"
-  onclick="closeProductDetail()"
+  id="product-overlay"
+  class="product-overlay"
+  onclick="closeProduct()"
 ></div>
 
 
-
-<!-- =====================================================
-     PRODUCT DETAIL PAGINA
-     ===================================================== -->
-
 <section
-  id="product-detail-page"
-  class="product-detail-page"
-  aria-hidden="true"
+  id="product-page"
+  class="product-page"
 >
 
-  <div class="product-detail-topbar">
+  <div class="product-topbar">
 
-    <button
-      class="back-to-shop"
-      onclick="closeProductDetail()"
-    >
+    <button onclick="closeProduct()">
       ← TERUG NAAR DE COLLECTIE
     </button>
 
     <button
-      class="detail-close"
-      onclick="closeProductDetail()"
-      aria-label="Sluiten"
+      class="close-product"
+      onclick="closeProduct()"
     >
       ×
     </button>
@@ -2653,9 +1838,8 @@
 </section>
 
 
-
 <!-- =====================================================
-     CART OVERLAY
+     CART
      ===================================================== -->
 
 <div
@@ -2665,12 +1849,7 @@
 ></div>
 
 
-
-<!-- =====================================================
-     WINKELMANDJE
-     ===================================================== -->
-
-<div
+<aside
   id="cart-panel"
   class="cart-panel"
 >
@@ -2695,8 +1874,8 @@
 
 
   <div
-    id="cart-summary"
     class="cart-summary"
+    id="cart-summary"
   >
 
     <div class="cart-total">
@@ -2711,48 +1890,38 @@
 
     </div>
 
-
     <div class="cart-note">
-
-      Je bestelling wordt via WhatsApp naar
-      Swim Academy Splash gestuurd.
-
+      De bestelling wordt via WhatsApp
+      naar Swim Academy Splash gestuurd.
     </div>
 
   </div>
 
 
-
-  <!-- KLANTGEGEVENS -->
-
   <div
-    id="customer-form"
     class="customer-form"
+    id="customer-form"
   >
 
     <h3>
       Jouw gegevens
     </h3>
 
-    <p class="customer-form-intro">
-      Vul je gegevens in.
-      Daarna opent WhatsApp met je bestelling.
+    <p>
+      Daarna opent WhatsApp
+      met de complete bestelling.
     </p>
 
 
     <div class="form-group">
 
-      <label for="customer-name">
-
-        Naam
-        <span class="required">*</span>
-
+      <label>
+        Naam *
       </label>
 
       <input
         id="customer-name"
         type="text"
-        autocomplete="name"
         placeholder="Voor- en achternaam"
       >
 
@@ -2761,18 +1930,14 @@
 
     <div class="form-group">
 
-      <label for="customer-phone">
-
-        Telefoonnummer
-        <span class="required">*</span>
-
+      <label>
+        Telefoonnummer *
       </label>
 
       <input
         id="customer-phone"
         type="tel"
-        autocomplete="tel"
-        placeholder="Bijv. +599 777 7777"
+        placeholder="+599 ..."
       >
 
     </div>
@@ -2780,7 +1945,7 @@
 
     <div class="form-group">
 
-      <label for="pickup-date">
+      <label>
         Gewenste ophaaldatum
       </label>
 
@@ -2794,13 +1959,13 @@
 
     <div class="form-group">
 
-      <label for="customer-remark">
+      <label>
         Opmerking
       </label>
 
       <textarea
         id="customer-remark"
-        placeholder="Eventuele opmerking bij je bestelling"
+        placeholder="Eventuele opmerking"
       ></textarea>
 
     </div>
@@ -2817,13 +1982,8 @@
     Bestellen via WhatsApp
   </button>
 
-</div>
+</aside>
 
-
-
-<!-- =====================================================
-     FOOTER
-     ===================================================== -->
 
 <footer>
 
@@ -2838,7 +1998,6 @@
 </footer>
 
 
-
 <script>
 
 /* =====================================================
@@ -2846,210 +2005,28 @@
    ===================================================== */
 
 const SHEET_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2DKu6fWuRkN-ObpGllK529agQRPeec31wsGBEukP_zva2ExkLMA7_KBZ2xPCHXifHgqHtxxuvIjXV/pub?gid=0&single=true&output=csv";
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vR2DKu6fWuRkN-ObpGllK529agQRPeec31wsGBEukP_zva2ExkLMA7_KBZ2xPCHXifHgqHtxxuvIjXV/pub?gid=0&single=true&output=csv";
 
 
 const WHATSAPP_NUMBER =
-  "5997777775";
+"5997777775";
 
 
 const ORDER_WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbxcCMCY7wZMVjbPejP1H40dewn8sh7QyRpJgo0Lt7RMIRsbKqrSaf_muTNcdYUFMqR_yw/exec";
+"https://script.google.com/macros/s/AKfycbxcCMCY7wZMVjbPejP1H40dewn8sh7QyRpJgo0Lt7RMIRsbKqrSaf_muTNcdYUFMqR_yw/exec";
 
+
+let products = [];
 
 let cart = [];
 
-let shopProducts = [];
-
-let activeProductIndex = null;
+let activeProduct = null;
 
 let detailQuantity = 1;
 
 
-
 /* =====================================================
-   HERO SLIDER
-   ===================================================== */
-
-let currentSlide = 0;
-
-const totalSlides = 3;
-
-let sliderInterval;
-
-
-function updateSlider() {
-
-  const slides =
-    document.getElementById("slides");
-
-  slides.style.transform =
-    `translateX(-${currentSlide * 100}%)`;
-
-
-  document
-    .querySelectorAll(".slider-dot")
-    .forEach(
-      (dot, index) => {
-
-        dot.classList.toggle(
-          "active",
-          index === currentSlide
-        );
-
-      }
-    );
-
-}
-
-
-function nextSlide() {
-
-  currentSlide =
-    (currentSlide + 1)
-    % totalSlides;
-
-  updateSlider();
-
-  restartSlider();
-
-}
-
-
-function previousSlide() {
-
-  currentSlide =
-    (
-      currentSlide
-      - 1
-      + totalSlides
-    )
-    % totalSlides;
-
-  updateSlider();
-
-  restartSlider();
-
-}
-
-
-function goToSlide(index) {
-
-  currentSlide = index;
-
-  updateSlider();
-
-  restartSlider();
-
-}
-
-
-function startSlider() {
-
-  sliderInterval =
-    setInterval(
-      () => {
-
-        currentSlide =
-          (currentSlide + 1)
-          % totalSlides;
-
-        updateSlider();
-
-      },
-      5000
-    );
-
-}
-
-
-function restartSlider() {
-
-  clearInterval(sliderInterval);
-
-  startSlider();
-
-}
-
-
-startSlider();
-
-
-
-/* =====================================================
-   SWIPE OP MOBIEL
-   ===================================================== */
-
-let touchStartX = 0;
-
-let touchEndX = 0;
-
-
-const heroSlider =
-  document.getElementById("hero-slider");
-
-
-heroSlider.addEventListener(
-  "touchstart",
-  event => {
-
-    touchStartX =
-      event.changedTouches[0].screenX;
-
-  },
-  {
-    passive: true
-  }
-);
-
-
-heroSlider.addEventListener(
-  "touchend",
-  event => {
-
-    touchEndX =
-      event.changedTouches[0].screenX;
-
-    handleSwipe();
-
-  },
-  {
-    passive: true
-  }
-);
-
-
-function handleSwipe() {
-
-  const difference =
-    touchStartX
-    - touchEndX;
-
-  if (
-    Math.abs(difference)
-    < 45
-  ) {
-    return;
-  }
-
-  if (
-    difference > 0
-  ) {
-
-    nextSlide();
-
-  } else {
-
-    previousSlide();
-
-  }
-
-}
-
-
-
-/* =====================================================
-   GOOGLE SHEET LADEN
+   DATA LADEN
    ===================================================== */
 
 Papa.parse(
@@ -3062,97 +2039,85 @@ Papa.parse(
 
     skipEmptyLines: true,
 
-    complete:
-      function(results) {
+    complete: function(results) {
 
-        document
-          .getElementById("loading")
-          .style.display =
-            "none";
-
-
-        shopProducts =
-          results.data;
+      document
+        .getElementById("loading")
+        .style.display =
+        "none";
 
 
-        if (
-          shopProducts.length === 0
-        ) {
-
-          showError(
-            "Er zijn momenteel geen producten beschikbaar."
-          );
-
-          return;
-
-        }
+      products =
+        results.data;
 
 
-        renderProducts();
-
-        openProductFromHash();
-
-      },
-
-
-    error:
-      function(error) {
-
-        document
-          .getElementById("loading")
-          .style.display =
-            "none";
-
+      if (!products.length) {
 
         showError(
-          "De producten konden niet worden geladen."
+          "Er zijn momenteel geen producten beschikbaar."
         );
 
-
-        console.error(error);
-
+        return;
       }
+
+
+      renderProducts();
+
+    },
+
+
+    error: function(error) {
+
+      console.error(error);
+
+      document
+        .getElementById("loading")
+        .style.display =
+        "none";
+
+      showError(
+        "De collectie kon niet worden geladen."
+      );
+
+    }
 
   }
 );
 
 
-
 /* =====================================================
-   HULPFUNCTIES PRODUCTDATA
+   DATA HULPFUNCTIES
    ===================================================== */
 
-function getField(
+function field(
   product,
-  names,
+  possibilities,
   fallback = ""
 ) {
 
   for (
-    const name
-    of names
+    const possibility
+    of possibilities
   ) {
 
     const key =
       Object
         .keys(product)
         .find(
-          key =>
-            key
+          current =>
+            current
               .trim()
               .toLowerCase()
             ===
-            name
+            possibility
               .trim()
               .toLowerCase()
         );
 
 
     if (
-      key
-      &&
+      key &&
       String(product[key]).trim()
-      !== ""
     ) {
 
       return String(
@@ -3163,16 +2128,13 @@ function getField(
 
   }
 
-
   return fallback;
-
 }
 
 
+function productName(product) {
 
-function getProductName(product) {
-
-  return getField(
+  return field(
     product,
     [
       "Productnaam",
@@ -3182,16 +2144,15 @@ function getProductName(product) {
       "Print",
       "Model"
     ],
-    "Swimsuit"
+    "Beach & Bandits"
   );
 
 }
 
 
+function productType(product) {
 
-function getProductType(product) {
-
-  return getField(
+  return field(
     product,
     [
       "Producttype",
@@ -3206,56 +2167,47 @@ function getProductType(product) {
 }
 
 
+function productId(product) {
 
-function getProductId(product) {
-
-  return getField(
+  return field(
     product,
     [
       "Product_ID",
       "Product ID",
-      "ID",
-      "SKU"
-    ],
-    ""
+      "SKU",
+      "ID"
+    ]
   );
 
 }
 
 
+function price(product) {
 
-function getPrice(product) {
-
-  const priceKey =
+  const key =
     Object
       .keys(product)
       .find(
-        key => {
-
-          const normalized =
-            key
-              .trim()
-              .toLowerCase();
-
-          return (
-            normalized
-              .startsWith("prijs")
-            ||
-            normalized === "price"
-          );
-
-        }
+        current =>
+          current
+            .trim()
+            .toLowerCase()
+            .startsWith("prijs")
+        ||
+          current
+            .trim()
+            .toLowerCase()
+            === "price"
       );
 
 
-  const rawPrice =
-    priceKey
-      ? product[priceKey]
-      : "0";
+  if (!key) {
+    return 0;
+  }
 
 
   const cleaned =
-    String(rawPrice)
+    String(product[key])
 
       .replace(
         /[^\d,.-]/g,
@@ -3272,57 +2224,58 @@ function getPrice(product) {
     parseFloat(cleaned)
     || 0
   );
-
 }
 
 
+function productImages(product) {
 
-/* =====================================================
-   PRODUCTFOTO'S
-   ===================================================== */
+  const urls = [];
 
-function getProductImages(product) {
 
-  const imageKeys =
-    Object
-      .keys(product)
-      .filter(
-        key => {
+  Object
+    .keys(product)
+    .forEach(
+      key => {
 
-          const normalized =
-            key
-              .trim()
-              .toLowerCase()
-              .replace(
-                /[_-]/g,
-                " "
-              );
+        const normalized =
+          key
+            .toLowerCase()
+            .replace(
+              /[_-]/g,
+              " "
+            )
+            .trim();
 
-          return (
-            /^(foto|photo|image|afbeelding)\s*\d*$/.test(normalized)
-            ||
-            /^(foto url|photo url|image url|afbeelding url)\s*\d*$/.test(normalized)
-          );
+
+        if (
+          normalized.startsWith("foto")
+          ||
+          normalized.startsWith("photo")
+          ||
+          normalized.startsWith("image")
+          ||
+          normalized.startsWith("afbeelding")
+        ) {
+
+          const value =
+            String(
+              product[key]
+              || ""
+            ).trim();
+
+
+          if (
+            /^https?:\/\//i.test(value)
+          ) {
+
+            urls.push(value);
+
+          }
 
         }
-      );
 
-
-  const urls =
-    imageKeys
-
-      .map(
-        key =>
-          String(
-            product[key]
-            || ""
-          ).trim()
-      )
-
-      .filter(
-        url =>
-          /^https?:\/\//i.test(url)
-      );
+      }
+    );
 
 
   return [
@@ -3332,79 +2285,36 @@ function getProductImages(product) {
     0,
     4
   );
-
 }
 
 
-
-/* =====================================================
-   MATEN UIT SHEET HALEN
-   ===================================================== */
-
-function getSizes(product) {
-
-  const excluded =
-    new Set(
-      [
-        "id",
-        "sku",
-        "model",
-        "name",
-        "naam",
-        "kleur",
-        "color",
-        "price",
-        "prijs",
-        "type",
-        "categorie",
-        "category",
-        "product_id",
-        "product id"
-      ]
-    );
-
+function productSizes(product) {
 
   return Object
     .keys(product)
     .filter(
-      column => {
+      key => {
 
-        const key =
-          column.trim();
-
-        const lower =
-          key.toLowerCase();
-
-
-        if (
-          excluded.has(lower)
-        ) {
-          return false;
-        }
-
-
-        if (
-          /^(foto|photo|image|afbeelding|beschrijving|description|materiaal|material|care|product)/i
-            .test(key)
-        ) {
-          return false;
-        }
+        const cleaned =
+          key.trim();
 
 
         return (
-          /^(\d+(\s*\/\s*\d+)?|xxs|xs|s|m|l|xl|xxl)$/i
-            .test(key)
+          /^\d+\s*\/\s*\d+$/.test(cleaned)
+          ||
+          /^\d+$/.test(cleaned)
+          ||
+          /^(XXS|XS|S|M|L|XL|XXL)$/i
+            .test(cleaned)
         );
 
       }
     );
-
 }
 
 
-
 /* =====================================================
-   PRODUCTEN TONEN
+   PRODUCT CARDS
    ===================================================== */
 
 function renderProducts() {
@@ -3419,87 +2329,71 @@ function renderProducts() {
     "";
 
 
-  shopProducts.forEach(
+  products.forEach(
     (
       product,
       index
     ) => {
 
       const name =
-        getProductName(product);
+        productName(product);
 
       const type =
-        getProductType(product);
-
-      const color =
-        getField(
-          product,
-          [
-            "Kleur",
-            "Color"
-          ],
-          ""
-        );
-
-      const price =
-        getPrice(product);
+        productType(product);
 
       const images =
-        getProductImages(product);
+        productImages(product);
+
+      const productPrice =
+        price(product);
 
 
-      const card =
+      const article =
         document.createElement(
           "article"
         );
 
 
-      card.className =
+      article.className =
         "product";
 
 
-      card.onclick =
+      article.onclick =
         () =>
-          openProductDetail(index);
+          openProduct(index);
 
 
-      let imageHtml;
-
-
-      if (
-        images.length > 0
-      ) {
-
-        imageHtml = `
-          <img
-            src="${escapeHtml(images[0])}"
-            alt="${escapeHtml(name)}"
-            loading="lazy"
-          >
-        `;
-
-      } else {
-
-        imageHtml = `
-
-          <div class="product-image-icon">
-            🌊
-          </div>
-
-          <div class="product-image-text">
-            Productfoto komt hier
-          </div>
-
-        `;
-
-      }
-
-
-      card.innerHTML = `
+      article.innerHTML = `
 
         <div class="product-image">
 
-          ${imageHtml}
+          ${
+            images.length
+
+            ? `
+
+              <img
+                src="${images[0]}"
+                alt="${escapeHtml(name)}"
+                loading="lazy"
+              >
+
+            `
+
+            : `
+
+              <div class="placeholder">
+
+                <span>
+                  🌊
+                </span>
+
+                Productfoto komt hier
+
+              </div>
+
+            `
+          }
 
         </div>
 
@@ -3510,47 +2404,16 @@ function renderProducts() {
             ${escapeHtml(name)}
           </h3>
 
-          <div class="product-color">
-
+          <div class="product-type">
             ${escapeHtml(type)}
-
-            ${
-              color
-                ? " • "
-                  + escapeHtml(color)
-                : ""
-            }
-
           </div>
 
           <div class="product-price">
-
-            $${price.toFixed(2)}
-
+            $${productPrice.toFixed(2)}
           </div>
 
-
-          <div class="product-mini-features">
-
-            <span class="mini-feature">
-              ☀️ UV50+
-            </span>
-
-            <span class="mini-feature">
-              🌊 Sneldrogend
-            </span>
-
-            <span class="mini-feature">
-              ♡ Comfortabel
-            </span>
-
-          </div>
-
-
-          <span class="product-card-link">
-
+          <span class="view-product">
             BEKIJK PRODUCT →
-
           </span>
 
         </div>
@@ -3558,14 +2421,9 @@ function renderProducts() {
       `;
 
 
-      container.appendChild(card);
-
-
-      product.selectedSize =
-        null;
-
-      product.selectedStock =
-        0;
+      container.appendChild(
+        article
+      );
 
     }
   );
@@ -3573,14 +2431,13 @@ function renderProducts() {
 }
 
 
-
 /* =====================================================
-   PRODUCT DETAIL OPENEN
+   PRODUCT OPENEN
    ===================================================== */
 
-function openProductDetail(index) {
+function openProduct(index) {
 
-  activeProductIndex =
+  activeProduct =
     index;
 
   detailQuantity =
@@ -3588,88 +2445,142 @@ function openProductDetail(index) {
 
 
   const product =
-    shopProducts[index];
+    products[index];
+
+
+  product.selectedSize =
+    null;
+
+  product.selectedStock =
+    0;
 
 
   const name =
-    getProductName(product);
+    productName(product);
 
   const type =
-    getProductType(product);
+    productType(product);
 
-  const productId =
-    getProductId(product);
+  const id =
+    productId(product);
 
   const color =
-    getField(
+    field(
       product,
       [
         "Kleur",
         "Color"
-      ],
-      ""
+      ]
     );
 
-  const price =
-    getPrice(product);
+  const productPrice =
+    price(product);
 
   const images =
-    getProductImages(product);
+    productImages(product);
 
   const sizes =
-    getSizes(product);
+    productSizes(product);
 
 
   const description =
-    getField(
+    field(
       product,
       [
         "Beschrijving",
         "Description",
         "Omschrijving"
       ],
-      "Beach & Bandits swimwear voor zwemmen, spelen en zonnige dagen op Bonaire."
+      "Beach & Bandits UV-swimwear voor actieve kids die graag zwemmen, spelen en buiten zijn."
     );
 
 
   const material =
-    getField(
+    field(
       product,
       [
         "Materiaal",
         "Material"
       ],
-      "Bekijk de productinformatie van Beach & Bandits voor de exacte materiaalsamenstelling."
+      "84% Polyamide Nylon | 16% Elastane Spandex | (GRS certificated) | OEKO-TEX® | SGS certified on UPF50+/UV50+ | UV standard 801 | CE certified"
     );
 
 
-  const details =
-    getField(
-      product,
-      [
-        "Product details",
-        "Productdetails",
-        "Details"
-      ],
-      "Beach & Bandits swimwear, verkrijgbaar bij Swim Academy Splash Bonaire."
-    );
+  let gallery = "";
 
 
-  const care =
-    getField(
-      product,
-      [
-        "Care Guide",
-        "Care guide",
-        "Care",
-        "Wasvoorschrift"
-      ],
-      ""
-    );
+  if (
+    images.length
+  ) {
+
+    gallery = `
+
+      <div class="main-image">
+
+        <img
+          id="main-product-image"
+          src="${images[0]}"
+          alt="${escapeHtml(name)}"
+        >
+
+      </div>
 
 
+      <div class="thumbnails">
 
-  /* MAATKNOPPEN */
+        ${
+
+          images.map(
+            (
+              image,
+              imageIndex
+            ) => `
+
+              <button
+                class="thumb ${imageIndex === 0 ? "active" : ""}"
+                onclick="changeProductImage(
+                  '${escapeJs(image)}',
+                  this
+                )"
+              >
+
+                <img
+                  src="${image}"
+                  alt="${escapeHtml(name)}"
+                >
+
+              </button>
+
+            `
+          )
+          .join("")
+
+        }
+
+      </div>
+
+    `;
+
+  }
+
+  else {
+
+    gallery = `
+
+      <div class="main-image">
+
+        <div class="image-placeholder">
+
+          🌊 Productfoto komt hier
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
 
   let sizeButtons =
     "";
@@ -3692,11 +2603,10 @@ function openProductDetail(index) {
         sizeButtons += `
 
           <button
+            id="product-size-${index}-${safeId(size)}"
             class="size-button"
-            data-size="${escapeHtml(size)}"
-            onclick="selectDetailSize(
-              this,
-              '${escapeJavaScriptString(size)}',
+            onclick="selectSize(
+              '${escapeJs(size)}',
               ${stock}
             )"
           >
@@ -3707,14 +2617,15 @@ function openProductDetail(index) {
 
         `;
 
-      } else {
+      }
+
+      else {
 
         sizeButtons += `
 
           <button
             class="size-button"
             disabled
-            title="Uitverkocht"
           >
 
             ${escapeHtml(size)}
@@ -3729,125 +2640,6 @@ function openProductDetail(index) {
   );
 
 
-
-  /* FOTO GALLERY */
-
-  let galleryHtml =
-    "";
-
-
-  if (
-    images.length > 0
-  ) {
-
-    galleryHtml = `
-
-      <div class="detail-gallery-main">
-
-        <img
-          id="detail-main-image"
-          src="${escapeHtml(images[0])}"
-          alt="${escapeHtml(name)}"
-        >
-
-      </div>
-
-
-      <div class="detail-thumbnails">
-
-        ${
-
-          images
-
-            .map(
-              (
-                url,
-                imageIndex
-              ) => `
-
-                <button
-                  class="detail-thumb ${imageIndex === 0 ? "active" : ""}"
-                  onclick="setDetailImage(
-                    '${escapeJavaScriptString(url)}',
-                    this
-                  )"
-                >
-
-                  <img
-                    src="${escapeHtml(url)}"
-                    alt="${escapeHtml(name)} foto ${imageIndex + 1}"
-                  >
-
-                </button>
-
-              `
-            )
-
-            .join("")
-
-        }
-
-      </div>
-
-    `;
-
-  } else {
-
-    galleryHtml = `
-
-      <div class="detail-gallery-main">
-
-        <div class="detail-image-placeholder">
-
-          <span>
-            🌊
-          </span>
-
-          Productfoto komt hier
-
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-
-
-  /* CARE GUIDE */
-
-  const careHtml =
-    care
-
-      ? escapeHtml(care)
-
-      : `
-
-        <ul class="care-list">
-
-          <li>
-            Spoel zwemkleding na gebruik uit met schoon water.
-          </li>
-
-          <li>
-            Laat het kledingstuk op natuurlijke wijze drogen.
-          </li>
-
-          <li>
-            Vermijd waar mogelijk ruwe oppervlakken.
-          </li>
-
-          <li>
-            Volg altijd het waslabel in het kledingstuk.
-          </li>
-
-        </ul>
-
-      `;
-
-
-
   document
     .getElementById(
       "product-detail-content"
@@ -3855,33 +2647,31 @@ function openProductDetail(index) {
     .innerHTML = `
 
 
-      <div class="product-detail-inner">
+      <div class="product-detail">
 
-
-        <!-- LINKS: FOTO'S -->
 
         <div>
 
-          ${galleryHtml}
+          ${gallery}
 
         </div>
 
 
-
-        <!-- RECHTS: PRODUCT INFO -->
 
         <div>
 
 
           <div class="detail-label">
 
-            Beach & Bandits
+            BEACH & BANDITS
 
             ${
-              productId
-                ? " • "
-                  + escapeHtml(productId)
-                : ""
+              id
+              ?
+              " • "
+              + escapeHtml(id)
+              :
+              ""
             }
 
           </div>
@@ -3900,9 +2690,11 @@ function openProductDetail(index) {
 
             ${
               color
-                ? " • "
-                  + escapeHtml(color)
-                : ""
+              ?
+              " • "
+              + escapeHtml(color)
+              :
+              ""
             }
 
           </div>
@@ -3910,7 +2702,7 @@ function openProductDetail(index) {
 
           <div class="detail-price">
 
-            $${price.toFixed(2)}
+            $${productPrice.toFixed(2)}
 
           </div>
 
@@ -3923,18 +2715,16 @@ function openProductDetail(index) {
 
 
 
-          <!-- MATEN -->
-
-          <div class="detail-size-header">
+          <div class="size-heading">
 
             <strong>
               Kies je maat
             </strong>
 
             <button
-              class="size-guide-link"
+              class="size-guide-button"
               onclick="toggleAccordion(
-                'size-guide-accordion'
+                'size-guide'
               )"
             >
               Size guide
@@ -3943,31 +2733,67 @@ function openProductDetail(index) {
           </div>
 
 
-          <div class="sizes">
+          <div
+            class="sizes"
+            id="detail-sizes"
+          >
 
             ${
               sizeButtons
               ||
-              `
-                <span class="detail-type">
-                  Maten worden binnenkort toegevoegd.
-                </span>
-              `
+              "Maten worden binnenkort toegevoegd."
             }
 
           </div>
 
 
 
-          <!-- AANTAL -->
+          ${
+            color
+            ?
+            `
 
-          <div class="detail-quantity">
+              <div
+                class="sizes"
+                style="margin-top:14px;"
+              >
 
-            <div class="detail-quantity-title">
+                <button
+                  class="size-button selected"
+                  style="cursor:default;"
+                >
+
+                  ${escapeHtml(color)}
+
+                </button>
+
+              </div>
+
+            `
+            :
+            ""
+          }
+
+
+
+          <div
+            id="stock-message"
+            class="stock-message"
+          >
+
+            Selecteer een maat om de voorraad te bekijken
+
+          </div>
+
+
+
+          <div class="quantity-section">
+
+            <div class="quantity-label">
               Aantal
             </div>
 
-            <div class="detail-quantity-control">
+            <div class="quantity">
 
               <button
                 onclick="changeDetailQuantity(-1)"
@@ -3975,7 +2801,7 @@ function openProductDetail(index) {
                 −
               </button>
 
-              <span id="detail-quantity-value">
+              <span id="detail-quantity">
                 1
               </span>
 
@@ -3991,46 +2817,217 @@ function openProductDetail(index) {
 
 
 
-          <!-- TOEVOEGEN -->
-
           <button
-            class="detail-add-button"
-            onclick="addDetailProductToCart()"
+            class="add-detail-button"
+            onclick="addProductToCart()"
           >
 
-            TOEVOEGEN AAN WINKELMANDJE
+            IN WINKELMAND
 
           </button>
 
 
 
-          <!-- UITKLAPMENU'S -->
+          <ul class="product-benefits">
 
-          <div class="detail-accordions">
+            <li>
+              UV50+, biedt 97,5% bescherming tegen UVA- en UVB-straling
+            </li>
 
+            <li>
+              Sneldrogend, comfortabel en ademend
+            </li>
+
+            <li>
+              Flexibel en comfortabel
+            </li>
+
+            <li>
+              Flatlock-stiksels, helpt huidirritatie te voorkomen
+            </li>
+
+            <li>
+              YKK-rits op de borst
+            </li>
+
+            <li>
+              OEKO-TEX® | SGS certified | CE certified
+            </li>
+
+          </ul>
+
+
+
+          <div class="accordions">
+
+
+            <!-- CARE GUIDE -->
 
             <div
-              class="detail-accordion"
-              id="details-accordion"
+              class="accordion"
+              id="care-guide"
             >
 
               <button
+                class="accordion-header"
                 onclick="toggleAccordion(
-                  'details-accordion'
+                  'care-guide'
                 )"
               >
 
-                PRODUCT DETAILS
+                CARE GUIDE
 
-                <span class="accordion-symbol">
+                <span class="plus">
                   +
                 </span>
 
               </button>
 
-              <div class="detail-accordion-content">
 
-                ${escapeHtml(details)}
+              <div
+                class="accordion-content care-guide"
+              >
+
+                <p>
+                  Het is belangrijk om je UV-kleding op de juiste manier te verzorgen.
+                  Chloor, zand, hoge temperaturen en zonnebrand kunnen belastend zijn
+                  voor UV-kleding, maar met de juiste verzorging heb je er meerdere
+                  seizoenen plezier van.
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Eerst douchen
+                  </strong>
+
+                  <br>
+
+                  Voor de hygiëne is het goed om te douchen voordat je het zwembad
+                  in duikt, maar dit heeft nog een ander voordeel. Zwembadwater bevat
+                  vaak chloor en andere chemische stoffen die schadelijk zijn voor
+                  UV-kleding. Als je eerst doucht, absorbeert je zwemkleding
+                  “normaal” water, waardoor de stof minder schadelijke stoffen
+                  uit het zwembadwater op kan nemen.
+
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Goed uitspoelen
+                  </strong>
+
+                  <br>
+
+                  Spoel je UV-kleding na het zwemmen altijd direct goed uit met
+                  schoon, koud water, om slijtage van de stof te voorkomen.
+                  Als het nodig is om je UV-kleding te wassen, doe dit dan altijd
+                  met de hand. Vul de gootsteen met koud water en voeg wat
+                  fijnwasmiddel toe. Was je UV-kleding zachtjes en spoel deze goed
+                  uit met koud water.
+
+                  <br><br>
+
+                  Laat je UV-kleding niet weken. Dit is slecht voor de vezels en
+                  zorgt ervoor dat de kleding elasticiteit verliest. Wring je
+                  UV-kleding niet uit, dit verzwakt het elastiek en heeft invloed
+                  op de pasvorm.
+
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Drogen
+                  </strong>
+
+                  <br>
+
+                  Laat je UV-kleding na gebruik niet opgerold in een handdoek of
+                  badlaken zitten, anders heeft het chloor meer tijd om in de stof
+                  te dringen en kan je UV-kleding gaan schimmelen.
+
+                  <br><br>
+
+                  Het beste is om je UV-kleding, nadat je het hebt uitgespoeld,
+                  in de open lucht en in de schaduw te laten drogen. Droog je
+                  badkleding nooit in de directe zon of in de buurt van de
+                  verwarming.
+
+                  <br><br>
+
+                  Hang je UV-kleding niet aan een metalen hanger te drogen,
+                  dit kan roestvlekken veroorzaken. UV-kleding mag absoluut
+                  niet in de wasdroger.
+
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Verkleuren
+                  </strong>
+
+                  <br>
+
+                  Ondanks de kleurechtheid van UV-kleding is het niet uitgesloten
+                  dat er onder bepaalde omstandigheden verkleuring optreedt.
+                  Hoge niveaus van chloor, zonlicht en het zoutgehalte in de zee
+                  kunnen je UV-kleding beschadigen en kleurveranderingen veroorzaken.
+
+                  <br><br>
+
+                  Ook kunnen sommige merken zonnebrandcrème gele vlekken in de stof
+                  achterlaten. Smeer je daarom ongeveer 20 minuten voordat je je
+                  zwemkleding aantrekt in met zonnebrandcrème. Als je opnieuw moet
+                  insmeren, probeer dan contact met de stof te vermijden.
+
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Ruwe oppervlakken en glijbanen
+                  </strong>
+
+                  <br>
+
+                  Pas op met ruwe oppervlakken, zoals beton, vloeren, bankjes en
+                  andere ruwe materialen. Deze kunnen scheuren en slijtage veroorzaken.
+
+                  <br><br>
+
+                  Glijbanen zijn leuk, maar UV-kleding kan hierdoor sneller slijten.
+                  Zwakke plekken, stof die gaat pillen en/of gaatjes kunnen hiervan
+                  het gevolg zijn.
+
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Zand
+                  </strong>
+
+                  <br>
+
+                  Zoals bij alle badkleding kan er soms zand in de vezels van de stof
+                  terechtkomen. Door de dichtheid van de stof kan het moeilijker zijn
+                  om vuil of zand eruit te wassen, waardoor soms vlekken kunnen blijven.
+
+                  <br><br>
+
+                  Om vastzittend zand te verwijderen, laat je je vingernagel
+                  voorzichtig over de stof glijden wanneer de stof droog is.
+
+                </p>
 
               </div>
 
@@ -4038,26 +3035,30 @@ function openProductDetail(index) {
 
 
 
+            <!-- MATERIAAL -->
+
             <div
-              class="detail-accordion"
-              id="material-accordion"
+              class="accordion"
+              id="material"
             >
 
               <button
+                class="accordion-header"
                 onclick="toggleAccordion(
-                  'material-accordion'
+                  'material'
                 )"
               >
 
-                MATERIAL
+                MATERIAAL
 
-                <span class="accordion-symbol">
+                <span class="plus">
                   +
                 </span>
 
               </button>
 
-              <div class="detail-accordion-content">
+
+              <div class="accordion-content">
 
                 ${escapeHtml(material)}
 
@@ -4067,61 +3068,38 @@ function openProductDetail(index) {
 
 
 
+            <!-- SIZE GUIDE -->
+
             <div
-              class="detail-accordion"
-              id="care-accordion"
+              class="accordion"
+              id="size-guide"
             >
 
               <button
+                class="accordion-header"
                 onclick="toggleAccordion(
-                  'care-accordion'
-                )"
-              >
-
-                CARE GUIDE
-
-                <span class="accordion-symbol">
-                  +
-                </span>
-
-              </button>
-
-              <div class="detail-accordion-content">
-
-                ${careHtml}
-
-              </div>
-
-            </div>
-
-
-
-            <div
-              class="detail-accordion"
-              id="size-guide-accordion"
-            >
-
-              <button
-                onclick="toggleAccordion(
-                  'size-guide-accordion'
+                  'size-guide'
                 )"
               >
 
                 SIZE GUIDE
 
-                <span class="accordion-symbol">
+                <span class="plus">
                   +
                 </span>
 
               </button>
 
-              <div class="detail-accordion-content">
 
-                Kies de maat die het dichtst bij de
-                normale kledingmaat van het kind ligt.
+              <div class="accordion-content">
+
+                Kies de maat die het dichtst bij de normale kledingmaat
+                van het kind ligt.
+
+                <br><br>
+
                 Twijfel je tussen twee maten?
-                Neem dan contact op met Swim Academy
-                Splash via WhatsApp.
+                Neem dan contact op met Swim Academy Splash via WhatsApp.
 
               </div>
 
@@ -4139,18 +3117,9 @@ function openProductDetail(index) {
     `;
 
 
-
-  product.selectedSize =
-    null;
-
-  product.selectedStock =
-    0;
-
-
-
   document
     .getElementById(
-      "product-detail-overlay"
+      "product-overlay"
     )
     .classList
     .add("open");
@@ -4158,20 +3127,10 @@ function openProductDetail(index) {
 
   document
     .getElementById(
-      "product-detail-page"
+      "product-page"
     )
     .classList
     .add("open");
-
-
-  document
-    .getElementById(
-      "product-detail-page"
-    )
-    .setAttribute(
-      "aria-hidden",
-      "false"
-    );
 
 
   document
@@ -4179,33 +3138,18 @@ function openProductDetail(index) {
     .classList
     .add("no-scroll");
 
-
-
-  if (
-    productId
-  ) {
-
-    history.replaceState(
-      null,
-      "",
-      `#product=${encodeURIComponent(productId)}`
-    );
-
-  }
-
 }
 
 
-
 /* =====================================================
-   PRODUCT DETAIL SLUITEN
+   PRODUCT SLUITEN
    ===================================================== */
 
-function closeProductDetail() {
+function closeProduct() {
 
   document
     .getElementById(
-      "product-detail-overlay"
+      "product-overlay"
     )
     .classList
     .remove("open");
@@ -4213,20 +3157,10 @@ function closeProductDetail() {
 
   document
     .getElementById(
-      "product-detail-page"
+      "product-page"
     )
     .classList
     .remove("open");
-
-
-  document
-    .getElementById(
-      "product-detail-page"
-    )
-    .setAttribute(
-      "aria-hidden",
-      "true"
-    );
 
 
   document
@@ -4235,61 +3169,100 @@ function closeProductDetail() {
     .remove("no-scroll");
 
 
-  activeProductIndex =
+  activeProduct =
     null;
-
-
-  if (
-    location.hash
-      .startsWith("#product=")
-  ) {
-
-    history.replaceState(
-      null,
-      "",
-      "#collectie"
-    );
-
-  }
 
 }
 
 
-
 /* =====================================================
-   FOTO WISSELEN
+   FOTO KIEZEN
    ===================================================== */
 
-function setDetailImage(
-  url,
+function changeProductImage(
+  image,
   button
 ) {
 
-  const mainImage =
+  const main =
     document.getElementById(
-      "detail-main-image"
+      "main-product-image"
     );
 
 
   if (
-    mainImage
+    main
   ) {
 
-    mainImage.src =
-      url;
+    main.src =
+      image;
 
   }
 
 
   document
     .querySelectorAll(
-      ".detail-thumb"
+      ".thumb"
     )
     .forEach(
-      thumbnail =>
-        thumbnail
+      thumb =>
+        thumb
           .classList
           .remove("active")
+    );
+
+
+  button
+    .classList
+    .add("active");
+
+}
+
+
+/* =====================================================
+   MAAT SELECTEREN
+   ===================================================== */
+
+function selectSize(
+  size,
+  stock
+) {
+
+  if (
+    activeProduct === null
+  ) {
+    return;
+  }
+
+
+  const product =
+    products[
+      activeProduct
+    ];
+
+
+  product.selectedSize =
+    size;
+
+  product.selectedStock =
+    stock;
+
+
+  document
+    .querySelectorAll(
+      "#detail-sizes .size-button"
+    )
+    .forEach(
+      button =>
+        button
+          .classList
+          .remove("selected")
+    );
+
+
+  const button =
+    document.getElementById(
+      `product-size-${activeProduct}-${safeId(size)}`
     );
 
 
@@ -4299,12 +3272,586 @@ function setDetailImage(
 
     button
       .classList
-      .add("active");
+      .add("selected");
+
+  }
+
+
+  const stockMessage =
+    document.getElementById(
+      "stock-message"
+    );
+
+
+  stockMessage.className =
+    "stock-message available";
+
+
+  if (
+    stock <= 3
+  ) {
+
+    stockMessage.innerHTML = `
+
+      <span class="stock-dot"></span>
+
+      Nog maar een paar beschikbaar
+
+    `;
+
+  }
+
+  else {
+
+    stockMessage.innerHTML = `
+
+      <span class="stock-dot"></span>
+
+      Op voorraad
+
+    `;
+
+  }
+
+
+  if (
+    detailQuantity > stock
+  ) {
+
+    detailQuantity =
+      stock;
+
+
+    document
+      .getElementById(
+        "detail-quantity"
+      )
+      .textContent =
+        detailQuantity;
 
   }
 
 }
 
+
+/* =====================================================
+   AANTAL DETAIL
+   ===================================================== */
+
+function changeDetailQuantity(change) {
+
+  if (
+    activeProduct === null
+  ) {
+    return;
+  }
+
+
+  const product =
+    products[
+      activeProduct
+    ];
+
+
+  const maximum =
+    product.selectedStock
+    || 99;
+
+
+  detailQuantity =
+    Math.max(
+      1,
+      Math.min(
+        maximum,
+        detailQuantity
+        + change
+      )
+    );
+
+
+  document
+    .getElementById(
+      "detail-quantity"
+    )
+    .textContent =
+      detailQuantity;
+
+}
+
+
+/* =====================================================
+   TOEVOEGEN AAN CART
+   ===================================================== */
+
+function addProductToCart() {
+
+  if (
+    activeProduct === null
+  ) {
+    return;
+  }
+
+
+  const product =
+    products[
+      activeProduct
+    ];
+
+
+  if (
+    !product.selectedSize
+  ) {
+
+    alert(
+      "Kies eerst een maat."
+    );
+
+    return;
+
+  }
+
+
+  const name =
+    productName(product);
+
+
+  const color =
+    field(
+      product,
+      [
+        "Kleur",
+        "Color"
+      ]
+    );
+
+
+  const productPrice =
+    price(product);
+
+
+  const size =
+    product.selectedSize;
+
+
+  const stock =
+    product.selectedStock;
+
+
+  const existing =
+    cart.find(
+      item =>
+        item.productIndex
+        === activeProduct
+        &&
+        item.size
+        === size
+    );
+
+
+  if (
+    existing
+  ) {
+
+    if (
+      existing.quantity
+      + detailQuantity
+      > stock
+    ) {
+
+      alert(
+        `Er zijn maximaal ${stock} stuks van maat ${size} beschikbaar.`
+      );
+
+      return;
+
+    }
+
+
+    existing.quantity +=
+      detailQuantity;
+
+  }
+
+  else {
+
+    cart.push(
+      {
+
+        productIndex:
+          activeProduct,
+
+        model:
+          name,
+
+        color:
+          color,
+
+        size:
+          size,
+
+        price:
+          productPrice,
+
+        quantity:
+          detailQuantity,
+
+        stock:
+          stock
+
+      }
+    );
+
+  }
+
+
+  updateCart();
+
+  closeProduct();
+
+  openCart();
+
+}
+
+
+/* =====================================================
+   CART
+   ===================================================== */
+
+function updateCart() {
+
+  const container =
+    document.getElementById(
+      "cart-items"
+    );
+
+
+  const count =
+    document.getElementById(
+      "cart-count"
+    );
+
+
+  const totalElement =
+    document.getElementById(
+      "cart-total"
+    );
+
+
+  const summary =
+    document.getElementById(
+      "cart-summary"
+    );
+
+
+  const customerForm =
+    document.getElementById(
+      "customer-form"
+    );
+
+
+  const whatsapp =
+    document.getElementById(
+      "whatsapp-button"
+    );
+
+
+  const totalQuantity =
+    cart.reduce(
+      (
+        sum,
+        item
+      ) =>
+        sum
+        + item.quantity,
+      0
+    );
+
+
+  count.textContent =
+    totalQuantity;
+
+
+  if (
+    !cart.length
+  ) {
+
+    container.innerHTML = `
+
+      <div class="empty-cart">
+
+        Je winkelmandje is nog leeg.
+
+      </div>
+
+    `;
+
+
+    totalElement.textContent =
+      "$0.00";
+
+
+    summary.style.display =
+      "none";
+
+
+    customerForm.style.display =
+      "none";
+
+
+    whatsapp.disabled =
+      true;
+
+
+    return;
+
+  }
+
+
+  summary.style.display =
+    "block";
+
+
+  customerForm.style.display =
+    "block";
+
+
+  whatsapp.disabled =
+    false;
+
+
+  let total =
+    0;
+
+
+  container.innerHTML =
+    "";
+
+
+  cart.forEach(
+    (
+      item,
+      index
+    ) => {
+
+      const subtotal =
+        item.price
+        * item.quantity;
+
+
+      total +=
+        subtotal;
+
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "cart-item";
+
+
+      div.innerHTML = `
+
+        <strong>
+
+          ${escapeHtml(item.model)}
+
+        </strong>
+
+
+        <div class="cart-item-info">
+
+          ${
+            item.color
+            ?
+            escapeHtml(item.color)
+            + "<br>"
+            :
+            ""
+          }
+
+          Maat:
+          ${escapeHtml(item.size)}
+
+          <br>
+
+          $${item.price.toFixed(2)}
+          per stuk
+
+        </div>
+
+
+        <div class="cart-row">
+
+          <div class="cart-quantity">
+
+            <button
+              onclick="changeCartQuantity(
+                ${index},
+                -1
+              )"
+            >
+              −
+            </button>
+
+
+            <span>
+
+              ${item.quantity}
+
+            </span>
+
+
+            <button
+              onclick="changeCartQuantity(
+                ${index},
+                1
+              )"
+            >
+              +
+            </button>
+
+          </div>
+
+
+          <strong>
+
+            $${subtotal.toFixed(2)}
+
+          </strong>
+
+        </div>
+
+
+        <button
+          class="remove"
+          onclick="removeCartItem(
+            ${index}
+          )"
+        >
+
+          Verwijderen
+
+        </button>
+
+      `;
+
+
+      container.appendChild(
+        div
+      );
+
+    }
+  );
+
+
+  totalElement.textContent =
+    `$${total.toFixed(2)}`;
+
+}
+
+
+function changeCartQuantity(
+  index,
+  change
+) {
+
+  const item =
+    cart[index];
+
+
+  const newQuantity =
+    item.quantity
+    + change;
+
+
+  if (
+    newQuantity < 1
+  ) {
+
+    removeCartItem(index);
+
+    return;
+
+  }
+
+
+  if (
+    newQuantity
+    > item.stock
+  ) {
+
+    alert(
+      `Er zijn maximaal ${item.stock} stuks beschikbaar.`
+    );
+
+    return;
+
+  }
+
+
+  item.quantity =
+    newQuantity;
+
+
+  updateCart();
+
+}
+
+
+function removeCartItem(index) {
+
+  cart.splice(
+    index,
+    1
+  );
+
+
+  updateCart();
+
+}
+
+
+function openCart() {
+
+  document
+    .getElementById(
+      "cart-overlay"
+    )
+    .classList
+    .add("open");
+
+
+  document
+    .getElementById(
+      "cart-panel"
+    )
+    .classList
+    .add("open");
+
+}
+
+
+function closeCart() {
+
+  document
+    .getElementById(
+      "cart-overlay"
+    )
+    .classList
+    .remove("open");
+
+
+  document
+    .getElementById(
+      "cart-panel"
+    )
+    .classList
+    .remove("open");
+
+}
 
 
 /* =====================================================
@@ -4330,643 +3877,30 @@ function toggleAccordion(id) {
 }
 
 
-
 /* =====================================================
-   MAAT PRODUCT DETAIL
+   WHATSAPP ORDER
    ===================================================== */
 
-function selectDetailSize(
-  button,
-  size,
-  stock
-) {
-
-  if (
-    activeProductIndex === null
-  ) {
-    return;
-  }
-
-
-  const product =
-    shopProducts[
-      activeProductIndex
-    ];
-
-
-  product.selectedSize =
-    size;
-
-  product.selectedStock =
-    stock;
-
-
-  document
-    .querySelectorAll(
-      ".product-detail-page .size-button"
-    )
-    .forEach(
-      sizeButton =>
-        sizeButton
-          .classList
-          .remove("selected")
-    );
-
-
-  button
-    .classList
-    .add("selected");
-
-
-  if (
-    detailQuantity > stock
-  ) {
-
-    detailQuantity =
-      stock;
-
-    document
-      .getElementById(
-        "detail-quantity-value"
-      )
-      .textContent =
-        detailQuantity;
-
-  }
-
-}
-
-
-
-/* =====================================================
-   AANTAL PRODUCT DETAIL
-   ===================================================== */
-
-function changeDetailQuantity(change) {
-
-  if (
-    activeProductIndex === null
-  ) {
-    return;
-  }
-
-
-  const product =
-    shopProducts[
-      activeProductIndex
-    ];
-
-
-  const maximum =
-    product.selectedStock
-    || 99;
-
-
-  detailQuantity =
-    Math.max(
-      1,
-      Math.min(
-        maximum,
-        detailQuantity + change
-      )
-    );
-
-
-  document
-    .getElementById(
-      "detail-quantity-value"
-    )
-    .textContent =
-      detailQuantity;
-
-}
-
-
-
-/* =====================================================
-   PRODUCT AAN WINKELMANDJE TOEVOEGEN
-   ===================================================== */
-
-function addDetailProductToCart() {
-
-  if (
-    activeProductIndex === null
-  ) {
-    return;
-  }
-
-
-  const product =
-    shopProducts[
-      activeProductIndex
-    ];
-
-
-  if (
-    !product.selectedSize
-  ) {
-
-    alert(
-      "Kies eerst een maat."
-    );
-
-    return;
-
-  }
-
-
-  const name =
-    getProductName(product);
-
-  const color =
-    getField(
-      product,
-      [
-        "Kleur",
-        "Color"
-      ],
-      ""
-    );
-
-  const price =
-    getPrice(product);
-
-  const size =
-    product.selectedSize;
-
-  const stock =
-    product.selectedStock;
-
-
-  const existingItem =
-    cart.find(
-      item =>
-        item.productIndex
-          === activeProductIndex
-        &&
-        item.size
-          === size
-    );
-
-
-  if (
-    existingItem
-  ) {
-
-    if (
-      existingItem.quantity
-      + detailQuantity
-      <= stock
-    ) {
-
-      existingItem.quantity +=
-        detailQuantity;
-
-    } else {
-
-      alert(
-        `Er zijn maximaal ${stock} stuks van maat ${size} op voorraad.`
-      );
-
-      return;
-
-    }
-
-  } else {
-
-    cart.push(
-      {
-
-        productIndex:
-          activeProductIndex,
-
-        model:
-          name,
-
-        color:
-          color,
-
-        price:
-          price,
-
-        size:
-          size,
-
-        quantity:
-          detailQuantity,
-
-        stock:
-          stock
-
-      }
-    );
-
-  }
-
-
-  updateCart();
-
-  closeProductDetail();
-
-  openCart();
-
-}
-
-
-
-/* =====================================================
-   WINKELMANDJE BIJWERKEN
-   ===================================================== */
-
-function updateCart() {
-
-  const cartItems =
-    document.getElementById(
-      "cart-items"
-    );
-
-  const cartCount =
-    document.getElementById(
-      "cart-count"
-    );
-
-  const cartTotal =
-    document.getElementById(
-      "cart-total"
-    );
-
-  const whatsappButton =
-    document.getElementById(
-      "whatsapp-button"
-    );
-
-  const cartSummary =
-    document.getElementById(
-      "cart-summary"
-    );
-
-  const customerForm =
-    document.getElementById(
-      "customer-form"
-    );
-
-
-  const totalItems =
-    cart.reduce(
-      (
-        sum,
-        item
-      ) =>
-        sum
-        + item.quantity,
-      0
-    );
-
-
-  cartCount.textContent =
-    totalItems;
-
-
-
-  if (
-    cart.length === 0
-  ) {
-
-    cartItems.innerHTML = `
-
-      <div class="empty-cart">
-
-        Je winkelmandje is nog leeg.
-
-      </div>
-
-    `;
-
-
-    cartTotal.textContent =
-      "$0.00";
-
-
-    whatsappButton.disabled =
-      true;
-
-
-    cartSummary.style.display =
-      "none";
-
-
-    customerForm.style.display =
-      "none";
-
-
-    return;
-
-  }
-
-
-
-  cartSummary.style.display =
-    "block";
-
-  customerForm.style.display =
-    "block";
-
-  whatsappButton.disabled =
-    false;
-
-  cartItems.innerHTML =
-    "";
-
-
-  let total =
-    0;
-
-
-
-  cart.forEach(
-    (
-      item,
-      index
-    ) => {
-
-      const subtotal =
-        item.price
-        * item.quantity;
-
-
-      total +=
-        subtotal;
-
-
-      const itemDiv =
-        document.createElement(
-          "div"
-        );
-
-
-      itemDiv.className =
-        "cart-item";
-
-
-      itemDiv.innerHTML = `
-
-
-        <strong>
-
-          ${escapeHtml(item.model)}
-
-        </strong>
-
-
-        <div class="cart-item-details">
-
-          ${
-            item.color
-              ? escapeHtml(item.color)
-                + "<br>"
-              : ""
-          }
-
-          Maat:
-          ${escapeHtml(item.size)}
-
-          <br>
-
-          $${item.price.toFixed(2)}
-          per stuk
-
-        </div>
-
-
-
-        <div class="quantity-row">
-
-
-          <div class="quantity-control">
-
-
-            <button
-              onclick="changeQuantity(
-                ${index},
-                -1
-              )"
-            >
-              −
-            </button>
-
-
-            <span>
-
-              ${item.quantity}
-
-            </span>
-
-
-            <button
-              onclick="changeQuantity(
-                ${index},
-                1
-              )"
-            >
-              +
-            </button>
-
-
-          </div>
-
-
-          <div class="subtotal">
-
-            $${subtotal.toFixed(2)}
-
-          </div>
-
-
-        </div>
-
-
-
-        <button
-          class="remove-button"
-          onclick="removeFromCart(
-            ${index}
-          )"
-        >
-
-          Verwijderen
-
-        </button>
-
-
-      `;
-
-
-      cartItems.appendChild(
-        itemDiv
-      );
-
-    }
-  );
-
-
-  cartTotal.textContent =
-    `$${total.toFixed(2)}`;
-
-}
-
-
-
-/* =====================================================
-   AANTALLEN WINKELMANDJE
-   ===================================================== */
-
-function changeQuantity(
-  index,
-  change
-) {
-
-  const item =
-    cart[index];
-
-
-  const newQuantity =
-    item.quantity
-    + change;
-
-
-  if (
-    newQuantity < 1
-  ) {
-
-    removeFromCart(index);
-
-    return;
-
-  }
-
-
-  if (
-    newQuantity
-    > item.stock
-  ) {
-
-    alert(
-      `Er zijn maximaal ${item.stock} stuks van deze maat op voorraad.`
-    );
-
-    return;
-
-  }
-
-
-  item.quantity =
-    newQuantity;
-
-
-  updateCart();
-
-}
-
-
-
-/* =====================================================
-   PRODUCT VERWIJDEREN
-   ===================================================== */
-
-function removeFromCart(index) {
-
-  cart.splice(
-    index,
-    1
-  );
-
-  updateCart();
-
-}
-
-
-
-/* =====================================================
-   CART OPENEN
-   ===================================================== */
-
-function openCart() {
-
-  document
-    .getElementById(
-      "cart-panel"
-    )
-    .classList
-    .add("open");
-
-
-  document
-    .getElementById(
-      "cart-overlay"
-    )
-    .classList
-    .add("open");
-
-}
-
-
-
-/* =====================================================
-   CART SLUITEN
-   ===================================================== */
-
-function closeCart() {
-
-  document
-    .getElementById(
-      "cart-panel"
-    )
-    .classList
-    .remove("open");
-
-
-  document
-    .getElementById(
-      "cart-overlay"
-    )
-    .classList
-    .remove("open");
-
-}
-
-
-
-/* =====================================================
-   BONAIRE BEGROETING
-   ===================================================== */
-
-function getBonaireGreeting() {
-
-  const bonaireHour =
-    new Intl.DateTimeFormat(
-      "en-US",
-      {
-
-        timeZone:
-          "America/Kralendijk",
-
-        hour:
-          "numeric",
-
-        hourCycle:
-          "h23"
-
-      }
-    )
-    .format(
-      new Date()
-    );
-
+function getGreeting() {
 
   const hour =
     parseInt(
-      bonaireHour,
-      10
+      new Intl.DateTimeFormat(
+        "en-US",
+        {
+          timeZone:
+            "America/Kralendijk",
+
+          hour:
+            "numeric",
+
+          hourCycle:
+            "h23"
+        }
+      )
+      .format(
+        new Date()
+      )
     );
 
 
@@ -4975,9 +3909,7 @@ function getBonaireGreeting() {
     &&
     hour < 12
   ) {
-
     return "Bon dia";
-
   }
 
 
@@ -4986,9 +3918,7 @@ function getBonaireGreeting() {
     &&
     hour < 18
   ) {
-
     return "Bon tardi";
-
   }
 
 
@@ -4997,23 +3927,12 @@ function getBonaireGreeting() {
 }
 
 
-
-/* =====================================================
-   BESTELLEN VIA WHATSAPP
-   ===================================================== */
-
 function orderViaWhatsApp() {
 
   if (
-    cart.length === 0
+    !cart.length
   ) {
-
-    alert(
-      "Je winkelmandje is leeg."
-    );
-
     return;
-
   }
 
 
@@ -5052,7 +3971,6 @@ function orderViaWhatsApp() {
       .trim();
 
 
-
   if (
     !customerName
   ) {
@@ -5061,16 +3979,9 @@ function orderViaWhatsApp() {
       "Vul eerst je naam in."
     );
 
-    document
-      .getElementById(
-        "customer-name"
-      )
-      .focus();
-
     return;
 
   }
-
 
 
   if (
@@ -5081,20 +3992,9 @@ function orderViaWhatsApp() {
       "Vul eerst je telefoonnummer in."
     );
 
-    document
-      .getElementById(
-        "customer-phone"
-      )
-      .focus();
-
     return;
 
   }
-
-
-
-  const greeting =
-    getBonaireGreeting();
 
 
   let total =
@@ -5102,13 +4002,11 @@ function orderViaWhatsApp() {
 
 
   let message =
-
-`${greeting} Swim Academy Splash! 👋
+`${getGreeting()} Swim Academy Splash! 👋
 
 Ik wil graag de volgende bestelling plaatsen:
 
 `;
-
 
 
   const orderItems =
@@ -5159,7 +4057,6 @@ Subtotaal: $${subtotal.toFixed(2)}
     );
 
 
-
   message +=
 `Totaal: $${total.toFixed(2)}
 
@@ -5167,7 +4064,6 @@ Naam: ${customerName}
 Telefoonnummer: ${phone}
 Gewenste ophaaldatum: ${pickupDate || "Niet ingevuld"}
 Opmerking: ${remark || "Geen"}`;
-
 
 
   const orderData = {
@@ -5189,9 +4085,6 @@ Opmerking: ${remark || "Geen"}`;
 
   };
 
-
-
-  /* OOK NAAR GOOGLE SHEET / APPS SCRIPT */
 
   fetch(
     ORDER_WEB_APP_URL,
@@ -5218,86 +4111,39 @@ Opmerking: ${remark || "Geen"}`;
     }
   )
   .catch(
-    error => {
-
+    error =>
       console.error(
-        "Bestelling kon niet naar Google Sheets worden gestuurd:",
         error
-      );
-
-    }
+      )
   );
 
 
-
-  /* WHATSAPP OPENEN */
-
-  const encodedMessage =
-    encodeURIComponent(
-      message
-    );
-
-
-  const whatsappUrl =
-    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+  const url =
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
 
   window.open(
-    whatsappUrl,
+    url,
     "_blank"
   );
 
 }
 
 
-
 /* =====================================================
-   PRODUCT OPENEN VANUIT URL
+   HULPFUNCTIES
    ===================================================== */
 
-function openProductFromHash() {
+function safeId(value) {
 
-  if (
-    !location.hash
-      .startsWith("#product=")
-  ) {
-    return;
-  }
-
-
-  const productId =
-    decodeURIComponent(
-      location.hash
-        .replace(
-          "#product=",
-          ""
-        )
+  return String(value)
+    .replace(
+      /[^a-zA-Z0-9]/g,
+      "-"
     );
-
-
-  const index =
-    shopProducts.findIndex(
-      product =>
-        getProductId(product)
-          === productId
-    );
-
-
-  if (
-    index >= 0
-  ) {
-
-    openProductDetail(index);
-
-  }
 
 }
 
-
-
-/* =====================================================
-   VEILIG TEKST TONEN
-   ===================================================== */
 
 function escapeHtml(value) {
 
@@ -5305,22 +4151,27 @@ function escapeHtml(value) {
     value
     ?? ""
   )
+
   .replace(
     /&/g,
     "&amp;"
   )
+
   .replace(
     /</g,
     "&lt;"
   )
+
   .replace(
     />/g,
     "&gt;"
   )
+
   .replace(
     /"/g,
     "&quot;"
   )
+
   .replace(
     /'/g,
     "&#039;"
@@ -5329,20 +4180,23 @@ function escapeHtml(value) {
 }
 
 
-function escapeJavaScriptString(value) {
+function escapeJs(value) {
 
   return String(
     value
     ?? ""
   )
+
   .replace(
     /\\/g,
     "\\\\"
   )
+
   .replace(
     /'/g,
     "\\'"
   )
+
   .replace(
     /\r?\n/g,
     " "
@@ -5350,11 +4204,6 @@ function escapeJavaScriptString(value) {
 
 }
 
-
-
-/* =====================================================
-   ERROR
-   ===================================================== */
 
 function showError(message) {
 
@@ -5375,10 +4224,7 @@ function showError(message) {
 }
 
 
-
-/* =====================================================
-   ESCAPE TOETS
-   ===================================================== */
+/* ESCAPE SLUIT POPUPS */
 
 document.addEventListener(
   "keydown",
@@ -5388,7 +4234,7 @@ document.addEventListener(
       event.key === "Escape"
     ) {
 
-      closeProductDetail();
+      closeProduct();
 
       closeCart();
 
@@ -5398,16 +4244,9 @@ document.addEventListener(
 );
 
 
-
-/* =====================================================
-   START
-   ===================================================== */
-
 updateCart();
-
 
 </script>
 
 </body>
-
 </html>
