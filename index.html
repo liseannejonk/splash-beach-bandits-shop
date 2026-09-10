@@ -2,9 +2,7 @@
 <html lang="nl">
 
 <head>
-
   <meta charset="UTF-8">
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -14,20 +12,20 @@
     Beach & Bandits | Swim Academy Splash Bonaire
   </title>
 
-  <script
-    src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js">
-  </script>
-
+  <!-- GOOGLE SHEET CSV LEZER -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
   <style>
+
+    /* =====================================================
+       BASIS
+       ===================================================== */
 
     * {
       box-sizing: border-box;
     }
 
     :root {
-
-      /* SPLASH HUISSTIJL */
 
       --midnight: #1e556b;
       --ocean: #17759b;
@@ -53,7 +51,6 @@
     }
 
     body {
-
       margin: 0;
 
       font-family:
@@ -63,99 +60,81 @@
         sans-serif;
 
       color: var(--text);
-
       background: var(--white);
+    }
 
+    body.no-scroll {
+      overflow: hidden;
     }
 
     button,
     input,
     textarea {
-
       font-family: inherit;
-
     }
 
     button {
       -webkit-tap-highlight-color: transparent;
     }
 
+    img {
+      max-width: 100%;
+    }
 
-    /* ========================================
+
+
+    /* =====================================================
        TOPBAR
-       ======================================== */
+       ===================================================== */
 
     .announcement {
-
       background: var(--midnight);
-
       color: white;
 
       padding: 9px 20px;
 
       font-size: 11px;
-
       letter-spacing: .8px;
-
       text-transform: uppercase;
-
     }
 
     .announcement-inner {
-
       max-width: 1200px;
-
       margin: auto;
 
-      display: flex;
-
-      justify-content: center;
-
-      align-items: center;
-
       text-align: center;
-
     }
 
 
-    /* ========================================
+
+    /* =====================================================
        NAVIGATIE
-       ======================================== */
+       ===================================================== */
 
     .navbar {
-
       max-width: 1200px;
 
       margin: auto;
-
       padding: 16px 25px;
 
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
 
       gap: 20px;
 
       background: white;
-
     }
 
     .brand-text {
-
       color: var(--midnight);
 
       font-size: 17px;
-
       font-weight: 800;
-
       letter-spacing: .8px;
-
     }
 
     .brand-text span {
-
       display: block;
 
       margin-top: 2px;
@@ -168,21 +147,16 @@
         sans-serif;
 
       font-size: 10px;
-
       font-weight: normal;
 
       letter-spacing: 1.2px;
-
       text-transform: uppercase;
-
     }
 
     .cart-button {
-
       border: none;
 
       background: var(--midnight);
-
       color: white;
 
       padding: 11px 17px;
@@ -192,79 +166,60 @@
       cursor: pointer;
 
       font-size: 13px;
-
       font-weight: bold;
 
       transition:
         transform .2s ease,
         background .2s ease;
-
     }
 
     .cart-button:hover {
-
       background: var(--ocean);
 
       transform: translateY(-1px);
-
     }
 
 
-    /* ========================================
-       HERO SLIDER
-       ======================================== */
+
+    /* =====================================================
+       HERO
+       ===================================================== */
 
     .hero-slider {
-
       position: relative;
-
-      overflow: hidden;
 
       width: 100%;
 
       height: min(72vh, 720px);
-
       min-height: 520px;
-
-      background: var(--soft-aqua);
-
-    }
-
-    .slides {
-
-      height: 100%;
-
-      display: flex;
-
-      transition: transform .65s ease;
-
-    }
-
-    .slide {
-
-      position: relative;
-
-      min-width: 100%;
-
-      height: 100%;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
 
       overflow: hidden;
 
+      background: var(--soft-aqua);
     }
 
-    /*
-      Dit zijn nu tijdelijke achtergronden.
-      Later vervangen we dit door echte foto's.
-    */
+    .slides {
+      display: flex;
+
+      height: 100%;
+
+      transition: transform .65s ease;
+    }
+
+    .slide {
+      position: relative;
+
+      min-width: 100%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+    }
 
     .slide-one {
-
       background:
         linear-gradient(
           130deg,
@@ -277,11 +232,9 @@
           #e9f7ed 55%,
           #f6d6a9
         );
-
     }
 
     .slide-two {
-
       background:
         linear-gradient(
           130deg,
@@ -294,11 +247,9 @@
           #f8efe1 50%,
           #7bcab6
         );
-
     }
 
     .slide-three {
-
       background:
         linear-gradient(
           130deg,
@@ -311,15 +262,12 @@
           #84ccbb 48%,
           #7ac1df
         );
-
     }
 
     .slide::before {
-
       content: "";
 
       position: absolute;
-
       inset: 0;
 
       background:
@@ -328,47 +276,37 @@
           rgba(15,50,65,.20),
           rgba(15,50,65,.03) 60%
         );
-
     }
 
     .slide-decoration {
-
       position: absolute;
 
       width: 330px;
-
       height: 330px;
+
+      right: 8%;
+      top: 12%;
 
       border-radius: 50%;
 
       background: rgba(255,255,255,.20);
-
-      right: 8%;
-
-      top: 12%;
-
     }
 
     .slide-decoration-small {
-
       position: absolute;
 
       width: 170px;
-
       height: 170px;
+
+      right: 25%;
+      bottom: 8%;
 
       border-radius: 50%;
 
       background: rgba(255,255,255,.18);
-
-      right: 25%;
-
-      bottom: 8%;
-
     }
 
     .hero-content {
-
       position: relative;
 
       z-index: 5;
@@ -384,15 +322,12 @@
       text-shadow:
         0 2px 18px
         rgba(15,50,65,.18);
-
     }
 
     .hero-small {
-
       display: inline-block;
 
       margin-bottom: 15px;
-
       padding: 8px 14px;
 
       background: rgba(255,255,255,.92);
@@ -404,32 +339,22 @@
       font-size: 11px;
 
       letter-spacing: 1.4px;
-
       text-transform: uppercase;
 
       text-shadow: none;
-
     }
 
     .hero-content h1 {
-
       margin: 0;
 
-      font-size:
-        clamp(
-          45px,
-          8vw,
-          82px
-        );
+      font-size: clamp(45px, 8vw, 82px);
 
       line-height: .94;
 
       letter-spacing: -2px;
-
     }
 
     .hero-content p {
-
       max-width: 560px;
 
       margin: 23px auto 0;
@@ -440,13 +365,10 @@
         sans-serif;
 
       font-size: 17px;
-
       line-height: 1.6;
-
     }
 
     .hero-shop-button {
-
       display: inline-block;
 
       margin-top: 28px;
@@ -456,13 +378,11 @@
       border-radius: 30px;
 
       background: white;
-
       color: var(--midnight);
 
       text-decoration: none;
 
       font-size: 13px;
-
       font-weight: bold;
 
       text-shadow: none;
@@ -470,22 +390,21 @@
       transition:
         transform .2s ease,
         background .2s ease;
-
     }
 
     .hero-shop-button:hover {
-
       transform: translateY(-2px);
 
       background: var(--soft-aqua);
-
     }
 
 
-    /* SLIDER PIJLEN */
+
+    /* =====================================================
+       HERO PIJLEN
+       ===================================================== */
 
     .slider-arrow {
-
       position: absolute;
 
       z-index: 20;
@@ -495,15 +414,12 @@
       transform: translateY(-50%);
 
       width: 44px;
-
       height: 44px;
 
       border: none;
-
       border-radius: 50%;
 
       background: rgba(255,255,255,.88);
-
       color: var(--midnight);
 
       font-size: 25px;
@@ -513,13 +429,10 @@
       box-shadow:
         0 4px 18px
         rgba(20,55,70,.12);
-
     }
 
     .slider-arrow:hover {
-
       background: white;
-
     }
 
     .slider-arrow-left {
@@ -530,17 +443,12 @@
       right: 22px;
     }
 
-
-    /* SLIDER DOTS */
-
     .slider-dots {
-
       position: absolute;
 
       z-index: 20;
 
       left: 50%;
-
       bottom: 22px;
 
       transform: translateX(-50%);
@@ -548,19 +456,15 @@
       display: flex;
 
       gap: 8px;
-
     }
 
     .slider-dot {
-
       width: 9px;
-
       height: 9px;
 
       padding: 0;
 
       border: none;
-
       border-radius: 50%;
 
       background: rgba(255,255,255,.55);
@@ -568,26 +472,23 @@
       cursor: pointer;
 
       transition: .2s;
-
     }
 
     .slider-dot.active {
-
       width: 26px;
 
       border-radius: 8px;
 
       background: white;
-
     }
 
 
-    /* ========================================
+
+    /* =====================================================
        INTRO
-       ======================================== */
+       ===================================================== */
 
     .intro {
-
       max-width: 800px;
 
       margin: auto;
@@ -598,48 +499,32 @@
         40px;
 
       text-align: center;
-
     }
 
     .intro-small {
-
       margin-bottom: 8px;
 
       color: var(--orange);
 
       font-size: 11px;
-
       font-weight: bold;
 
       letter-spacing: 1.7px;
-
       text-transform: uppercase;
-
     }
 
     .intro h2 {
-
       margin: 0;
 
       color: var(--midnight);
 
-      font-size:
-        clamp(
-          30px,
-          5vw,
-          43px
-        );
-
+      font-size: clamp(30px, 5vw, 43px);
     }
 
     .intro p {
-
       max-width: 620px;
 
-      margin:
-        17px
-        auto
-        0;
+      margin: 17px auto 0;
 
       color: var(--muted);
 
@@ -649,18 +534,16 @@
         sans-serif;
 
       font-size: 15px;
-
       line-height: 1.7;
-
     }
 
 
-    /* ========================================
-       FOTO BLOKKEN
-       ======================================== */
+
+    /* =====================================================
+       ÉÉN BREDE SWIMSUITS TEGEL
+       ===================================================== */
 
     .visual-categories {
-
       max-width: 1180px;
 
       margin: auto;
@@ -669,23 +552,12 @@
         15px
         25px
         80px;
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(
-          2,
-          1fr
-        );
-
-      gap: 22px;
-
     }
 
     .visual-card {
-
       position: relative;
 
+      width: 100%;
       min-height: 450px;
 
       border-radius: 22px;
@@ -693,43 +565,25 @@
       overflow: hidden;
 
       display: flex;
-
       align-items: flex-end;
 
       text-decoration: none;
 
       isolation: isolate;
 
-    }
-
-    .visual-one {
-
       background:
         linear-gradient(
-          150deg,
+          145deg,
           #80d0c0,
-          #dff4ec
+          #dff4ec 55%,
+          #f4d8ac
         );
-
-    }
-
-    .visual-two {
-
-      background:
-        linear-gradient(
-          150deg,
-          #7ac3df,
-          #f5ddbd
-        );
-
     }
 
     .visual-card::before {
-
       content: "";
 
       position: absolute;
-
       inset: 0;
 
       z-index: -1;
@@ -737,45 +591,36 @@
       background:
         linear-gradient(
           0deg,
-          rgba(20,55,70,.42),
-          rgba(20,55,70,0) 62%
+          rgba(20,55,70,.43),
+          rgba(20,55,70,.02) 65%
         );
-
     }
 
     .visual-placeholder {
-
       position: absolute;
-
       inset: 0;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      color: rgba(255,255,255,.66);
-
-      font-size: 70px;
 
       z-index: -2;
 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 85px;
+
+      color: rgba(255,255,255,.68);
     }
 
     .visual-content {
-
-      padding: 28px;
+      padding: 32px;
 
       color: white;
-
     }
 
     .visual-content span {
-
       display: block;
 
-      margin-bottom: 6px;
+      margin-bottom: 7px;
 
       font-family:
         Arial,
@@ -785,52 +630,43 @@
       font-size: 11px;
 
       letter-spacing: 1.4px;
-
       text-transform: uppercase;
-
     }
 
     .visual-content h3 {
-
       margin: 0;
 
-      font-size: 31px;
-
+      font-size: 34px;
     }
 
     .visual-link {
-
       display: inline-block;
 
-      margin-top: 12px;
+      margin-top: 13px;
 
       padding-bottom: 3px;
 
       border-bottom:
         1px solid
-        rgba(255,255,255,.8);
+        rgba(255,255,255,.85);
 
       font-size: 12px;
-
       font-weight: bold;
-
     }
 
 
-    /* ========================================
-       SHOP HEADER
-       ======================================== */
+
+    /* =====================================================
+       SHOP
+       ===================================================== */
 
     .shop-section {
-
       background: var(--soft-sand);
 
       padding-top: 1px;
-
     }
 
     .shop-heading {
-
       max-width: 760px;
 
       margin: auto;
@@ -841,46 +677,30 @@
         10px;
 
       text-align: center;
-
     }
 
     .shop-heading-label {
-
       margin-bottom: 9px;
 
       color: var(--orange);
 
       font-size: 11px;
-
       font-weight: bold;
 
       letter-spacing: 1.7px;
-
       text-transform: uppercase;
-
     }
 
     .shop-heading h2 {
-
       margin: 0;
 
       color: var(--midnight);
 
-      font-size:
-        clamp(
-          31px,
-          5vw,
-          42px
-        );
-
+      font-size: clamp(31px, 5vw, 42px);
     }
 
     .shop-heading p {
-
-      margin:
-        14px
-        auto
-        0;
+      margin: 14px auto 0;
 
       color: var(--muted);
 
@@ -890,32 +710,18 @@
         sans-serif;
 
       line-height: 1.6;
-
     }
-
-
-    /* ========================================
-       LOADING
-       ======================================== */
 
     .loading,
     .error {
+      padding: 60px 20px;
 
       text-align: center;
 
-      padding: 60px 20px;
-
       color: var(--muted);
-
     }
 
-
-    /* ========================================
-       PRODUCT GRID
-       ======================================== */
-
     .products {
-
       max-width: 1180px;
 
       margin: auto;
@@ -934,48 +740,44 @@
         );
 
       gap: 28px;
-
     }
 
 
-    /* ========================================
-       PRODUCT CARD
-       ======================================== */
+
+    /* =====================================================
+       PRODUCTKAART
+       ===================================================== */
 
     .product {
+      overflow: hidden;
 
       background: white;
-
-      border-radius: 20px;
-
-      overflow: hidden;
 
       border:
         1px solid
         var(--border);
 
+      border-radius: 20px;
+
+      cursor: pointer;
+
       transition:
         transform .22s ease,
         box-shadow .22s ease;
-
     }
 
     .product:hover {
-
-      transform:
-        translateY(-4px);
+      transform: translateY(-4px);
 
       box-shadow:
         0
         18px
         40px
         rgba(30,85,107,.10);
-
     }
 
     .product-image {
-
-      height: 330px;
+      height: 360px;
 
       background:
         linear-gradient(
@@ -985,27 +787,31 @@
         );
 
       display: flex;
-
       align-items: center;
-
       justify-content: center;
-
       flex-direction: column;
 
       color: var(--ocean);
 
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      display: block;
     }
 
     .product-image-icon {
-
-      font-size: 49px;
-
       margin-bottom: 10px;
 
+      font-size: 49px;
     }
 
     .product-image-text {
-
       color: var(--muted);
 
       font-family:
@@ -1014,27 +820,21 @@
         sans-serif;
 
       font-size: 12px;
-
     }
 
     .product-info {
-
       padding: 22px;
-
     }
 
     .product h3 {
-
       margin: 0;
 
       color: var(--midnight);
 
       font-size: 21px;
-
     }
 
     .product-color {
-
       margin-top: 6px;
 
       color: var(--muted);
@@ -1045,48 +845,32 @@
         sans-serif;
 
       font-size: 13px;
-
     }
 
     .product-price {
-
       margin-top: 13px;
 
       color: var(--ocean);
 
       font-size: 19px;
-
       font-weight: bold;
-
     }
 
-
-    /* ========================================
-       MINI PRODUCT FEATURES
-       ======================================== */
-
     .product-mini-features {
-
       display: flex;
+      flex-wrap: wrap;
 
       gap: 7px;
 
-      flex-wrap: wrap;
-
       margin-top: 15px;
-
     }
 
     .mini-feature {
-
-      padding:
-        6px
-        9px;
+      padding: 6px 9px;
 
       border-radius: 20px;
 
       background: var(--soft-aqua);
-
       color: var(--midnight);
 
       font-family:
@@ -1095,47 +879,42 @@
         sans-serif;
 
       font-size: 10px;
-
     }
 
+    .product-card-link {
+      display: inline-flex;
 
-    /* ========================================
-       MATEN
-       ======================================== */
+      margin-top: 18px;
 
-    .size-title {
+      padding-bottom: 3px;
 
-      margin-top: 19px;
-
-      margin-bottom: 9px;
+      border-bottom:
+        1px solid
+        var(--midnight);
 
       color: var(--midnight);
 
       font-size: 12px;
-
       font-weight: bold;
-
     }
 
+
+
+    /* =====================================================
+       MAATKNOPPEN
+       ===================================================== */
+
     .sizes {
-
       display: flex;
-
       flex-wrap: wrap;
 
       gap: 7px;
-
-      margin-bottom: 17px;
-
     }
 
     .size-button {
-
       min-width: 51px;
 
-      padding:
-        9px
-        11px;
+      padding: 9px 11px;
 
       border:
         1px solid
@@ -1144,7 +923,6 @@
       border-radius: 9px;
 
       background: white;
-
       color: var(--midnight);
 
       cursor: pointer;
@@ -1152,95 +930,500 @@
       font-size: 13px;
 
       transition: .15s;
-
     }
 
     .size-button:hover:not(:disabled) {
-
       border-color: var(--aqua);
 
       background: var(--soft-aqua);
-
     }
 
     .size-button.selected {
-
       border-color: var(--midnight);
 
       background: var(--midnight);
-
       color: white;
-
     }
 
     .size-button:disabled {
-
       background: #f1f3f3;
-
       color: #b6bfc1;
 
       cursor: not-allowed;
 
       text-decoration: line-through;
-
     }
 
 
-    /* ========================================
-       TOEVOEGEN
-       ======================================== */
 
-    .add-button {
+    /* =====================================================
+       PRODUCT DETAIL
+       ===================================================== */
 
+    .product-detail-overlay {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 2500;
+
+      background: rgba(15,45,55,.38);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition: .25s;
+    }
+
+    .product-detail-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .product-detail-page {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 2600;
+
+      background: white;
+
+      overflow-y: auto;
+
+      transform: translateY(100%);
+
+      transition: transform .32s ease;
+    }
+
+    .product-detail-page.open {
+      transform: translateY(0);
+    }
+
+    .product-detail-topbar {
+      position: sticky;
+
+      top: 0;
+
+      z-index: 20;
+
+      padding: 15px 24px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 20px;
+
+      background: rgba(255,255,255,.97);
+
+      border-bottom:
+        1px solid
+        var(--border);
+
+      backdrop-filter: blur(8px);
+    }
+
+    .back-to-shop {
+      border: none;
+
+      background: none;
+
+      color: var(--midnight);
+
+      cursor: pointer;
+
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .detail-close {
+      width: 38px;
+      height: 38px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: var(--soft-blue);
+      color: var(--midnight);
+
+      cursor: pointer;
+
+      font-size: 24px;
+    }
+
+    .product-detail-inner {
+      max-width: 1180px;
+
+      margin: auto;
+
+      padding:
+        42px
+        25px
+        75px;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1.2fr)
+        minmax(320px, .8fr);
+
+      gap: 54px;
+    }
+
+    .detail-gallery-main {
+      aspect-ratio: 4 / 5;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 18px;
+
+      overflow: hidden;
+
+      background: var(--soft-sand);
+    }
+
+    .detail-gallery-main img {
       width: 100%;
+      height: 100%;
 
-      padding: 13px;
+      object-fit: cover;
+
+      display: block;
+    }
+
+    .detail-image-placeholder {
+      text-align: center;
+
+      color: var(--muted);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+    }
+
+    .detail-image-placeholder span {
+      display: block;
+
+      margin-bottom: 8px;
+
+      font-size: 58px;
+    }
+
+    .detail-thumbnails {
+      margin-top: 12px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 10px;
+    }
+
+    .detail-thumb {
+      padding: 0;
+
+      aspect-ratio: 1;
+
+      border:
+        2px solid
+        transparent;
+
+      border-radius: 11px;
+
+      overflow: hidden;
+
+      background: var(--soft-sand);
+
+      cursor: pointer;
+    }
+
+    .detail-thumb.active {
+      border-color: var(--midnight);
+    }
+
+    .detail-thumb img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      display: block;
+    }
+
+    .detail-label {
+      color: var(--orange);
+
+      font-size: 10px;
+      font-weight: bold;
+
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .detail-title {
+      margin:
+        10px
+        0
+        5px;
+
+      color: var(--midnight);
+
+      font-size: clamp(31px, 4vw, 48px);
+
+      line-height: 1.05;
+    }
+
+    .detail-type {
+      color: var(--muted);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size: 13px;
+    }
+
+    .detail-price {
+      margin-top: 17px;
+
+      color: var(--ocean);
+
+      font-size: 23px;
+      font-weight: bold;
+    }
+
+    .detail-description {
+      margin-top: 22px;
+
+      color: var(--text);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size: 14px;
+      line-height: 1.7;
+
+      white-space: pre-line;
+    }
+
+    .detail-size-header {
+      margin:
+        27px
+        0
+        10px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 10px;
+    }
+
+    .detail-size-header strong {
+      color: var(--midnight);
+
+      font-size: 13px;
+    }
+
+    .size-guide-link {
+      padding: 0;
 
       border: none;
 
+      background: none;
+
+      color: var(--ocean);
+
+      cursor: pointer;
+
+      font-size: 11px;
+
+      text-decoration: underline;
+    }
+
+    .detail-quantity {
+      margin-top: 20px;
+    }
+
+    .detail-quantity-title {
+      margin-bottom: 9px;
+
+      color: var(--midnight);
+
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .detail-quantity-control {
+      display: inline-flex;
+      align-items: center;
+
+      overflow: hidden;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 10px;
+    }
+
+    .detail-quantity-control button {
+      width: 40px;
+      height: 40px;
+
+      border: none;
+
+      background: white;
+      color: var(--midnight);
+
+      cursor: pointer;
+
+      font-size: 20px;
+    }
+
+    .detail-quantity-control span {
+      min-width: 42px;
+
+      text-align: center;
+
+      font-weight: bold;
+    }
+
+    .detail-add-button {
+      width: 100%;
+
+      margin-top: 20px;
+
+      padding: 15px;
+
+      border: none;
       border-radius: 10px;
 
-      background: var(--ocean);
-
+      background: var(--midnight);
       color: white;
 
       cursor: pointer;
 
       font-size: 13px;
-
       font-weight: bold;
-
-      transition:
-        background .2s ease,
-        transform .2s ease;
-
     }
 
-    .add-button:hover {
-
-      background: var(--midnight);
-
-      transform: translateY(-1px);
-
+    .detail-add-button:hover {
+      background: var(--ocean);
     }
 
 
-    /* ========================================
-       ALGEMENE PRODUCT VOORDELEN
-       ======================================== */
+
+    /* =====================================================
+       PRODUCT ACCORDIONS
+       ===================================================== */
+
+    .detail-accordions {
+      margin-top: 27px;
+
+      border-top:
+        1px solid
+        var(--border);
+    }
+
+    .detail-accordion {
+      border-bottom:
+        1px solid
+        var(--border);
+    }
+
+    .detail-accordion button {
+      width: 100%;
+
+      padding: 18px 0;
+
+      border: none;
+
+      background: none;
+      color: var(--midnight);
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      cursor: pointer;
+
+      text-align: left;
+
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .detail-accordion-content {
+      display: none;
+
+      padding:
+        0
+        0
+        18px;
+
+      color: var(--muted);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size: 13px;
+      line-height: 1.65;
+
+      white-space: pre-line;
+    }
+
+    .detail-accordion.open
+    .detail-accordion-content {
+      display: block;
+    }
+
+    .accordion-symbol {
+      font-size: 20px;
+
+      transition: transform .2s;
+    }
+
+    .detail-accordion.open
+    .accordion-symbol {
+      transform: rotate(45deg);
+    }
+
+    .care-list {
+      margin: 0;
+
+      padding-left: 18px;
+    }
+
+    .care-list li {
+      margin-bottom: 7px;
+    }
+
+
+
+    /* =====================================================
+       VOORDELEN
+       ===================================================== */
 
     .benefits-section {
-
       background: white;
 
       padding:
         75px
         25px;
-
     }
 
     .benefits-heading {
-
       max-width: 750px;
 
       margin:
@@ -1249,21 +1432,17 @@
         42px;
 
       text-align: center;
-
     }
 
     .benefits-heading h2 {
-
       margin: 0;
 
       color: var(--midnight);
 
       font-size: 30px;
-
     }
 
     .benefits-heading p {
-
       max-width: 580px;
 
       margin:
@@ -1278,14 +1457,11 @@
         Helvetica,
         sans-serif;
 
-      line-height: 1.6;
-
       font-size: 14px;
-
+      line-height: 1.6;
     }
 
     .benefits {
-
       max-width: 1050px;
 
       margin: auto;
@@ -1293,17 +1469,12 @@
       display: grid;
 
       grid-template-columns:
-        repeat(
-          3,
-          1fr
-        );
+        repeat(3, 1fr);
 
       gap: 20px;
-
     }
 
     .benefit {
-
       padding: 26px;
 
       border-radius: 18px;
@@ -1311,31 +1482,23 @@
       background: var(--soft-aqua);
 
       text-align: center;
-
     }
 
     .benefit:nth-child(2) {
-
       background: var(--soft-blue);
-
     }
 
     .benefit:nth-child(3) {
-
       background: var(--soft-orange);
-
     }
 
     .benefit-icon {
-
-      font-size: 30px;
-
       margin-bottom: 12px;
 
+      font-size: 30px;
     }
 
     .benefit strong {
-
       display: block;
 
       margin-bottom: 7px;
@@ -1343,11 +1506,9 @@
       color: var(--midnight);
 
       font-size: 15px;
-
     }
 
     .benefit p {
-
       margin: 0;
 
       color: var(--muted);
@@ -1358,45 +1519,40 @@
         sans-serif;
 
       font-size: 12px;
-
       line-height: 1.55;
-
     }
 
 
-    /* ========================================
-       DETAIL TEKST
-       ======================================== */
+
+    /* =====================================================
+       DETAILS STRIP
+       ===================================================== */
 
     .details-strip {
-
-      background: var(--midnight);
-
-      color: white;
-
       padding:
         35px
         25px;
 
+      background: var(--midnight);
+      color: white;
     }
 
     .details-strip-inner {
-
       max-width: 1050px;
 
       margin: auto;
 
       display: flex;
-
+      flex-wrap: wrap;
       justify-content: center;
 
       gap:
         18px
         35px;
 
-      flex-wrap: wrap;
-
       text-align: center;
+
+      color: #e6f0f2;
 
       font-family:
         Arial,
@@ -1404,60 +1560,50 @@
         sans-serif;
 
       font-size: 12px;
-
-      color: #e6f0f2;
-
     }
 
 
-    /* ========================================
-       OVERLAY
-       ======================================== */
+
+    /* =====================================================
+       CART OVERLAY
+       ===================================================== */
 
     .cart-overlay {
-
       position: fixed;
 
       inset: 0;
 
-      background:
-        rgba(15,45,55,.32);
-
-      opacity: 0;
-
-      visibility: hidden;
-
       z-index: 1900;
 
-      transition: .25s;
+      background: rgba(15,45,55,.32);
 
+      opacity: 0;
+      visibility: hidden;
+
+      transition: .25s;
     }
 
     .cart-overlay.open {
-
       opacity: 1;
-
       visibility: visible;
-
     }
 
 
-    /* ========================================
-       CART
-       ======================================== */
+
+    /* =====================================================
+       WINKELMANDJE
+       ===================================================== */
 
     .cart-panel {
-
       position: fixed;
 
       top: 0;
-
       right: -470px;
 
+      z-index: 2000;
+
       width: 430px;
-
       max-width: 100%;
-
       height: 100vh;
 
       padding: 28px;
@@ -1466,17 +1612,13 @@
 
       overflow-y: auto;
 
-      z-index: 2000;
-
       box-shadow:
         -10px
         0
         45px
         rgba(20,55,70,.14);
 
-      transition:
-        right .3s ease;
-
+      transition: right .3s ease;
     }
 
     .cart-panel.open {
@@ -1484,58 +1626,47 @@
     }
 
     .cart-header {
+      padding-bottom: 20px;
 
       display: flex;
-
-      justify-content: space-between;
-
       align-items: center;
-
-      padding-bottom: 20px;
+      justify-content: space-between;
 
       border-bottom:
         1px solid
         var(--border);
-
     }
 
     .cart-header h2 {
-
       margin: 0;
 
       color: var(--midnight);
 
       font-size: 23px;
-
     }
 
     .close-cart {
-
       width: 38px;
-
       height: 38px;
 
       border: none;
-
       border-radius: 50%;
 
       background: var(--soft-blue);
-
       color: var(--midnight);
 
       font-size: 25px;
 
       cursor: pointer;
-
     }
 
 
-    /* ========================================
-       CART ITEM
-       ======================================== */
+
+    /* =====================================================
+       CART ITEMS
+       ===================================================== */
 
     .cart-item {
-
       padding:
         20px
         0;
@@ -1543,19 +1674,15 @@
       border-bottom:
         1px solid
         var(--border);
-
     }
 
     .cart-item strong {
-
       color: var(--midnight);
 
       font-size: 15px;
-
     }
 
     .cart-item-details {
-
       margin-top: 6px;
 
       color: var(--muted);
@@ -1566,75 +1693,57 @@
         sans-serif;
 
       font-size: 13px;
-
       line-height: 1.5;
-
     }
 
     .quantity-row {
-
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-
       margin-top: 14px;
 
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .quantity-control {
-
       display: flex;
-
       align-items: center;
 
       gap: 11px;
-
     }
 
     .quantity-control button {
-
       width: 32px;
-
       height: 32px;
-
-      border-radius: 50%;
 
       border:
         1px solid
         var(--border);
 
+      border-radius: 50%;
+
       background: white;
-
       color: var(--midnight);
-
-      font-size: 18px;
 
       cursor: pointer;
 
+      font-size: 18px;
     }
 
     .quantity-control span {
-
       min-width: 17px;
 
       text-align: center;
 
       font-weight: bold;
-
     }
 
     .subtotal {
-
       color: var(--midnight);
 
       font-weight: bold;
-
     }
 
     .remove-button {
-
       margin-top: 11px;
 
       padding: 0;
@@ -1642,7 +1751,6 @@
       border: none;
 
       background: none;
-
       color: #a65b5b;
 
       cursor: pointer;
@@ -1650,16 +1758,15 @@
       font-size: 11px;
 
       text-decoration: underline;
-
     }
 
 
-    /* ========================================
-       CART TOTAL
-       ======================================== */
+
+    /* =====================================================
+       CART TOTAAL
+       ===================================================== */
 
     .cart-summary {
-
       margin-top: 24px;
 
       padding: 16px;
@@ -1667,25 +1774,19 @@
       border-radius: 13px;
 
       background: var(--soft-orange);
-
     }
 
     .cart-total {
-
       display: flex;
-
       justify-content: space-between;
 
       color: var(--midnight);
 
       font-size: 19px;
-
       font-weight: bold;
-
     }
 
     .cart-note {
-
       margin-top: 8px;
 
       color: var(--muted);
@@ -1696,30 +1797,25 @@
         sans-serif;
 
       font-size: 11px;
-
       line-height: 1.5;
-
     }
 
 
-    /* ========================================
+
+    /* =====================================================
        KLANTGEGEVENS
-       ======================================== */
+       ===================================================== */
 
     .customer-form {
-
       margin-top: 23px;
-
       padding-top: 22px;
 
       border-top:
         1px solid
         var(--border);
-
     }
 
     .customer-form h3 {
-
       margin:
         0
         0
@@ -1728,11 +1824,9 @@
       color: var(--midnight);
 
       font-size: 17px;
-
     }
 
     .customer-form-intro {
-
       margin:
         0
         0
@@ -1746,19 +1840,14 @@
         sans-serif;
 
       font-size: 12px;
-
       line-height: 1.5;
-
     }
 
     .form-group {
-
       margin-bottom: 13px;
-
     }
 
     .form-group label {
-
       display: block;
 
       margin-bottom: 6px;
@@ -1766,20 +1855,15 @@
       color: var(--midnight);
 
       font-size: 12px;
-
       font-weight: bold;
-
     }
 
     .required {
-
       color: var(--orange);
-
     }
 
     .form-group input,
     .form-group textarea {
-
       width: 100%;
 
       padding:
@@ -1795,7 +1879,6 @@
       outline: none;
 
       background: white;
-
       color: var(--text);
 
       font-family:
@@ -1804,31 +1887,26 @@
         sans-serif;
 
       font-size: 13px;
-
     }
 
     .form-group input:focus,
     .form-group textarea:focus {
-
       border-color: var(--ocean);
-
     }
 
     .form-group textarea {
-
       min-height: 80px;
 
       resize: vertical;
-
     }
 
 
-    /* ========================================
+
+    /* =====================================================
        WHATSAPP
-       ======================================== */
+       ===================================================== */
 
     .whatsapp-button {
-
       width: 100%;
 
       margin-top: 16px;
@@ -1836,37 +1914,28 @@
       padding: 15px;
 
       border: none;
-
       border-radius: 10px;
 
       background: #25D366;
-
       color: white;
-
-      font-size: 14px;
-
-      font-weight: bold;
 
       cursor: pointer;
 
+      font-size: 14px;
+      font-weight: bold;
     }
 
     .whatsapp-button:hover {
-
       opacity: .92;
-
     }
 
     .whatsapp-button:disabled {
-
       background: #cfd6d8;
 
       cursor: not-allowed;
-
     }
 
     .empty-cart {
-
       padding:
         35px
         0;
@@ -1874,40 +1943,34 @@
       text-align: center;
 
       color: var(--muted);
-
     }
 
 
-    /* ========================================
+
+    /* =====================================================
        FOOTER
-       ======================================== */
+       ===================================================== */
 
     footer {
-
       padding:
         42px
         25px;
 
       background: #173f50;
-
       color: white;
 
       text-align: center;
-
     }
 
     footer strong {
-
       display: block;
 
       margin-bottom: 7px;
 
       font-size: 16px;
-
     }
 
     footer span {
-
       color: #cfe1e6;
 
       font-family:
@@ -1916,127 +1979,97 @@
         sans-serif;
 
       font-size: 12px;
-
     }
 
 
-    /* ========================================
+
+    /* =====================================================
        TABLET
-       ======================================== */
+       ===================================================== */
 
-    @media (
-      max-width: 800px
-    ) {
-
-      .visual-categories {
-
-        grid-template-columns: 1fr;
-
-      }
-
-      .visual-card {
-
-        min-height: 390px;
-
-      }
+    @media (max-width: 800px) {
 
       .benefits {
-
-        grid-template-columns: 1fr;
-
         max-width: 550px;
 
+        grid-template-columns: 1fr;
+      }
+
+      .product-detail-inner {
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+
+        padding-top: 22px;
       }
 
     }
 
 
-    /* ========================================
-       MOBIEL
-       ======================================== */
 
-    @media (
-      max-width: 600px
-    ) {
+    /* =====================================================
+       MOBIEL
+       ===================================================== */
+
+    @media (max-width: 600px) {
 
       .announcement {
-
         padding:
           8px
           12px;
 
         font-size: 9px;
-
       }
 
       .navbar {
-
         padding:
           12px
           15px;
-
       }
 
       .brand-text {
-
         font-size: 14px;
-
       }
 
       .brand-text span {
-
         font-size: 8px;
-
       }
 
       .cart-button {
-
         padding:
           10px
           13px;
 
         font-size: 11px;
-
       }
 
       .hero-slider {
-
         height: 72vh;
 
         min-height: 540px;
-
       }
 
       .hero-content {
-
         padding:
           35px
           30px;
-
       }
 
       .hero-content h1 {
-
         font-size: 48px;
 
         letter-spacing: -1px;
-
       }
 
       .hero-content p {
-
         font-size: 14px;
-
       }
 
       .slider-arrow {
-
         width: 38px;
-
         height: 38px;
 
         font-size: 22px;
-
       }
 
       .slider-arrow-left {
@@ -2048,67 +2081,78 @@
       }
 
       .intro {
-
         padding-top: 55px;
-
       }
 
       .visual-categories {
-
-        padding-left: 15px;
-
-        padding-right: 15px;
-
-        padding-bottom: 55px;
-
+        padding:
+          15px
+          15px
+          55px;
       }
 
       .visual-card {
-
         min-height: 340px;
+      }
 
+      .visual-content {
+        padding: 24px;
       }
 
       .visual-content h3 {
-
-        font-size: 27px;
-
+        font-size: 29px;
       }
 
       .shop-heading {
-
         padding-top: 55px;
-
       }
 
       .products {
-
-        padding-left: 15px;
-
-        padding-right: 15px;
-
+        padding:
+          35px
+          15px
+          70px;
       }
 
       .product-image {
-
-        height: 290px;
-
+        height: 350px;
       }
 
       .benefits-section {
-
         padding:
           55px
           15px;
-
       }
 
       .cart-panel {
-
         width: 100%;
 
         padding: 21px;
+      }
 
+      .product-detail-topbar {
+        padding:
+          12px
+          14px;
+      }
+
+      .product-detail-inner {
+        padding:
+          18px
+          15px
+          55px;
+      }
+
+      .detail-gallery-main {
+        border-radius: 13px;
+      }
+
+      .detail-title {
+        font-size: 32px;
+      }
+
+      .detail-thumbnails {
+        gap: 7px;
       }
 
     }
@@ -2122,9 +2166,10 @@
 <body>
 
 
-<!-- ========================================
+
+<!-- =====================================================
      TOPBAR
-     ======================================== -->
+     ===================================================== -->
 
 <div class="announcement">
 
@@ -2138,12 +2183,11 @@
 
 
 
-<!-- ========================================
+<!-- =====================================================
      NAVIGATIE
-     ======================================== -->
+     ===================================================== -->
 
 <nav class="navbar">
-
 
   <div class="brand-text">
 
@@ -2162,25 +2206,22 @@
   >
 
     🛒 Winkelmandje
-
     (<span id="cart-count">0</span>)
 
   </button>
-
 
 </nav>
 
 
 
-<!-- ========================================
-     HERO SLIDER
-     ======================================== -->
+<!-- =====================================================
+     HERO
+     ===================================================== -->
 
 <section
   class="hero-slider"
   id="hero-slider"
 >
-
 
   <div
     class="slides"
@@ -2193,47 +2234,31 @@
     <div class="slide slide-one">
 
       <div class="slide-decoration"></div>
-
       <div class="slide-decoration-small"></div>
-
 
       <div class="hero-content">
 
-
         <div class="hero-small">
-
           Swimwear on Bonaire
-
         </div>
 
-
         <h1>
-
           Beach & Bandits
-
         </h1>
 
-
         <p>
-
           Kleurrijke zwemkleding voor eindeloos
           plezier in zon, zee en zwembad.
-
         </p>
-
 
         <a
           href="#collectie"
           class="hero-shop-button"
         >
-
           SHOP DE COLLECTIE
-
         </a>
 
-
       </div>
-
 
     </div>
 
@@ -2244,47 +2269,31 @@
     <div class="slide slide-two">
 
       <div class="slide-decoration"></div>
-
       <div class="slide-decoration-small"></div>
-
 
       <div class="hero-content">
 
-
         <div class="hero-small">
-
           Made for sunshine
-
         </div>
 
-
         <h1>
-
           Ready to splash
-
         </h1>
 
-
         <p>
-
           Comfortabele swimwear voor kleine
           waterratten op Bonaire.
-
         </p>
-
 
         <a
           href="#collectie"
           class="hero-shop-button"
         >
-
           BEKIJK DE BADPAKKEN
-
         </a>
 
-
       </div>
-
 
     </div>
 
@@ -2295,50 +2304,33 @@
     <div class="slide slide-three">
 
       <div class="slide-decoration"></div>
-
       <div class="slide-decoration-small"></div>
-
 
       <div class="hero-content">
 
-
         <div class="hero-small">
-
           Beach days made better
-
         </div>
 
-
         <h1>
-
           Swim. Play. Repeat.
-
         </h1>
 
-
         <p>
-
           Kies je favoriete model en bestel
           gemakkelijk via WhatsApp.
-
         </p>
-
 
         <a
           href="#collectie"
           class="hero-shop-button"
         >
-
           SHOP NU
-
         </a>
-
 
       </div>
 
-
     </div>
-
 
   </div>
 
@@ -2351,20 +2343,15 @@
     onclick="previousSlide()"
     aria-label="Vorige foto"
   >
-
     ‹
-
   </button>
-
 
   <button
     class="slider-arrow slider-arrow-right"
     onclick="nextSlide()"
     aria-label="Volgende foto"
   >
-
     ›
-
   </button>
 
 
@@ -2393,191 +2380,105 @@
 
   </div>
 
-
 </section>
 
 
 
-<!-- ========================================
+<!-- =====================================================
      INTRO
-     ======================================== -->
+     ===================================================== -->
 
 <section class="intro">
 
-
   <div class="intro-small">
-
     Beach & Bandits Bonaire
-
   </div>
 
-
   <h2>
-
     Made for little water lovers
-
   </h2>
 
-
   <p>
-
     Ontdek de Beach & Bandits collectie bij Swim Academy Splash.
     Kies je favoriete model, selecteer de juiste maat
     en bestel eenvoudig via WhatsApp.
-
   </p>
-
 
 </section>
 
 
 
-<!-- ========================================
-     VISUELE FOTO BLOKKEN
-     ======================================== -->
+<!-- =====================================================
+     ÉÉN BREDE SWIMSUITS TEGEL
+     ===================================================== -->
 
 <section class="visual-categories">
 
-
   <a
     href="#collectie"
-    class="visual-card visual-one"
+    class="visual-card"
   >
 
-
     <div class="visual-placeholder">
-
       🌊
-
     </div>
-
 
     <div class="visual-content">
 
-
       <span>
-
         Beach & pool
-
       </span>
 
-
       <h3>
-
         Swimsuits
-
       </h3>
 
-
       <div class="visual-link">
-
         SHOP DE COLLECTIE →
-
       </div>
 
-
     </div>
-
 
   </a>
-
-
-
-  <a
-    href="#collectie"
-    class="visual-card visual-two"
-  >
-
-
-    <div class="visual-placeholder">
-
-      ☀️
-
-    </div>
-
-
-    <div class="visual-content">
-
-
-      <span>
-
-        Fun in the sun
-
-      </span>
-
-
-      <h3>
-
-        Ready to splash
-
-      </h3>
-
-
-      <div class="visual-link">
-
-        BEKIJK DE MODELLEN →
-
-      </div>
-
-
-    </div>
-
-
-  </a>
-
 
 </section>
 
 
 
-<!-- ========================================
+<!-- =====================================================
      SHOP
-     ======================================== -->
+     ===================================================== -->
 
 <section
   class="shop-section"
   id="collectie"
 >
 
-
   <div class="shop-heading">
 
-
     <div class="shop-heading-label">
-
       Shop Beach & Bandits
-
     </div>
 
-
     <h2>
-
       Shop de collectie
-
     </h2>
 
-
     <p>
-
-      Kies je favoriete badpak en selecteer de juiste maat.
+      Klik op een product om de foto's en productinformatie
+      te bekijken en selecteer daarna de juiste maat.
       Uitverkochte maten zijn automatisch niet meer te kiezen.
-
     </p>
 
-
   </div>
-
 
 
   <div
     id="loading"
     class="loading"
   >
-
     Collectie wordt geladen...
-
   </div>
-
 
 
   <div
@@ -2585,143 +2486,97 @@
     class="products"
   ></div>
 
-
 </section>
 
 
 
-<!-- ========================================
-     PRODUCT VOORDELEN
-     ======================================== -->
+<!-- =====================================================
+     VOORDELEN
+     ===================================================== -->
 
 <section class="benefits-section">
 
-
   <div class="benefits-heading">
 
-
     <h2>
-
       Gemaakt voor waterpret
-
     </h2>
 
-
     <p>
-
       De Beach & Bandits swimwear is ontworpen
       voor actieve kids die het liefst de hele dag
       in en rond het water zijn.
-
     </p>
 
-
   </div>
-
 
 
   <div class="benefits">
 
-
     <div class="benefit">
 
-
       <div class="benefit-icon">
-
         ☀️
-
       </div>
 
-
       <strong>
-
         UV50+ bescherming
-
       </strong>
 
-
       <p>
-
         Extra bescherming tijdens lange dagen
         buiten in de zon.
-
       </p>
-
 
     </div>
 
 
-
     <div class="benefit">
 
-
       <div class="benefit-icon">
-
         🌊
-
       </div>
 
-
       <strong>
-
         Sneldrogend & ademend
-
       </strong>
 
-
       <p>
-
         Comfortabel voor zwemmen,
         spelen en stranddagen.
-
       </p>
 
-
     </div>
-
 
 
     <div class="benefit">
 
-
       <div class="benefit-icon">
-
         ♡
-
       </div>
 
-
       <strong>
-
         Zacht & comfortabel
-
       </strong>
 
-
       <p>
-
         Flexibele swimwear gemaakt
         om vrij in te bewegen.
-
       </p>
-
 
     </div>
 
-
   </div>
-
 
 </section>
 
 
 
-<!-- ========================================
+<!-- =====================================================
      DETAILS
-     ======================================== -->
+     ===================================================== -->
 
 <div class="details-strip">
-
 
   <div class="details-strip-inner">
 
@@ -2747,14 +2602,61 @@
 
   </div>
 
-
 </div>
 
 
 
-<!-- ========================================
+<!-- =====================================================
+     PRODUCT DETAIL OVERLAY
+     ===================================================== -->
+
+<div
+  id="product-detail-overlay"
+  class="product-detail-overlay"
+  onclick="closeProductDetail()"
+></div>
+
+
+
+<!-- =====================================================
+     PRODUCT DETAIL PAGINA
+     ===================================================== -->
+
+<section
+  id="product-detail-page"
+  class="product-detail-page"
+  aria-hidden="true"
+>
+
+  <div class="product-detail-topbar">
+
+    <button
+      class="back-to-shop"
+      onclick="closeProductDetail()"
+    >
+      ← TERUG NAAR DE COLLECTIE
+    </button>
+
+    <button
+      class="detail-close"
+      onclick="closeProductDetail()"
+      aria-label="Sluiten"
+    >
+      ×
+    </button>
+
+  </div>
+
+
+  <div id="product-detail-content"></div>
+
+</section>
+
+
+
+<!-- =====================================================
      CART OVERLAY
-     ======================================== -->
+     ===================================================== -->
 
 <div
   id="cart-overlay"
@@ -2764,42 +2666,32 @@
 
 
 
-<!-- ========================================
+<!-- =====================================================
      WINKELMANDJE
-     ======================================== -->
+     ===================================================== -->
 
 <div
   id="cart-panel"
   class="cart-panel"
 >
 
-
   <div class="cart-header">
 
-
     <h2>
-
       Jouw winkelmandje
-
     </h2>
-
 
     <button
       class="close-cart"
       onclick="closeCart()"
     >
-
       ×
-
     </button>
-
 
   </div>
 
 
-
   <div id="cart-items"></div>
-
 
 
   <div
@@ -2807,19 +2699,15 @@
     class="cart-summary"
   >
 
-
     <div class="cart-total">
-
 
       <span>
         Totaal
       </span>
 
-
       <span id="cart-total">
         $0.00
       </span>
-
 
     </div>
 
@@ -2831,35 +2719,28 @@
 
     </div>
 
-
   </div>
 
 
+
+  <!-- KLANTGEGEVENS -->
 
   <div
     id="customer-form"
     class="customer-form"
   >
 
-
     <h3>
-
       Jouw gegevens
-
     </h3>
 
-
     <p class="customer-form-intro">
-
       Vul je gegevens in.
       Daarna opent WhatsApp met je bestelling.
-
     </p>
 
 
-
     <div class="form-group">
-
 
       <label for="customer-name">
 
@@ -2868,7 +2749,6 @@
 
       </label>
 
-
       <input
         id="customer-name"
         type="text"
@@ -2876,13 +2756,10 @@
         placeholder="Voor- en achternaam"
       >
 
-
     </div>
 
 
-
     <div class="form-group">
-
 
       <label for="customer-phone">
 
@@ -2891,7 +2768,6 @@
 
       </label>
 
-
       <input
         id="customer-phone"
         type="tel"
@@ -2899,52 +2775,37 @@
         placeholder="Bijv. +599 777 7777"
       >
 
-
     </div>
-
 
 
     <div class="form-group">
 
-
       <label for="pickup-date">
-
         Gewenste ophaaldatum
-
       </label>
-
 
       <input
         id="pickup-date"
         type="date"
       >
 
-
     </div>
-
 
 
     <div class="form-group">
 
-
       <label for="customer-remark">
-
         Opmerking
-
       </label>
-
 
       <textarea
         id="customer-remark"
         placeholder="Eventuele opmerking bij je bestelling"
       ></textarea>
 
-
     </div>
 
-
   </div>
-
 
 
   <button
@@ -2953,36 +2814,26 @@
     onclick="orderViaWhatsApp()"
     disabled
   >
-
     Bestellen via WhatsApp
-
   </button>
-
 
 </div>
 
 
 
-<!-- ========================================
+<!-- =====================================================
      FOOTER
-     ======================================== -->
+     ===================================================== -->
 
 <footer>
 
-
   <strong>
-
     Beach & Bandits at Swim Academy Splash
-
   </strong>
 
-
   <span>
-
     Bonaire • Bestellen via WhatsApp
-
   </span>
-
 
 </footer>
 
@@ -2990,24 +2841,19 @@
 
 <script>
 
-
-/* ========================================
+/* =====================================================
    INSTELLINGEN
-   ======================================== */
-
+   ===================================================== */
 
 const SHEET_URL =
-
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2DKu6fWuRkN-ObpGllK529agQRPeec31wsGBEukP_zva2ExkLMA7_KBZ2xPCHXifHgqHtxxuvIjXV/pub?gid=0&single=true&output=csv";
 
 
 const WHATSAPP_NUMBER =
-
   "5997777775";
 
 
 const ORDER_WEB_APP_URL =
-
   "https://script.google.com/macros/s/AKfycbxcCMCY7wZMVjbPejP1H40dewn8sh7QyRpJgo0Lt7RMIRsbKqrSaf_muTNcdYUFMqR_yw/exec";
 
 
@@ -3015,12 +2861,15 @@ let cart = [];
 
 let shopProducts = [];
 
+let activeProductIndex = null;
+
+let detailQuantity = 1;
 
 
-/* ========================================
-   SLIDER
-   ======================================== */
 
+/* =====================================================
+   HERO SLIDER
+   ===================================================== */
 
 let currentSlide = 0;
 
@@ -3031,62 +2880,34 @@ let sliderInterval;
 
 function updateSlider() {
 
-
   const slides =
-
-    document.getElementById(
-      "slides"
-    );
-
+    document.getElementById("slides");
 
   slides.style.transform =
-
     `translateX(-${currentSlide * 100}%)`;
 
 
+  document
+    .querySelectorAll(".slider-dot")
+    .forEach(
+      (dot, index) => {
 
-  const dots =
+        dot.classList.toggle(
+          "active",
+          index === currentSlide
+        );
 
-    document.querySelectorAll(
-      ".slider-dot"
+      }
     );
-
-
-  dots.forEach(
-
-    (
-      dot,
-      index
-    ) => {
-
-
-      dot.classList.toggle(
-
-        "active",
-
-        index ===
-          currentSlide
-
-      );
-
-
-    }
-
-  );
 
 }
 
 
 function nextSlide() {
 
-
   currentSlide =
-
-    (
-      currentSlide + 1
-    )
+    (currentSlide + 1)
     % totalSlides;
-
 
   updateSlider();
 
@@ -3097,15 +2918,13 @@ function nextSlide() {
 
 function previousSlide() {
 
-
   currentSlide =
-
     (
-      currentSlide - 1
+      currentSlide
+      - 1
       + totalSlides
     )
     % totalSlides;
-
 
   updateSlider();
 
@@ -3114,14 +2933,9 @@ function previousSlide() {
 }
 
 
-function goToSlide(
-  index
-) {
+function goToSlide(index) {
 
-
-  currentSlide =
-    index;
-
+  currentSlide = index;
 
   updateSlider();
 
@@ -3132,29 +2946,18 @@ function goToSlide(
 
 function startSlider() {
 
-
   sliderInterval =
-
     setInterval(
-
       () => {
 
-
         currentSlide =
-
-          (
-            currentSlide + 1
-          )
+          (currentSlide + 1)
           % totalSlides;
-
 
         updateSlider();
 
-
       },
-
       5000
-
     );
 
 }
@@ -3162,119 +2965,9 @@ function startSlider() {
 
 function restartSlider() {
 
-
-  clearInterval(
-    sliderInterval
-  );
-
+  clearInterval(sliderInterval);
 
   startSlider();
-
-}
-
-
-/* SWIPE OP MOBIEL */
-
-
-let touchStartX = 0;
-
-let touchEndX = 0;
-
-
-const heroSlider =
-
-  document.getElementById(
-    "hero-slider"
-  );
-
-
-heroSlider.addEventListener(
-
-  "touchstart",
-
-  event => {
-
-
-    touchStartX =
-
-      event.changedTouches[0]
-        .screenX;
-
-
-  },
-
-  {
-    passive: true
-  }
-
-);
-
-
-heroSlider.addEventListener(
-
-  "touchend",
-
-  event => {
-
-
-    touchEndX =
-
-      event.changedTouches[0]
-        .screenX;
-
-
-    handleSwipe();
-
-
-  },
-
-  {
-    passive: true
-  }
-
-);
-
-
-function handleSwipe() {
-
-
-  const difference =
-
-    touchStartX -
-    touchEndX;
-
-
-  if (
-    Math.abs(
-      difference
-    )
-    < 45
-  ) {
-
-
-    return;
-
-  }
-
-
-  if (
-    difference > 0
-  ) {
-
-
-    nextSlide();
-
-
-  }
-
-
-  else {
-
-
-    previousSlide();
-
-
-  }
 
 }
 
@@ -3283,17 +2976,85 @@ startSlider();
 
 
 
-/* ========================================
-   GOOGLE SHEET LADEN
-   ======================================== */
+/* =====================================================
+   SWIPE OP MOBIEL
+   ===================================================== */
 
+let touchStartX = 0;
+
+let touchEndX = 0;
+
+
+const heroSlider =
+  document.getElementById("hero-slider");
+
+
+heroSlider.addEventListener(
+  "touchstart",
+  event => {
+
+    touchStartX =
+      event.changedTouches[0].screenX;
+
+  },
+  {
+    passive: true
+  }
+);
+
+
+heroSlider.addEventListener(
+  "touchend",
+  event => {
+
+    touchEndX =
+      event.changedTouches[0].screenX;
+
+    handleSwipe();
+
+  },
+  {
+    passive: true
+  }
+);
+
+
+function handleSwipe() {
+
+  const difference =
+    touchStartX
+    - touchEndX;
+
+  if (
+    Math.abs(difference)
+    < 45
+  ) {
+    return;
+  }
+
+  if (
+    difference > 0
+  ) {
+
+    nextSlide();
+
+  } else {
+
+    previousSlide();
+
+  }
+
+}
+
+
+
+/* =====================================================
+   GOOGLE SHEET LADEN
+   ===================================================== */
 
 Papa.parse(
-
   SHEET_URL,
-
   {
-
 
     download: true,
 
@@ -3301,15 +3062,11 @@ Papa.parse(
 
     skipEmptyLines: true,
 
-
     complete:
       function(results) {
 
-
         document
-          .getElementById(
-            "loading"
-          )
+          .getElementById("loading")
           .style.display =
             "none";
 
@@ -3322,13 +3079,9 @@ Papa.parse(
           shopProducts.length === 0
         ) {
 
-
           showError(
-
             "Er zijn momenteel geen producten beschikbaar."
-
           );
-
 
           return;
 
@@ -3337,6 +3090,7 @@ Papa.parse(
 
         renderProducts();
 
+        openProductFromHash();
 
       },
 
@@ -3344,136 +3098,318 @@ Papa.parse(
     error:
       function(error) {
 
-
         document
-          .getElementById(
-            "loading"
-          )
+          .getElementById("loading")
           .style.display =
             "none";
 
 
         showError(
-
           "De producten konden niet worden geladen."
-
         );
 
 
-        console.error(
-          error
-        );
-
+        console.error(error);
 
       }
 
-
   }
-
 );
 
 
 
-/* ========================================
-   PRIJS
-   ======================================== */
+/* =====================================================
+   HULPFUNCTIES PRODUCTDATA
+   ===================================================== */
 
-
-function getPrice(
-  product
+function getField(
+  product,
+  names,
+  fallback = ""
 ) {
 
+  for (
+    const name
+    of names
+  ) {
 
-  const priceKey =
-
-    Object.keys(
-      product
-    )
-
-    .find(
-
-      key => {
-
-
-        const normalized =
-
-          key
-          .trim()
-          .toLowerCase();
-
-
-        return (
-
-          normalized
-            .startsWith(
-              "prijs"
-            )
-
-          ||
-
-          normalized ===
-            "price"
-
+    const key =
+      Object
+        .keys(product)
+        .find(
+          key =>
+            key
+              .trim()
+              .toLowerCase()
+            ===
+            name
+              .trim()
+              .toLowerCase()
         );
 
 
-      }
+    if (
+      key
+      &&
+      String(product[key]).trim()
+      !== ""
+    ) {
 
-    );
+      return String(
+        product[key]
+      ).trim();
 
+    }
 
-  const rawPrice =
-
-    priceKey
-
-      ? product[
-          priceKey
-        ]
-
-      : "0";
-
-
-  const cleaned =
-
-    String(
-      rawPrice
-    )
-
-    .replace(
-      /[^\d,.-]/g,
-      ""
-    )
-
-    .replace(
-      ",",
-      "."
-    );
+  }
 
 
-  return (
+  return fallback;
 
-    parseFloat(
-      cleaned
-    )
+}
 
-    || 0
 
+
+function getProductName(product) {
+
+  return getField(
+    product,
+    [
+      "Productnaam",
+      "Product Name",
+      "Naam",
+      "Name",
+      "Print",
+      "Model"
+    ],
+    "Swimsuit"
   );
 
 }
 
 
 
-/* ========================================
-   PRODUCTEN
-   ======================================== */
+function getProductType(product) {
 
+  return getField(
+    product,
+    [
+      "Producttype",
+      "Product Type",
+      "Type",
+      "Categorie",
+      "Category"
+    ],
+    "Badpak"
+  );
+
+}
+
+
+
+function getProductId(product) {
+
+  return getField(
+    product,
+    [
+      "Product_ID",
+      "Product ID",
+      "ID",
+      "SKU"
+    ],
+    ""
+  );
+
+}
+
+
+
+function getPrice(product) {
+
+  const priceKey =
+    Object
+      .keys(product)
+      .find(
+        key => {
+
+          const normalized =
+            key
+              .trim()
+              .toLowerCase();
+
+          return (
+            normalized
+              .startsWith("prijs")
+            ||
+            normalized === "price"
+          );
+
+        }
+      );
+
+
+  const rawPrice =
+    priceKey
+      ? product[priceKey]
+      : "0";
+
+
+  const cleaned =
+    String(rawPrice)
+
+      .replace(
+        /[^\d,.-]/g,
+        ""
+      )
+
+      .replace(
+        ",",
+        "."
+      );
+
+
+  return (
+    parseFloat(cleaned)
+    || 0
+  );
+
+}
+
+
+
+/* =====================================================
+   PRODUCTFOTO'S
+   ===================================================== */
+
+function getProductImages(product) {
+
+  const imageKeys =
+    Object
+      .keys(product)
+      .filter(
+        key => {
+
+          const normalized =
+            key
+              .trim()
+              .toLowerCase()
+              .replace(
+                /[_-]/g,
+                " "
+              );
+
+          return (
+            /^(foto|photo|image|afbeelding)\s*\d*$/.test(normalized)
+            ||
+            /^(foto url|photo url|image url|afbeelding url)\s*\d*$/.test(normalized)
+          );
+
+        }
+      );
+
+
+  const urls =
+    imageKeys
+
+      .map(
+        key =>
+          String(
+            product[key]
+            || ""
+          ).trim()
+      )
+
+      .filter(
+        url =>
+          /^https?:\/\//i.test(url)
+      );
+
+
+  return [
+    ...new Set(urls)
+  ]
+  .slice(
+    0,
+    4
+  );
+
+}
+
+
+
+/* =====================================================
+   MATEN UIT SHEET HALEN
+   ===================================================== */
+
+function getSizes(product) {
+
+  const excluded =
+    new Set(
+      [
+        "id",
+        "sku",
+        "model",
+        "name",
+        "naam",
+        "kleur",
+        "color",
+        "price",
+        "prijs",
+        "type",
+        "categorie",
+        "category",
+        "product_id",
+        "product id"
+      ]
+    );
+
+
+  return Object
+    .keys(product)
+    .filter(
+      column => {
+
+        const key =
+          column.trim();
+
+        const lower =
+          key.toLowerCase();
+
+
+        if (
+          excluded.has(lower)
+        ) {
+          return false;
+        }
+
+
+        if (
+          /^(foto|photo|image|afbeelding|beschrijving|description|materiaal|material|care|product)/i
+            .test(key)
+        ) {
+          return false;
+        }
+
+
+        return (
+          /^(\d+(\s*\/\s*\d+)?|xxs|xs|s|m|l|xl|xxl)$/i
+            .test(key)
+        );
+
+      }
+    );
+
+}
+
+
+
+/* =====================================================
+   PRODUCTEN TONEN
+   ===================================================== */
 
 function renderProducts() {
 
-
   const container =
-
     document.getElementById(
       "products"
     );
@@ -3484,65 +3420,35 @@ function renderProducts() {
 
 
   shopProducts.forEach(
-
     (
       product,
       index
     ) => {
 
+      const name =
+        getProductName(product);
 
-const sizes =
-  Object.keys(product)
-    .filter(column => {
-      return /^\d+(\s*\/\s*\d+)?$/.test(
-        column.trim()
-      );
-    });
-
-
-      const model =
-
-        product[
-          "Model"
-        ]
-
-        ||
-
-        product[
-          "model"
-        ]
-
-        ||
-
-        "Swimsuit";
-
+      const type =
+        getProductType(product);
 
       const color =
-
-        product[
-          "Kleur"
-        ]
-
-        ||
-
-        product[
-          "Color"
-        ]
-
-        ||
-
-        "";
-
+        getField(
+          product,
+          [
+            "Kleur",
+            "Color"
+          ],
+          ""
+        );
 
       const price =
+        getPrice(product);
 
-        getPrice(
-          product
-        );
+      const images =
+        getProductImages(product);
 
 
       const card =
-
         document.createElement(
           "article"
         );
@@ -3552,131 +3458,70 @@ const sizes =
         "product";
 
 
-      let sizeButtons =
-        "";
+      card.onclick =
+        () =>
+          openProductDetail(index);
 
 
-      sizes.forEach(
-
-        size => {
+      let imageHtml;
 
 
-          const stock =
+      if (
+        images.length > 0
+      ) {
 
-            Number(
-              product[
-                size
-              ]
-            )
+        imageHtml = `
+          <img
+            src="${escapeHtml(images[0])}"
+            alt="${escapeHtml(name)}"
+            loading="lazy"
+          >
+        `;
 
-            || 0;
+      } else {
 
+        imageHtml = `
 
-          if (
-            stock > 0
-          ) {
+          <div class="product-image-icon">
+            🌊
+          </div>
 
+          <div class="product-image-text">
+            Productfoto komt hier
+          </div>
 
-            sizeButtons += `
+        `;
 
-
-              <button
-
-                class="size-button"
-
-                id="size-${index}-${size}"
-
-                onclick="
-                  selectSize(
-                    ${index},
-                    '${size}',
-                    ${stock}
-                  )
-                "
-              >
-
-                ${size}
-
-              </button>
-
-
-            `;
-
-
-          }
-
-
-          else {
-
-
-            sizeButtons += `
-
-
-              <button
-
-                class="size-button"
-
-                disabled
-
-                title="Uitverkocht"
-              >
-
-                ${size}
-
-              </button>
-
-
-            `;
-
-
-          }
-
-
-        }
-
-      );
+      }
 
 
       card.innerHTML = `
 
-
         <div class="product-image">
 
-
-          <div class="product-image-icon">
-
-            🌊
-
-          </div>
-
-
-          <div class="product-image-text">
-
-            Productfoto komt hier
-
-          </div>
-
+          ${imageHtml}
 
         </div>
 
 
-
         <div class="product-info">
 
-
           <h3>
-
-            ${model}
-
+            ${escapeHtml(name)}
           </h3>
-
 
           <div class="product-color">
 
-            ${color}
+            ${escapeHtml(type)}
+
+            ${
+              color
+                ? " • "
+                  + escapeHtml(color)
+                : ""
+            }
 
           </div>
-
 
           <div class="product-price">
 
@@ -3685,189 +3530,935 @@ const sizes =
           </div>
 
 
-
           <div class="product-mini-features">
 
-
             <span class="mini-feature">
-
               ☀️ UV50+
-
             </span>
 
-
             <span class="mini-feature">
-
               🌊 Sneldrogend
-
             </span>
-
 
             <span class="mini-feature">
-
               ♡ Comfortabel
-
             </span>
 
-
           </div>
 
 
+          <span class="product-card-link">
 
-          <div class="size-title">
+            BEKIJK PRODUCT →
 
-            Kies je maat
-
-          </div>
-
-
-          <div
-
-            class="sizes"
-
-            id="sizes-${index}"
-          >
-
-            ${sizeButtons}
-
-          </div>
-
-
-
-          <button
-
-            class="add-button"
-
-            onclick="
-              addSelectedProductToCart(
-                ${index}
-              )
-            "
-          >
-
-            Toevoegen aan winkelmandje
-
-          </button>
-
+          </span>
 
         </div>
-
 
       `;
 
 
-      container.appendChild(
-        card
-      );
+      container.appendChild(card);
 
 
       product.selectedSize =
         null;
 
-
       product.selectedStock =
         0;
 
-
     }
-
   );
 
 }
 
 
 
-/* ========================================
-   MAAT SELECTEREN
-   ======================================== */
+/* =====================================================
+   PRODUCT DETAIL OPENEN
+   ===================================================== */
 
+function openProductDetail(index) {
 
-function selectSize(
+  activeProductIndex =
+    index;
 
-  productIndex,
-
-  size,
-
-  stock
-
-) {
+  detailQuantity =
+    1;
 
 
   const product =
+    shopProducts[index];
 
+
+  const name =
+    getProductName(product);
+
+  const type =
+    getProductType(product);
+
+  const productId =
+    getProductId(product);
+
+  const color =
+    getField(
+      product,
+      [
+        "Kleur",
+        "Color"
+      ],
+      ""
+    );
+
+  const price =
+    getPrice(product);
+
+  const images =
+    getProductImages(product);
+
+  const sizes =
+    getSizes(product);
+
+
+  const description =
+    getField(
+      product,
+      [
+        "Beschrijving",
+        "Description",
+        "Omschrijving"
+      ],
+      "Beach & Bandits swimwear voor zwemmen, spelen en zonnige dagen op Bonaire."
+    );
+
+
+  const material =
+    getField(
+      product,
+      [
+        "Materiaal",
+        "Material"
+      ],
+      "Bekijk de productinformatie van Beach & Bandits voor de exacte materiaalsamenstelling."
+    );
+
+
+  const details =
+    getField(
+      product,
+      [
+        "Product details",
+        "Productdetails",
+        "Details"
+      ],
+      "Beach & Bandits swimwear, verkrijgbaar bij Swim Academy Splash Bonaire."
+    );
+
+
+  const care =
+    getField(
+      product,
+      [
+        "Care Guide",
+        "Care guide",
+        "Care",
+        "Wasvoorschrift"
+      ],
+      ""
+    );
+
+
+
+  /* MAATKNOPPEN */
+
+  let sizeButtons =
+    "";
+
+
+  sizes.forEach(
+    size => {
+
+      const stock =
+        Number(
+          product[size]
+        )
+        || 0;
+
+
+      if (
+        stock > 0
+      ) {
+
+        sizeButtons += `
+
+          <button
+            class="size-button"
+            data-size="${escapeHtml(size)}"
+            onclick="selectDetailSize(
+              this,
+              '${escapeJavaScriptString(size)}',
+              ${stock}
+            )"
+          >
+
+            ${escapeHtml(size)}
+
+          </button>
+
+        `;
+
+      } else {
+
+        sizeButtons += `
+
+          <button
+            class="size-button"
+            disabled
+            title="Uitverkocht"
+          >
+
+            ${escapeHtml(size)}
+
+          </button>
+
+        `;
+
+      }
+
+    }
+  );
+
+
+
+  /* FOTO GALLERY */
+
+  let galleryHtml =
+    "";
+
+
+  if (
+    images.length > 0
+  ) {
+
+    galleryHtml = `
+
+      <div class="detail-gallery-main">
+
+        <img
+          id="detail-main-image"
+          src="${escapeHtml(images[0])}"
+          alt="${escapeHtml(name)}"
+        >
+
+      </div>
+
+
+      <div class="detail-thumbnails">
+
+        ${
+
+          images
+
+            .map(
+              (
+                url,
+                imageIndex
+              ) => `
+
+                <button
+                  class="detail-thumb ${imageIndex === 0 ? "active" : ""}"
+                  onclick="setDetailImage(
+                    '${escapeJavaScriptString(url)}',
+                    this
+                  )"
+                >
+
+                  <img
+                    src="${escapeHtml(url)}"
+                    alt="${escapeHtml(name)} foto ${imageIndex + 1}"
+                  >
+
+                </button>
+
+              `
+            )
+
+            .join("")
+
+        }
+
+      </div>
+
+    `;
+
+  } else {
+
+    galleryHtml = `
+
+      <div class="detail-gallery-main">
+
+        <div class="detail-image-placeholder">
+
+          <span>
+            🌊
+          </span>
+
+          Productfoto komt hier
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+
+  /* CARE GUIDE */
+
+  const careHtml =
+    care
+
+      ? escapeHtml(care)
+
+      : `
+
+        <ul class="care-list">
+
+          <li>
+            Spoel zwemkleding na gebruik uit met schoon water.
+          </li>
+
+          <li>
+            Laat het kledingstuk op natuurlijke wijze drogen.
+          </li>
+
+          <li>
+            Vermijd waar mogelijk ruwe oppervlakken.
+          </li>
+
+          <li>
+            Volg altijd het waslabel in het kledingstuk.
+          </li>
+
+        </ul>
+
+      `;
+
+
+
+  document
+    .getElementById(
+      "product-detail-content"
+    )
+    .innerHTML = `
+
+
+      <div class="product-detail-inner">
+
+
+        <!-- LINKS: FOTO'S -->
+
+        <div>
+
+          ${galleryHtml}
+
+        </div>
+
+
+
+        <!-- RECHTS: PRODUCT INFO -->
+
+        <div>
+
+
+          <div class="detail-label">
+
+            Beach & Bandits
+
+            ${
+              productId
+                ? " • "
+                  + escapeHtml(productId)
+                : ""
+            }
+
+          </div>
+
+
+          <h1 class="detail-title">
+
+            ${escapeHtml(name)}
+
+          </h1>
+
+
+          <div class="detail-type">
+
+            ${escapeHtml(type)}
+
+            ${
+              color
+                ? " • "
+                  + escapeHtml(color)
+                : ""
+            }
+
+          </div>
+
+
+          <div class="detail-price">
+
+            $${price.toFixed(2)}
+
+          </div>
+
+
+          <div class="detail-description">
+
+            ${escapeHtml(description)}
+
+          </div>
+
+
+
+          <!-- MATEN -->
+
+          <div class="detail-size-header">
+
+            <strong>
+              Kies je maat
+            </strong>
+
+            <button
+              class="size-guide-link"
+              onclick="toggleAccordion(
+                'size-guide-accordion'
+              )"
+            >
+              Size guide
+            </button>
+
+          </div>
+
+
+          <div class="sizes">
+
+            ${
+              sizeButtons
+              ||
+              `
+                <span class="detail-type">
+                  Maten worden binnenkort toegevoegd.
+                </span>
+              `
+            }
+
+          </div>
+
+
+
+          <!-- AANTAL -->
+
+          <div class="detail-quantity">
+
+            <div class="detail-quantity-title">
+              Aantal
+            </div>
+
+            <div class="detail-quantity-control">
+
+              <button
+                onclick="changeDetailQuantity(-1)"
+              >
+                −
+              </button>
+
+              <span id="detail-quantity-value">
+                1
+              </span>
+
+              <button
+                onclick="changeDetailQuantity(1)"
+              >
+                +
+              </button>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- TOEVOEGEN -->
+
+          <button
+            class="detail-add-button"
+            onclick="addDetailProductToCart()"
+          >
+
+            TOEVOEGEN AAN WINKELMANDJE
+
+          </button>
+
+
+
+          <!-- UITKLAPMENU'S -->
+
+          <div class="detail-accordions">
+
+
+            <div
+              class="detail-accordion"
+              id="details-accordion"
+            >
+
+              <button
+                onclick="toggleAccordion(
+                  'details-accordion'
+                )"
+              >
+
+                PRODUCT DETAILS
+
+                <span class="accordion-symbol">
+                  +
+                </span>
+
+              </button>
+
+              <div class="detail-accordion-content">
+
+                ${escapeHtml(details)}
+
+              </div>
+
+            </div>
+
+
+
+            <div
+              class="detail-accordion"
+              id="material-accordion"
+            >
+
+              <button
+                onclick="toggleAccordion(
+                  'material-accordion'
+                )"
+              >
+
+                MATERIAL
+
+                <span class="accordion-symbol">
+                  +
+                </span>
+
+              </button>
+
+              <div class="detail-accordion-content">
+
+                ${escapeHtml(material)}
+
+              </div>
+
+            </div>
+
+
+
+            <div
+              class="detail-accordion"
+              id="care-accordion"
+            >
+
+              <button
+                onclick="toggleAccordion(
+                  'care-accordion'
+                )"
+              >
+
+                CARE GUIDE
+
+                <span class="accordion-symbol">
+                  +
+                </span>
+
+              </button>
+
+              <div class="detail-accordion-content">
+
+                ${careHtml}
+
+              </div>
+
+            </div>
+
+
+
+            <div
+              class="detail-accordion"
+              id="size-guide-accordion"
+            >
+
+              <button
+                onclick="toggleAccordion(
+                  'size-guide-accordion'
+                )"
+              >
+
+                SIZE GUIDE
+
+                <span class="accordion-symbol">
+                  +
+                </span>
+
+              </button>
+
+              <div class="detail-accordion-content">
+
+                Kies de maat die het dichtst bij de
+                normale kledingmaat van het kind ligt.
+                Twijfel je tussen twee maten?
+                Neem dan contact op met Swim Academy
+                Splash via WhatsApp.
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+    `;
+
+
+
+  product.selectedSize =
+    null;
+
+  product.selectedStock =
+    0;
+
+
+
+  document
+    .getElementById(
+      "product-detail-overlay"
+    )
+    .classList
+    .add("open");
+
+
+  document
+    .getElementById(
+      "product-detail-page"
+    )
+    .classList
+    .add("open");
+
+
+  document
+    .getElementById(
+      "product-detail-page"
+    )
+    .setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+
+  document
+    .body
+    .classList
+    .add("no-scroll");
+
+
+
+  if (
+    productId
+  ) {
+
+    history.replaceState(
+      null,
+      "",
+      `#product=${encodeURIComponent(productId)}`
+    );
+
+  }
+
+}
+
+
+
+/* =====================================================
+   PRODUCT DETAIL SLUITEN
+   ===================================================== */
+
+function closeProductDetail() {
+
+  document
+    .getElementById(
+      "product-detail-overlay"
+    )
+    .classList
+    .remove("open");
+
+
+  document
+    .getElementById(
+      "product-detail-page"
+    )
+    .classList
+    .remove("open");
+
+
+  document
+    .getElementById(
+      "product-detail-page"
+    )
+    .setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+
+  document
+    .body
+    .classList
+    .remove("no-scroll");
+
+
+  activeProductIndex =
+    null;
+
+
+  if (
+    location.hash
+      .startsWith("#product=")
+  ) {
+
+    history.replaceState(
+      null,
+      "",
+      "#collectie"
+    );
+
+  }
+
+}
+
+
+
+/* =====================================================
+   FOTO WISSELEN
+   ===================================================== */
+
+function setDetailImage(
+  url,
+  button
+) {
+
+  const mainImage =
+    document.getElementById(
+      "detail-main-image"
+    );
+
+
+  if (
+    mainImage
+  ) {
+
+    mainImage.src =
+      url;
+
+  }
+
+
+  document
+    .querySelectorAll(
+      ".detail-thumb"
+    )
+    .forEach(
+      thumbnail =>
+        thumbnail
+          .classList
+          .remove("active")
+    );
+
+
+  if (
+    button
+  ) {
+
+    button
+      .classList
+      .add("active");
+
+  }
+
+}
+
+
+
+/* =====================================================
+   ACCORDION
+   ===================================================== */
+
+function toggleAccordion(id) {
+
+  const accordion =
+    document.getElementById(id);
+
+
+  if (
+    accordion
+  ) {
+
+    accordion
+      .classList
+      .toggle("open");
+
+  }
+
+}
+
+
+
+/* =====================================================
+   MAAT PRODUCT DETAIL
+   ===================================================== */
+
+function selectDetailSize(
+  button,
+  size,
+  stock
+) {
+
+  if (
+    activeProductIndex === null
+  ) {
+    return;
+  }
+
+
+  const product =
     shopProducts[
-      productIndex
+      activeProductIndex
     ];
 
 
   product.selectedSize =
     size;
 
-
   product.selectedStock =
     stock;
 
 
-  const buttons =
+  document
+    .querySelectorAll(
+      ".product-detail-page .size-button"
+    )
+    .forEach(
+      sizeButton =>
+        sizeButton
+          .classList
+          .remove("selected")
+    );
+
+
+  button
+    .classList
+    .add("selected");
+
+
+  if (
+    detailQuantity > stock
+  ) {
+
+    detailQuantity =
+      stock;
 
     document
-
       .getElementById(
-        `sizes-${productIndex}`
+        "detail-quantity-value"
       )
+      .textContent =
+        detailQuantity;
 
-      .querySelectorAll(
-        ".size-button"
-      );
-
-
-  buttons.forEach(
-
-    button => {
-
-
-      button
-        .classList
-        .remove(
-          "selected"
-        );
-
-
-    }
-
-  );
-
-
-  document
-
-    .getElementById(
-      `size-${productIndex}-${size}`
-    )
-
-    .classList
-
-    .add(
-      "selected"
-    );
+  }
 
 }
 
 
 
-/* ========================================
-   PRODUCT TOEVOEGEN
-   ======================================== */
+/* =====================================================
+   AANTAL PRODUCT DETAIL
+   ===================================================== */
 
+function changeDetailQuantity(change) {
 
-function addSelectedProductToCart(
-  productIndex
-) {
+  if (
+    activeProductIndex === null
+  ) {
+    return;
+  }
 
 
   const product =
-
     shopProducts[
-      productIndex
+      activeProductIndex
+    ];
+
+
+  const maximum =
+    product.selectedStock
+    || 99;
+
+
+  detailQuantity =
+    Math.max(
+      1,
+      Math.min(
+        maximum,
+        detailQuantity + change
+      )
+    );
+
+
+  document
+    .getElementById(
+      "detail-quantity-value"
+    )
+    .textContent =
+      detailQuantity;
+
+}
+
+
+
+/* =====================================================
+   PRODUCT AAN WINKELMANDJE TOEVOEGEN
+   ===================================================== */
+
+function addDetailProductToCart() {
+
+  if (
+    activeProductIndex === null
+  ) {
+    return;
+  }
+
+
+  const product =
+    shopProducts[
+      activeProductIndex
     ];
 
 
@@ -3875,82 +4466,46 @@ function addSelectedProductToCart(
     !product.selectedSize
   ) {
 
-
     alert(
       "Kies eerst een maat."
     );
-
 
     return;
 
   }
 
 
-  const model =
-
-    product[
-      "Model"
-    ]
-
-    ||
-
-    product[
-      "model"
-    ]
-
-    ||
-
-    "Swimsuit";
-
+  const name =
+    getProductName(product);
 
   const color =
-
-    product[
-      "Kleur"
-    ]
-
-    ||
-
-    product[
-      "Color"
-    ]
-
-    ||
-
-    "";
-
-
-  const price =
-
-    getPrice(
-      product
+    getField(
+      product,
+      [
+        "Kleur",
+        "Color"
+      ],
+      ""
     );
 
+  const price =
+    getPrice(product);
 
   const size =
-
     product.selectedSize;
 
-
   const stock =
-
     product.selectedStock;
 
 
   const existingItem =
-
     cart.find(
-
       item =>
-
-        item.productIndex ===
-          productIndex
-
+        item.productIndex
+          === activeProductIndex
         &&
-
-        item.size ===
-          size
-
+        item.size
+          === size
     );
 
 
@@ -3958,82 +4513,60 @@ function addSelectedProductToCart(
     existingItem
   ) {
 
-
     if (
-
-      existingItem.quantity <
-      stock
-
+      existingItem.quantity
+      + detailQuantity
+      <= stock
     ) {
 
+      existingItem.quantity +=
+        detailQuantity;
 
-      existingItem.quantity++;
-
-
-    }
-
-
-    else {
-
+    } else {
 
       alert(
-
         `Er zijn maximaal ${stock} stuks van maat ${size} op voorraad.`
-
       );
-
 
       return;
 
     }
 
-
-  }
-
-
-  else {
-
+  } else {
 
     cart.push(
       {
 
-
         productIndex:
-          productIndex,
-
+          activeProductIndex,
 
         model:
-          model,
-
+          name,
 
         color:
           color,
 
-
         price:
           price,
-
 
         size:
           size,
 
-
         quantity:
-          1,
-
+          detailQuantity,
 
         stock:
           stock
 
-
       }
     );
-
 
   }
 
 
   updateCart();
+
+  closeProductDetail();
 
   openCart();
 
@@ -4041,70 +4574,52 @@ function addSelectedProductToCart(
 
 
 
-/* ========================================
-   CART BIJWERKEN
-   ======================================== */
-
+/* =====================================================
+   WINKELMANDJE BIJWERKEN
+   ===================================================== */
 
 function updateCart() {
 
-
   const cartItems =
-
     document.getElementById(
       "cart-items"
     );
 
-
   const cartCount =
-
     document.getElementById(
       "cart-count"
     );
 
-
   const cartTotal =
-
     document.getElementById(
       "cart-total"
     );
 
-
   const whatsappButton =
-
     document.getElementById(
       "whatsapp-button"
     );
 
-
   const cartSummary =
-
     document.getElementById(
       "cart-summary"
     );
 
-
   const customerForm =
-
     document.getElementById(
       "customer-form"
     );
 
 
   const totalItems =
-
     cart.reduce(
-
       (
         sum,
         item
       ) =>
-
-        sum +
-        item.quantity,
-
+        sum
+        + item.quantity,
       0
-
     );
 
 
@@ -4112,10 +4627,10 @@ function updateCart() {
     totalItems;
 
 
+
   if (
     cart.length === 0
   ) {
-
 
     cartItems.innerHTML = `
 
@@ -4149,17 +4664,15 @@ function updateCart() {
   }
 
 
+
   cartSummary.style.display =
     "block";
-
 
   customerForm.style.display =
     "block";
 
-
   whatsappButton.disabled =
     false;
-
 
   cartItems.innerHTML =
     "";
@@ -4169,18 +4682,16 @@ function updateCart() {
     0;
 
 
-  cart.forEach(
 
+  cart.forEach(
     (
       item,
       index
     ) => {
 
-
       const subtotal =
-
-        item.price *
-        item.quantity;
+        item.price
+        * item.quantity;
 
 
       total +=
@@ -4188,7 +4699,6 @@ function updateCart() {
 
 
       const itemDiv =
-
         document.createElement(
           "div"
         );
@@ -4203,19 +4713,22 @@ function updateCart() {
 
         <strong>
 
-          ${item.model}
+          ${escapeHtml(item.model)}
 
         </strong>
 
 
         <div class="cart-item-details">
 
-          ${item.color}
-
-          <br>
+          ${
+            item.color
+              ? escapeHtml(item.color)
+                + "<br>"
+              : ""
+          }
 
           Maat:
-          ${item.size}
+          ${escapeHtml(item.size)}
 
           <br>
 
@@ -4233,17 +4746,12 @@ function updateCart() {
 
 
             <button
-
-              onclick="
-                changeQuantity(
-                  ${index},
-                  -1
-                )
-              "
+              onclick="changeQuantity(
+                ${index},
+                -1
+              )"
             >
-
               −
-
             </button>
 
 
@@ -4255,17 +4763,12 @@ function updateCart() {
 
 
             <button
-
-              onclick="
-                changeQuantity(
-                  ${index},
-                  1
-                )
-              "
+              onclick="changeQuantity(
+                ${index},
+                1
+              )"
             >
-
               +
-
             </button>
 
 
@@ -4284,14 +4787,10 @@ function updateCart() {
 
 
         <button
-
           class="remove-button"
-
-          onclick="
-            removeFromCart(
-              ${index}
-            )
-          "
+          onclick="removeFromCart(
+            ${index}
+          )"
         >
 
           Verwijderen
@@ -4306,53 +4805,40 @@ function updateCart() {
         itemDiv
       );
 
-
     }
-
   );
 
 
   cartTotal.textContent =
-
     `$${total.toFixed(2)}`;
 
 }
 
 
 
-/* ========================================
-   AANTALLEN
-   ======================================== */
-
+/* =====================================================
+   AANTALLEN WINKELMANDJE
+   ===================================================== */
 
 function changeQuantity(
-
   index,
-
   change
-
 ) {
-
 
   const item =
     cart[index];
 
 
   const newQuantity =
-
-    item.quantity +
-    change;
+    item.quantity
+    + change;
 
 
   if (
     newQuantity < 1
   ) {
 
-
-    removeFromCart(
-      index
-    );
-
+    removeFromCart(index);
 
     return;
 
@@ -4360,19 +4846,13 @@ function changeQuantity(
 
 
   if (
-
-    newQuantity >
-    item.stock
-
+    newQuantity
+    > item.stock
   ) {
 
-
     alert(
-
       `Er zijn maximaal ${item.stock} stuks van deze maat op voorraad.`
-
     );
-
 
     return;
 
@@ -4389,21 +4869,16 @@ function changeQuantity(
 
 
 
-/* ========================================
-   VERWIJDEREN
-   ======================================== */
+/* =====================================================
+   PRODUCT VERWIJDEREN
+   ===================================================== */
 
-
-function removeFromCart(
-  index
-) {
-
+function removeFromCart(index) {
 
   cart.splice(
     index,
     1
   );
-
 
   updateCart();
 
@@ -4411,114 +4886,84 @@ function removeFromCart(
 
 
 
-/* ========================================
-   CART OPENEN / SLUITEN
-   ======================================== */
-
+/* =====================================================
+   CART OPENEN
+   ===================================================== */
 
 function openCart() {
 
-
   document
-
     .getElementById(
       "cart-panel"
     )
-
     .classList
-
-    .add(
-      "open"
-    );
+    .add("open");
 
 
   document
-
     .getElementById(
       "cart-overlay"
     )
-
     .classList
-
-    .add(
-      "open"
-    );
+    .add("open");
 
 }
 
+
+
+/* =====================================================
+   CART SLUITEN
+   ===================================================== */
 
 function closeCart() {
 
-
   document
-
     .getElementById(
       "cart-panel"
     )
-
     .classList
-
-    .remove(
-      "open"
-    );
+    .remove("open");
 
 
   document
-
     .getElementById(
       "cart-overlay"
     )
-
     .classList
-
-    .remove(
-      "open"
-    );
+    .remove("open");
 
 }
 
 
 
-/* ========================================
+/* =====================================================
    BONAIRE BEGROETING
-   ======================================== */
-
+   ===================================================== */
 
 function getBonaireGreeting() {
 
-
   const bonaireHour =
-
     new Intl.DateTimeFormat(
-
       "en-US",
-
       {
-
 
         timeZone:
           "America/Kralendijk",
 
-
         hour:
           "numeric",
-
 
         hourCycle:
           "h23"
 
-
       }
-
     )
-
     .format(
       new Date()
     );
 
 
   const hour =
-
     parseInt(
       bonaireHour,
       10
@@ -4526,15 +4971,10 @@ function getBonaireGreeting() {
 
 
   if (
-
     hour >= 5
-
     &&
-
     hour < 12
-
   ) {
-
 
     return "Bon dia";
 
@@ -4542,15 +4982,10 @@ function getBonaireGreeting() {
 
 
   if (
-
     hour >= 12
-
     &&
-
     hour < 18
-
   ) {
-
 
     return "Bon tardi";
 
@@ -4563,23 +4998,19 @@ function getBonaireGreeting() {
 
 
 
-/* ========================================
-   BESTELLEN
-   ======================================== */
-
+/* =====================================================
+   BESTELLEN VIA WHATSAPP
+   ===================================================== */
 
 function orderViaWhatsApp() {
-
 
   if (
     cart.length === 0
   ) {
 
-
     alert(
       "Je winkelmandje is leeg."
     );
-
 
     return;
 
@@ -4587,64 +5018,48 @@ function orderViaWhatsApp() {
 
 
   const customerName =
-
     document
-
       .getElementById(
         "customer-name"
       )
-
       .value
-
       .trim();
 
 
   const phone =
-
     document
-
       .getElementById(
         "customer-phone"
       )
-
       .value
-
       .trim();
 
 
   const pickupDate =
-
     document
-
       .getElementById(
         "pickup-date"
       )
-
       .value;
 
 
   const remark =
-
     document
-
       .getElementById(
         "customer-remark"
       )
-
       .value
-
       .trim();
+
 
 
   if (
     !customerName
   ) {
 
-
     alert(
       "Vul eerst je naam in."
     );
-
 
     document
       .getElementById(
@@ -4652,21 +5067,19 @@ function orderViaWhatsApp() {
       )
       .focus();
 
-
     return;
 
   }
+
 
 
   if (
     !phone
   ) {
 
-
     alert(
       "Vul eerst je telefoonnummer in."
     );
-
 
     document
       .getElementById(
@@ -4674,14 +5087,13 @@ function orderViaWhatsApp() {
       )
       .focus();
 
-
     return;
 
   }
 
 
-  const greeting =
 
+  const greeting =
     getBonaireGreeting();
 
 
@@ -4698,17 +5110,14 @@ Ik wil graag de volgende bestelling plaatsen:
 `;
 
 
+
   const orderItems =
-
     cart.map(
-
       item => {
 
-
         const subtotal =
-
-          item.price *
-          item.quantity;
+          item.price
+          * item.quantity;
 
 
         total +=
@@ -4716,10 +5125,8 @@ Ik wil graag de volgende bestelling plaatsen:
 
 
         message +=
-
 `${item.quantity}x ${item.model}
-Kleur: ${item.color}
-Maat: ${item.size}
+${item.color ? `Kleur: ${item.color}\n` : ""}Maat: ${item.size}
 Prijs: $${item.price.toFixed(2)} per stuk
 Subtotaal: $${subtotal.toFixed(2)}
 
@@ -4728,41 +5135,32 @@ Subtotaal: $${subtotal.toFixed(2)}
 
         return {
 
-
           model:
             item.model,
-
 
           color:
             item.color,
 
-
           size:
             item.size,
-
 
           quantity:
             item.quantity,
 
-
           price:
             item.price,
-
 
           subtotal:
             subtotal
 
-
         };
 
-
       }
-
     );
 
 
-  message +=
 
+  message +=
 `Totaal: $${total.toFixed(2)}
 
 Naam: ${customerName}
@@ -4771,132 +5169,204 @@ Gewenste ophaaldatum: ${pickupDate || "Niet ingevuld"}
 Opmerking: ${remark || "Geen"}`;
 
 
-  const orderData = {
 
+  const orderData = {
 
     customerName:
       customerName,
 
-
     phone:
       phone,
-
 
     pickupDate:
       pickupDate,
 
-
     remark:
       remark,
-
 
     items:
       orderItems
 
-
   };
 
 
+
+  /* OOK NAAR GOOGLE SHEET / APPS SCRIPT */
+
   fetch(
-
     ORDER_WEB_APP_URL,
-
     {
-
 
       method:
         "POST",
 
-
       mode:
         "no-cors",
 
-
       headers: {
-
 
         "Content-Type":
           "text/plain;charset=utf-8"
 
-
       },
 
-
       body:
-
         JSON.stringify(
           orderData
         )
 
-
     }
-
   )
-
   .catch(
-
     error => {
 
-
       console.error(
-
         "Bestelling kon niet naar Google Sheets worden gestuurd:",
-
         error
-
       );
 
-
     }
-
   );
 
 
-  const encodedMessage =
 
+  /* WHATSAPP OPENEN */
+
+  const encodedMessage =
     encodeURIComponent(
       message
     );
 
 
   const whatsappUrl =
-
     `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
 
 
   window.open(
-
     whatsappUrl,
-
     "_blank"
-
   );
 
 }
 
 
 
-/* ========================================
+/* =====================================================
+   PRODUCT OPENEN VANUIT URL
+   ===================================================== */
+
+function openProductFromHash() {
+
+  if (
+    !location.hash
+      .startsWith("#product=")
+  ) {
+    return;
+  }
+
+
+  const productId =
+    decodeURIComponent(
+      location.hash
+        .replace(
+          "#product=",
+          ""
+        )
+    );
+
+
+  const index =
+    shopProducts.findIndex(
+      product =>
+        getProductId(product)
+          === productId
+    );
+
+
+  if (
+    index >= 0
+  ) {
+
+    openProductDetail(index);
+
+  }
+
+}
+
+
+
+/* =====================================================
+   VEILIG TEKST TONEN
+   ===================================================== */
+
+function escapeHtml(value) {
+
+  return String(
+    value
+    ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
+
+}
+
+
+function escapeJavaScriptString(value) {
+
+  return String(
+    value
+    ?? ""
+  )
+  .replace(
+    /\\/g,
+    "\\\\"
+  )
+  .replace(
+    /'/g,
+    "\\'"
+  )
+  .replace(
+    /\r?\n/g,
+    " "
+  );
+
+}
+
+
+
+/* =====================================================
    ERROR
-   ======================================== */
+   ===================================================== */
 
-
-function showError(
-  message
-) {
-
+function showError(message) {
 
   document
-
     .getElementById(
       "products"
     )
-
     .innerHTML = `
 
       <div class="error">
 
-        ${message}
+        ${escapeHtml(message)}
 
       </div>
 
@@ -4906,16 +5376,37 @@ function showError(
 
 
 
-/* ========================================
-   START
-   ======================================== */
+/* =====================================================
+   ESCAPE TOETS
+   ===================================================== */
 
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key === "Escape"
+    ) {
+
+      closeProductDetail();
+
+      closeCart();
+
+    }
+
+  }
+);
+
+
+
+/* =====================================================
+   START
+   ===================================================== */
 
 updateCart();
 
 
 </script>
-
 
 </body>
 
