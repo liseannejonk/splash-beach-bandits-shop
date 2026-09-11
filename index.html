@@ -306,7 +306,7 @@ img {
 
 
 /* =====================================================
-   ÉÉN SWIMSUITS BLOK
+   SWIMSUITS BLOK
    ===================================================== */
 
 .category-wrap {
@@ -459,8 +459,6 @@ img {
 
   background: white;
 
-  cursor: pointer;
-
   transition: .2s;
 }
 
@@ -470,6 +468,10 @@ img {
   box-shadow:
     0 18px 40px
     rgba(30,85,107,.10);
+}
+
+.product-click-area {
+  cursor: pointer;
 }
 
 .product-image {
@@ -482,6 +484,8 @@ img {
   overflow: hidden;
 
   background: #f5f5f5;
+
+  cursor: pointer;
 }
 
 .product-image img {
@@ -512,6 +516,10 @@ img {
   padding: 20px;
 }
 
+.product-title-area {
+  cursor: pointer;
+}
+
 .product-info h3 {
   margin: 0;
 
@@ -538,18 +546,128 @@ img {
   font-weight: bold;
 }
 
+
+/* =====================================================
+   QUICK ADD
+   ===================================================== */
+
+.quick-add {
+  margin-top: 20px;
+  padding-top: 17px;
+
+  border-top: 1px solid var(--border);
+}
+
+.quick-add-title {
+  margin-bottom: 9px;
+
+  color: var(--midnight);
+
+  font-size: 11px;
+  font-weight: bold;
+
+  letter-spacing: .4px;
+  text-transform: uppercase;
+}
+
+.quick-sizes {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 6px;
+}
+
+.quick-size-button {
+  min-width: 58px;
+
+  padding: 8px 9px;
+
+  border: 1px solid #d6dede;
+  border-radius: 7px;
+
+  background: white;
+  color: var(--midnight);
+
+  font-size: 11px;
+
+  transition: .15s;
+}
+
+.quick-size-button:hover:not(:disabled) {
+  border-color: var(--midnight);
+
+  background: var(--soft-aqua);
+}
+
+.quick-size-button.selected {
+  border-color: var(--midnight);
+
+  background: var(--midnight);
+  color: white;
+}
+
+.quick-size-button:disabled {
+  background: #f3f4f4;
+  color: #c5cbcc;
+
+  cursor: not-allowed;
+
+  text-decoration: line-through;
+}
+
+.quick-add-button {
+  width: 100%;
+
+  margin-top: 12px;
+  padding: 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--midnight);
+  color: white;
+
+  font-size: 11px;
+  font-weight: bold;
+
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.quick-add-button:hover {
+  background: var(--ocean);
+}
+
+.quick-add-feedback {
+  min-height: 16px;
+
+  margin-top: 8px;
+
+  color: #08a844;
+
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+}
+
+
+/* =====================================================
+   VIEW PRODUCT
+   ===================================================== */
+
 .view-product {
   display: inline-block;
 
-  margin-top: 17px;
+  margin-top: 12px;
   padding-bottom: 3px;
 
   border-bottom: 1px solid var(--midnight);
 
   color: var(--midnight);
 
-  font-size: 12px;
+  font-size: 11px;
   font-weight: bold;
+
+  cursor: pointer;
 }
 
 
@@ -1495,6 +1613,10 @@ footer span {
     height: 350px;
   }
 
+  .quick-size-button {
+    min-width: 54px;
+  }
+
   .product-topbar {
     padding: 11px 13px;
   }
@@ -1537,10 +1659,6 @@ footer span {
 <body>
 
 
-<!-- =====================================================
-     TOP
-     ===================================================== -->
-
 <div class="announcement">
   Beach & Bandits swimwear • Bonaire • Bestellen via WhatsApp
 </div>
@@ -1566,10 +1684,6 @@ footer span {
 
 </nav>
 
-
-<!-- =====================================================
-     HERO
-     ===================================================== -->
 
 <section class="hero">
 
@@ -1600,10 +1714,6 @@ footer span {
 </section>
 
 
-<!-- =====================================================
-     INTRO
-     ===================================================== -->
-
 <section class="intro">
 
   <div class="small-label">
@@ -1622,10 +1732,6 @@ footer span {
 
 </section>
 
-
-<!-- =====================================================
-     ÉÉN BREDE SWIMSUITS KNOP
-     ===================================================== -->
 
 <section class="category-wrap">
 
@@ -1659,10 +1765,6 @@ footer span {
 </section>
 
 
-<!-- =====================================================
-     SHOP
-     ===================================================== -->
-
 <section
   class="shop"
   id="collectie"
@@ -1679,8 +1781,9 @@ footer span {
     </h2>
 
     <p>
-      Klik op een product voor foto's, maten,
-      voorraad, materiaal en verzorgingsinformatie.
+      Kies direct een maat om snel toe te voegen,
+      of open het product voor alle foto's,
+      materiaal en verzorgingsinformatie.
     </p>
 
   </div>
@@ -1701,10 +1804,6 @@ footer span {
 
 </section>
 
-
-<!-- =====================================================
-     HOMEPAGE BENEFITS
-     ===================================================== -->
 
 <section class="benefits-section">
 
@@ -1801,10 +1900,6 @@ footer span {
 </div>
 
 
-<!-- =====================================================
-     PRODUCT OVERLAY
-     ===================================================== -->
-
 <div
   id="product-overlay"
   class="product-overlay"
@@ -1837,10 +1932,6 @@ footer span {
 
 </section>
 
-
-<!-- =====================================================
-     CART
-     ===================================================== -->
 
 <div
   id="cart-overlay"
@@ -2049,6 +2140,21 @@ Papa.parse(
 
       products =
         results.data;
+
+
+      products.forEach(
+        product => {
+
+          product.quickSelectedSize = null;
+
+          product.quickSelectedStock = 0;
+
+          product.selectedSize = null;
+
+          product.selectedStock = 0;
+
+        }
+      );
 
 
       if (!products.length) {
@@ -2347,6 +2453,73 @@ function renderProducts() {
       const productPrice =
         price(product);
 
+      const sizes =
+        productSizes(product);
+
+
+      let quickSizesHtml =
+        "";
+
+
+      sizes.forEach(
+        size => {
+
+          const stock =
+            Number(
+              product[size]
+            )
+            || 0;
+
+
+          if (
+            stock > 0
+          ) {
+
+            quickSizesHtml += `
+
+              <button
+                class="quick-size-button"
+                id="quick-size-${index}-${safeId(size)}"
+                onclick="
+                  event.stopPropagation();
+                  selectQuickSize(
+                    ${index},
+                    '${escapeJs(size)}',
+                    ${stock}
+                  );
+                "
+              >
+
+                ${escapeHtml(size)}
+
+              </button>
+
+            `;
+
+          }
+
+          else {
+
+            quickSizesHtml += `
+
+              <button
+                class="quick-size-button"
+                disabled
+                title="Uitverkocht"
+                onclick="event.stopPropagation();"
+              >
+
+                ${escapeHtml(size)}
+
+              </button>
+
+            `;
+
+          }
+
+        }
+      );
+
 
       const article =
         document.createElement(
@@ -2358,14 +2531,12 @@ function renderProducts() {
         "product";
 
 
-      article.onclick =
-        () =>
-          openProduct(index);
-
-
       article.innerHTML = `
 
-        <div class="product-image">
+        <div
+          class="product-image"
+          onclick="openProduct(${index})"
+        >
 
           ${
             images.length
@@ -2400,20 +2571,73 @@ function renderProducts() {
 
         <div class="product-info">
 
-          <h3>
-            ${escapeHtml(name)}
-          </h3>
 
-          <div class="product-type">
-            ${escapeHtml(type)}
+          <div
+            class="product-title-area"
+            onclick="openProduct(${index})"
+          >
+
+            <h3>
+              ${escapeHtml(name)}
+            </h3>
+
+            <div class="product-type">
+              ${escapeHtml(type)}
+            </div>
+
+            <div class="product-price">
+              $${productPrice.toFixed(2)}
+            </div>
+
           </div>
 
-          <div class="product-price">
-            $${productPrice.toFixed(2)}
+
+
+          <div class="quick-add">
+
+            <div class="quick-add-title">
+              Kies je maat
+            </div>
+
+            <div class="quick-sizes">
+
+              ${quickSizesHtml}
+
+            </div>
+
+
+            <button
+              class="quick-add-button"
+              onclick="
+                event.stopPropagation();
+                quickAddToCart(${index});
+              "
+            >
+
+              SNEL TOEVOEGEN
+
+            </button>
+
+
+            <div
+              class="quick-add-feedback"
+              id="quick-feedback-${index}"
+            ></div>
+
           </div>
 
-          <span class="view-product">
+
+
+          <span
+            class="view-product"
+            onclick="
+              event.stopPropagation();
+              openProduct(${index});
+            "
+          >
+
             BEKIJK PRODUCT →
+
           </span>
 
         </div>
@@ -2427,6 +2651,231 @@ function renderProducts() {
 
     }
   );
+
+}
+
+
+/* =====================================================
+   QUICK SIZE SELECTIE
+   ===================================================== */
+
+function selectQuickSize(
+  productIndex,
+  size,
+  stock
+) {
+
+  const product =
+    products[
+      productIndex
+    ];
+
+
+  product.quickSelectedSize =
+    size;
+
+
+  product.quickSelectedStock =
+    stock;
+
+
+  document
+    .querySelectorAll(
+      `[id^="quick-size-${productIndex}-"]`
+    )
+    .forEach(
+      button => {
+
+        button
+          .classList
+          .remove("selected");
+
+      }
+    );
+
+
+  const selectedButton =
+    document.getElementById(
+      `quick-size-${productIndex}-${safeId(size)}`
+    );
+
+
+  if (
+    selectedButton
+  ) {
+
+    selectedButton
+      .classList
+      .add("selected");
+
+  }
+
+
+  const feedback =
+    document.getElementById(
+      `quick-feedback-${productIndex}`
+    );
+
+
+  if (
+    feedback
+  ) {
+
+    feedback.textContent =
+      "";
+
+  }
+
+}
+
+
+/* =====================================================
+   QUICK ADD
+   ===================================================== */
+
+function quickAddToCart(
+  productIndex
+) {
+
+  const product =
+    products[
+      productIndex
+    ];
+
+
+  const size =
+    product.quickSelectedSize;
+
+
+  const stock =
+    product.quickSelectedStock;
+
+
+  if (
+    !size
+  ) {
+
+    alert(
+      "Kies eerst een maat."
+    );
+
+    return;
+
+  }
+
+
+  const name =
+    productName(product);
+
+
+  const color =
+    field(
+      product,
+      [
+        "Kleur",
+        "Color"
+      ]
+    );
+
+
+  const productPrice =
+    price(product);
+
+
+  const existing =
+    cart.find(
+      item =>
+        item.productIndex
+        === productIndex
+        &&
+        item.size
+        === size
+    );
+
+
+  if (
+    existing
+  ) {
+
+    if (
+      existing.quantity + 1
+      > stock
+    ) {
+
+      alert(
+        `Er zijn maximaal ${stock} stuks van maat ${size} beschikbaar.`
+      );
+
+      return;
+
+    }
+
+
+    existing.quantity +=
+      1;
+
+  }
+
+  else {
+
+    cart.push(
+      {
+
+        productIndex:
+          productIndex,
+
+        model:
+          name,
+
+        color:
+          color,
+
+        size:
+          size,
+
+        price:
+          productPrice,
+
+        quantity:
+          1,
+
+        stock:
+          stock
+
+      }
+    );
+
+  }
+
+
+  updateCart();
+
+
+  const feedback =
+    document.getElementById(
+      `quick-feedback-${productIndex}`
+    );
+
+
+  if (
+    feedback
+  ) {
+
+    feedback.textContent =
+      `✓ Maat ${size} toegevoegd aan winkelmandje`;
+
+
+    setTimeout(
+      () => {
+
+        feedback.textContent =
+          "";
+
+      },
+      2500
+    );
+
+  }
 
 }
 
@@ -2861,8 +3310,6 @@ function openProduct(index) {
           <div class="accordions">
 
 
-            <!-- CARE GUIDE -->
-
             <div
               class="accordion"
               id="care-guide"
@@ -3035,8 +3482,6 @@ function openProduct(index) {
 
 
 
-            <!-- MATERIAAL -->
-
             <div
               class="accordion"
               id="material"
@@ -3067,8 +3512,6 @@ function openProduct(index) {
             </div>
 
 
-
-            <!-- SIZE GUIDE -->
 
             <div
               class="accordion"
@@ -3220,7 +3663,7 @@ function changeProductImage(
 
 
 /* =====================================================
-   MAAT SELECTEREN
+   MAAT DETAIL
    ===================================================== */
 
 function selectSize(
@@ -3380,7 +3823,7 @@ function changeDetailQuantity(change) {
 
 
 /* =====================================================
-   TOEVOEGEN AAN CART
+   DETAIL PRODUCT TOEVOEGEN
    ===================================================== */
 
 function addProductToCart() {
@@ -3878,7 +4321,7 @@ function toggleAccordion(id) {
 
 
 /* =====================================================
-   WHATSAPP ORDER
+   WHATSAPP
    ===================================================== */
 
 function getGreeting() {
@@ -4131,7 +4574,7 @@ Opmerking: ${remark || "Geen"}`;
 
 
 /* =====================================================
-   HULPFUNCTIES
+   HELPERS
    ===================================================== */
 
 function safeId(value) {
@@ -4223,8 +4666,6 @@ function showError(message) {
 
 }
 
-
-/* ESCAPE SLUIT POPUPS */
 
 document.addEventListener(
   "keydown",
