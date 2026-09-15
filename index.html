@@ -1652,6 +1652,29 @@ footer span {
 
 }
 
+
+
+/* ===== BEACH KIDS BONAIRE: LOGO, HERO SLIDER & FILTERS ===== */
+.brand-logo { height: 72px; width: auto; object-fit: contain; }
+.hero { background:#dceff2; }
+.hero::before { display:none; }
+.hero-slide { position:absolute; inset:0; opacity:0; transition:opacity .8s ease; }
+.hero-slide.active { opacity:1; }
+.hero-slide img { width:100%; height:100%; object-fit:cover; }
+.hero-slide::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(10,49,64,.56),rgba(10,49,64,.16) 62%,rgba(10,49,64,.08)); }
+.hero-content { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:min(760px,92%); }
+.hero-dots { position:absolute; z-index:5; left:50%; bottom:22px; transform:translateX(-50%); display:flex; gap:9px; }
+.hero-dot { width:10px; height:10px; padding:0; border:1px solid white; border-radius:50%; background:rgba(255,255,255,.45); }
+.hero-dot.active { background:white; }
+.hero-arrow { position:absolute; z-index:5; top:50%; transform:translateY(-50%); width:44px; height:44px; border:0; border-radius:50%; background:rgba(255,255,255,.86); color:var(--midnight); font-size:24px; }
+.hero-arrow.prev { left:20px; } .hero-arrow.next { right:20px; }
+.collection-filters { max-width:1180px; margin:22px auto 0; padding:0 25px; display:flex; justify-content:center; gap:10px; }
+.filter-button { min-width:110px; padding:11px 18px; border:1px solid var(--border); border-radius:30px; background:white; color:var(--midnight); font-size:12px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; }
+.filter-button:hover { border-color:var(--midnight); }
+.filter-button.active { background:var(--midnight); color:white; border-color:var(--midnight); }
+.no-filter-products { grid-column:1/-1; padding:40px 20px; text-align:center; color:var(--muted); }
+@media(max-width:600px){ .brand-logo{height:54px;} .hero-arrow{width:36px;height:36px;font-size:20px}.hero-arrow.prev{left:10px}.hero-arrow.next{right:10px}.collection-filters{padding:0 15px;gap:7px}.filter-button{min-width:0;flex:1;padding:10px 8px;font-size:10px} }
+
 </style>
 </head>
 
@@ -1667,11 +1690,7 @@ footer span {
 <nav class="navbar">
 
   <div class="brand">
-    BEACH & BANDITS
-
-    <span>
-      available at Swim Academy Splash
-    </span>
+    <img class="brand-logo" src="Beach_Kids_Bonaire_Logo.png" alt="Beach Kids Bonaire - Powered by Splash">
   </div>
 
   <button
@@ -1687,30 +1706,31 @@ footer span {
 
 <section class="hero">
 
-  <div class="hero-content">
-
-    <div class="hero-label">
-      Swimwear on Bonaire
-    </div>
-
-    <h1>
-      Beach & Bandits
-    </h1>
-
-    <p>
-      Kleurrijke zwemkleding voor eindeloos plezier
-      in zon, zee en zwembad.
-    </p>
-
-    <a
-      class="primary-link"
-      href="#collectie"
-    >
-      SHOP DE COLLECTIE
-    </a>
-
+  <div class="hero-slide active">
+    <img src="hero-slide-1.png" alt="Beach & Bandits swimwear sfeerfoto">
+  </div>
+  <div class="hero-slide">
+    <img src="hero-slide-2.png" alt="Beach & Bandits kids swimwear">
+  </div>
+  <div class="hero-slide">
+    <img src="hero-slide-3.png" alt="Beach & Bandits summer campaign">
   </div>
 
+  <button class="hero-arrow prev" onclick="changeHero(-1)" aria-label="Vorige foto">‹</button>
+  <button class="hero-arrow next" onclick="changeHero(1)" aria-label="Volgende foto">›</button>
+
+  <div class="hero-content">
+    <div class="hero-label">Beach Kids Bonaire • Powered by Splash</div>
+    <h1>Beach & Bandits</h1>
+    <p>Kleurrijke UPF50+ zwemkleding voor eindeloos plezier in zon, zee en zwembad.</p>
+    <a class="primary-link" href="#collectie">SHOP DE COLLECTIE</a>
+  </div>
+
+  <div class="hero-dots">
+    <button class="hero-dot active" onclick="showHero(0)" aria-label="Foto 1"></button>
+    <button class="hero-dot" onclick="showHero(1)" aria-label="Foto 2"></button>
+    <button class="hero-dot" onclick="showHero(2)" aria-label="Foto 3"></button>
+  </div>
 </section>
 
 
@@ -1786,6 +1806,12 @@ footer span {
       materiaal en verzorgingsinformatie.
     </p>
 
+  </div>
+
+  <div class="collection-filters" aria-label="Filter collectie">
+    <button class="filter-button" data-filter="alle" onclick="setCollectionFilter('alle')">Alle</button>
+    <button class="filter-button active" data-filter="meiden" onclick="setCollectionFilter('meiden')">Meiden</button>
+    <button class="filter-button" data-filter="jongens" onclick="setCollectionFilter('jongens')">Jongens</button>
   </div>
 
 
@@ -2115,6 +2141,11 @@ let activeProduct = null;
 
 let detailQuantity = 1;
 
+let activeCollectionFilter = "meiden";
+
+let heroIndex = 0;
+let heroTimer = null;
+
 
 /* =====================================================
    DATA LADEN
@@ -2272,6 +2303,25 @@ function productType(product) {
 
 }
 
+
+function productAudience(product) {
+  return field(product, ["Doelgroep", "Audience", "Gender"], "").trim().toLowerCase();
+}
+
+function audienceRank(product) {
+  const audience = productAudience(product);
+  if (audience === "meiden" || audience === "meisjes") return 0;
+  if (audience === "jongens" || audience === "jongen") return 1;
+  return 2;
+}
+
+function setCollectionFilter(filter) {
+  activeCollectionFilter = filter;
+  document.querySelectorAll(".filter-button").forEach(button => {
+    button.classList.toggle("active", button.dataset.filter === filter);
+  });
+  renderProducts();
+}
 
 function productId(product) {
 
@@ -2435,11 +2485,29 @@ function renderProducts() {
     "";
 
 
-  products.forEach(
+  const displayProducts = products
+    .map((product, index) => ({ product, index }))
+    .filter(item => {
+      const audience = productAudience(item.product);
+      if (activeCollectionFilter === "alle") return true;
+      if (activeCollectionFilter === "meiden") return audience === "meiden" || audience === "meisjes";
+      if (activeCollectionFilter === "jongens") return audience === "jongens" || audience === "jongen";
+      return true;
+    })
+    .sort((a,b) => audienceRank(a.product) - audienceRank(b.product));
+
+  if (!displayProducts.length) {
+    container.innerHTML = `<div class="no-filter-products">Er staan nog geen producten in deze categorie.</div>`;
+    return;
+  }
+
+  displayProducts.forEach(
     (
-      product,
-      index
+      item
     ) => {
+
+      const product = item.product;
+      const index = item.index;
 
       const name =
         productName(product);
@@ -4684,6 +4752,32 @@ document.addEventListener(
   }
 );
 
+
+function showHero(index) {
+  const slides = document.querySelectorAll(".hero-slide");
+  const dots = document.querySelectorAll(".hero-dot");
+  if (!slides.length) return;
+  heroIndex = (index + slides.length) % slides.length;
+  slides.forEach((slide,i) => slide.classList.toggle("active", i === heroIndex));
+  dots.forEach((dot,i) => dot.classList.toggle("active", i === heroIndex));
+  restartHeroTimer();
+}
+
+function changeHero(direction) { showHero(heroIndex + direction); }
+
+function restartHeroTimer() {
+  if (heroTimer) clearInterval(heroTimer);
+  heroTimer = setInterval(() => {
+    const slides = document.querySelectorAll(".hero-slide");
+    if (slides.length) {
+      heroIndex = (heroIndex + 1) % slides.length;
+      slides.forEach((slide,i) => slide.classList.toggle("active", i === heroIndex));
+      document.querySelectorAll(".hero-dot").forEach((dot,i) => dot.classList.toggle("active", i === heroIndex));
+    }
+  }, 5000);
+}
+
+restartHeroTimer();
 
 updateCart();
 
