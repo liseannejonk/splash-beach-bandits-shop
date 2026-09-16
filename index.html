@@ -22,10 +22,13 @@
   --orange: #e37325;
 
   --white: #ffffff;
-  --sand: #faf8f4;
-  --soft-aqua: #eef9f6;
-  --soft-blue: #eef7fb;
-  --soft-orange: #fff4ea;
+  --sand: #fbf7ef;
+  --soft-aqua: #e7f5f2;
+  --soft-blue: #eaf5f8;
+  --soft-orange: #fff1e7;
+  --page-cream: #fbf7ef;
+  --splash-aqua-tint: #e7f5f2;
+  --splash-blue-tint: #eaf5f8;
 
   --text: #244b5c;
   --muted: #748a93;
@@ -46,7 +49,7 @@ body {
     sans-serif;
 
   color: var(--text);
-  background: white;
+  background: var(--page-cream);
 }
 
 body.no-scroll {
@@ -1677,6 +1680,45 @@ footer span {
 .filter-button.active { background:var(--midnight); color:white; border-color:var(--midnight); }
 .no-filter-products { grid-column:1/-1; padding:40px 20px; text-align:center; color:var(--muted); }
 @media(max-width:600px){ .brand-logo{height:54px;} .hero-arrow{width:36px;height:36px;font-size:20px}.hero-arrow.prev{left:10px}.hero-arrow.next{right:10px}.collection-filters{padding:0 15px;gap:7px}.filter-button{min-width:0;flex:1;padding:10px 8px;font-size:10px} }
+
+
+/* ===== BEACH KIDS BONAIRE: SPLASH COLOUR REFRESH ===== */
+body { background: var(--page-cream); }
+.navbar { background: #ffffff; }
+.intro {
+  max-width: none;
+  padding: 68px 25px 48px;
+  background: var(--splash-aqua-tint);
+}
+.intro > * { max-width: 800px; margin-left: auto; margin-right: auto; }
+.intro p { max-width: 620px; }
+.shop { background: var(--page-cream); }
+.shop-heading { padding-top: 58px; }
+.products { gap: 26px; }
+.product {
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(30,85,107,.07);
+  border-color: rgba(30,85,107,.12);
+}
+.product-image { background: var(--splash-blue-tint); }
+.product-info { background: #ffffff; }
+.collection-filters { margin-top: 20px; }
+.filter-button { background: #ffffff; }
+.filter-button.active { background: var(--midnight); color:#fff; }
+.benefits-section { background: var(--splash-aqua-tint); }
+.benefit { background: #ffffff; box-shadow: 0 8px 24px rgba(30,85,107,.06); }
+.benefit:nth-child(2) { background: var(--splash-blue-tint); }
+.benefit:nth-child(3) { background: var(--soft-orange); }
+.product-page { background: var(--page-cream); }
+.product-detail { background: var(--page-cream); }
+.main-image { background: var(--splash-blue-tint); border-radius: 18px; }
+.product-detail-info { background:#ffffff; border-radius:18px; padding:28px; box-shadow:0 10px 28px rgba(30,85,107,.07); }
+.accordions { background: var(--splash-aqua-tint); border-radius:14px; padding:0 18px; }
+.cart-drawer { background:#ffffff; }
+@media(max-width:600px){
+  .intro { padding:48px 18px 34px; }
+  .product-detail-info { padding:20px; }
+}
 
 </style>
 </head>
